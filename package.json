@@ -25,7 +25,8 @@
     "@electron-toolkit/utils": "^4.0.0",
     "@google/genai": "^1.24.0",
     "dotenv": "^17.2.3",
-    "electron-updater": "^6.3.9"
+    "electron-updater": "^6.3.9",
+    "react-router-dom": "^7.9.4"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^3.0.0",
