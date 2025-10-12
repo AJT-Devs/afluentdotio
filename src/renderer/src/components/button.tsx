@@ -2,8 +2,8 @@ import { FunctionComponent, ReactNode } from "react";
 
 interface ButtonProps {
   onClick?: () => void;
+  // theme?: "dark" | "light";
   children: ReactNode;
-  theme?: "dark" | "light";
 }
 
 const Button: FunctionComponent<ButtonProps> = () => {

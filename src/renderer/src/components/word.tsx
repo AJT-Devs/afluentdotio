@@ -1,15 +1,13 @@
-import {FunctionComponent} from 'react';
+import {FunctionComponent, ReactNode} from 'react';
 
 interface WordProps {
-  word?: string;
+  word: ReactNode;
   range?: number;
 }
 
-const Word: FunctionComponent<WordProps> = ({word}) => {
+const Word: FunctionComponent<WordProps> = () => {
   return (
-    <div className='word'>
-      {word}
-    </div>
+    <div className='word'/>
   );
 }
 

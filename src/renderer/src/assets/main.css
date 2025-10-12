@@ -1,4 +1,4 @@
-@import './base.css';
+/* @import './base.css';
 
 body {
   display: flex;
@@ -167,4 +167,10 @@ code {
   .actions {
     display: none;
   }
+} */
+
+button{
+  width: 100px;
+  height: 40px;
+  color: black;
 }

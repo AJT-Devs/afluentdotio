@@ -7,12 +7,10 @@ interface PoolProps {
     words?: typeof Word[];
 }
 
-const Pool: FunctionComponent<PoolProps> = ({ size, words }) => {
+const Pool: FunctionComponent<PoolProps> = () => {
     return (
-        <div className="pool">
-            {words?.map((word, index) => (
-                <Word key={index} word={word.word} range={word.range} />
-            ))}
-        </div>
+        <div className="pool"></div>
     );
 }
+
+export default Pool;
