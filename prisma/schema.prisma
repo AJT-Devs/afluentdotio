@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  photo     String?  @db.VarChar(255)
+
+  brainstorms Brainstorm[]
+}
+
+model Brainstorm {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  context     String   @db.VarChar(255)
+  date        DateTime @db.Timestamp()
+  userId      Int
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  words       Word[]
+}
+
+model Word {
+  id          Int      @id @default(autoincrement())
+  word        String   @db.VarChar(255)
+  category    String   @db.VarChar(255)
+  proximity   Int
+  brainstormId Int
+
+  brainstorm  Brainstorm @relation(fields: [brainstormId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
