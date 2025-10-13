@@ -2,7 +2,7 @@ import Versions from './components/Versions'
 import electronLogo from './assets/electron.svg'
 
 function App(): React.JSX.Element {
-  const ipcHandle = (): void => window.api.createBrainstorm({});
+  const ipcHandle = (): void => window.api.createBrainstorm({name: "loja de eletronicos", context: "importados da china", userId: 1});
 
   return (
     <>

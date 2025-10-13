@@ -9,7 +9,7 @@ export async function createBrainstorm(brainstorm: Brainstorm) {
         data: {
             name: brainstorm.name,
             context: brainstorm.context,
-            userId: brainstorm.UserId    
+            userId: brainstorm.userId    
         },
         select: {
             id: true,
