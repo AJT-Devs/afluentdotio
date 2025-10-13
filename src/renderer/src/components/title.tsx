@@ -1,10 +1,5 @@
-import {FunctionComponent, ReactNode} from 'react';
 
-interface TitleProps {
-  text: ReactNode;
-}
-
-const Title: FunctionComponent<TitleProps> = () => {
+const Title = () => {
   return (
     <div className='title'/>
   );
