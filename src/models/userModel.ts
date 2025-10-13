@@ -1,11 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import { User } from "../entities/user";
+import { User } from "../entities/User";
 
 const prisma = new PrismaClient();
 
 export async function createUser(user: User){
     const result = await prisma.user.create({
-        data: user,
+        data: {
+            name: user.name,
+            photo: user.photo
+        },
         select: {
             id: true,
             name: true,
@@ -14,3 +17,4 @@ export async function createUser(user: User){
     })
     return result
 }
+

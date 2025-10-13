@@ -2,7 +2,11 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import teste from './service/teste'
+import { generateBrainstorm } from '../service/BrainstormService'
+
+import { Brainstorm } from '../entities/Brainstorm'
+
+const brainstormObj = new Brainstorm(1, "nomes para loja de eletrônicos", "importados da china", new Date(), 1)
 
 function createWindow(): void {
   // Create the browser window.
@@ -52,7 +56,10 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
-  ipcMain.on('teste', teste)
+  ipcMain.handle('createBrainstorm', async (event, brainstorm) => {
+    const result = await generateBrainstorm(brainstormObj);
+    return result
+  })
 
   createWindow()
 

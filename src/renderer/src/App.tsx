@@ -2,7 +2,7 @@ import Versions from './components/Versions'
 import electronLogo from './assets/electron.svg'
 
 function App(): React.JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('teste')
+  const ipcHandle = (): void => window.api.createBrainstorm({});
 
   return (
     <>
