@@ -7,7 +7,7 @@ import { GoogleGenAI } from "@google/genai";
 export async function generateBrainstorm(brainstorm: Brainstorm){
     
     try{
-        await createBrainstorm(brainstorm);
+        // await createBrainstorm(brainstorm);
         const words = await GenerateWords(brainstorm);
         console.log(words)
         return words;
@@ -37,7 +37,7 @@ async function GenerateWords(brainstorm: Brainstorm){
         for(let i = 0; i<4; i++){
             let level : any = [];
             for(let x = 0; x<lines.length; x++){
-                if(filter[x][1] == i){
+                if(filter[x][(filter[x].length-1)] == i){
                     level.push(filter[x][0]);
                 }               
             }
