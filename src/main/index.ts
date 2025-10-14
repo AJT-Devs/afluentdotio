@@ -12,10 +12,18 @@ function createWindow(): void {
     height: 720,
     show: false,
     autoHideMenuBar: true,
+    icon: icon,
     ...(process.platform === 'linux' ? { icon } : {}),
+    titleBarOverlay: {
+      color: '#253045',
+      symbolColor: '#e8e9ed',
+      height: 40
+    },
+    titleBarStyle: 'hidden',
     webPreferences: {
       preload: join(__dirname, '../preload/preload.js'),
-      sandbox: false
+      sandbox: false,
+      devTools: false
     }
   })
 

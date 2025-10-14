@@ -2,20 +2,30 @@ import Header from "@renderer/layout/Header";
 import * as motion from "motion/react-client"
 import { FormEvent } from "react";
 import {useNavigate} from "react-router-dom"
+import { useBranstormingStore } from "../../../store/BranstormingStore";
+import TitleBar from '@renderer/layout/TitleBar';
 
 const IntroducePage = () => {
   const navigate = useNavigate();
 
+  const { title , setTitle } = useBranstormingStore(); 
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  }
+
   return <div
     className="introduce-page" 
     >
-
+    <TitleBar />
     <Header />
     <form
       onSubmit={(event:FormEvent<HTMLFormElement>)=>{
         event.preventDefault();
         navigate("/develop?title="+(event.currentTarget.elements.namedItem("title-input") as HTMLInputElement).value+"&description="+(event.currentTarget.elements.namedItem("description-input") as HTMLInputElement).value);
+        const title = (event.currentTarget.elements.namedItem("title-input") as HTMLInputElement).value;
 
+        useBranstormingStore(title);
       }}
     >
       
@@ -30,7 +40,7 @@ const IntroducePage = () => {
         }}
       >
         Titulo
-        <input type="text" name="title-input" required />
+        <input type="text" name="title-input" onChange={handleTitleChange} required />
       </motion.label>
       <motion.label id="description-input"
         initial={{ opacity: 0, y: 20, scale: 0.95 }}

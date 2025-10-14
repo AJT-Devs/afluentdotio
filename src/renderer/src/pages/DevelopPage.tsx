@@ -1,23 +1,26 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useBranstormingStore } from "../../../store/BranstormingStore";
 import Pool from "@renderer/components/Pool";
+import TitleBar from '@renderer/layout/TitleBar';
 
-const urlParams = new URLSearchParams(window.location.search);
-const title = urlParams.get('title') || 'Projeto Sem Título';
-const description = urlParams.get('description') || 'Projeto Sem Descrição';
 
-console.log("Título:", title);
-console.log("Descrição:", description);
-
-const initialData = {
-  title: title,
-  layers: [] as string[][],
-};
-
-const MAX_ITEMS_PER_LAYER = 10; // Limite de itens por camada
 
 const DevelopPage = () => {
-  let words: string[][] = [];
+
+  const { title, setTitle } = useBranstormingStore();
+
+  console.log("Título:", title);
+  
+  
+  const initialData = {
+    title: title || "Projeto Sem Título",
+    layers: [] as string[][],
+  };
+  
+  const MAX_ITEMS_PER_LAYER = 10; // Limite de itens por camada
+  
+  // let words: string[][] = [];
   const navigate = useNavigate();
   const [data, setData] = useState(initialData);
   const [newItemText, setNewItemText] = useState('');
@@ -84,8 +87,9 @@ const DevelopPage = () => {
 
   return (
     <div className="develop-page-container">
+      <TitleBar />
       <Pool 
-        title={data.title} 
+        title={title} 
         layers={data.layers}
         onDeleteItem={handleDeleteItem}
       />

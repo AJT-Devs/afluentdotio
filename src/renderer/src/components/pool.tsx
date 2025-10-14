@@ -173,7 +173,7 @@ const Pool: React.FC<PoolProps> = ({ title, layers = [], onDeleteItem }) => {
                     className="delete-button"
                     onClick={(e) => handleDeleteClick(e, layerIndex, itemIndex)}
                   >
-                    ×
+                    Deletar
                   </button>
                 )}
               </div>
