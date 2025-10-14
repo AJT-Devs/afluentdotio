@@ -1,29 +1,38 @@
-// src/pages/DevelopPage.tsx
 import { useState, FormEvent } from 'react';
 import { useNavigate } from "react-router-dom";
 import Pool from "@renderer/components/Pool";
 
 const urlParams = new URLSearchParams(window.location.search);
 const title = urlParams.get('title') || 'Projeto Sem Título';
+const description = urlParams.get('description') || 'Projeto Sem Descrição';
+
+console.log("Título:", title);
+console.log("Descrição:", description);
 
 const initialData = {
   title: title,
-  layers: [
-    ["Frontend", "Backend", "Infraestrutura", "Banco de Dados"],
-    ["React", "Vite", "CSS", "Node.js", "Express", "PostgreSQL", "Docker", "AWS"],
-    [
-      "Componentes", "Estado Global", "Rotas", "Autenticação", "API REST",
-      "Migrations", "CI/CD", "S3 Bucket", "EC2 Instance", "Segurança", "Testes", "Deploy"
-    ]
-  ]
+  layers: [] as string[][],
 };
 
-const MAX_ITEMS_PER_LAYER = 12; // Limite de itens por camada
+const MAX_ITEMS_PER_LAYER = 10; // Limite de itens por camada
 
 const DevelopPage = () => {
+  let words: string[][] = [];
   const navigate = useNavigate();
   const [data, setData] = useState(initialData);
   const [newItemText, setNewItemText] = useState('');
+
+  // async function fetchWords() {
+  //   try{
+  //     words = await window.api.createBrainstorm({ name: data.title, context: description, userId: 1 });
+  //   }catch(error){
+  //     console.error("Erro ao gerar palavras:", error);
+  //     alert("Ocorreu um erro ao gerar novas palavras. Por favor, tente novamente.");
+  //     return;
+  //   }
+  //   console.log(words);
+  //   setData({ ...data, layers: words });
+  // }
 
   const handleDeleteItem = (layerIndex: number, itemIndex: number) => {
     // Cria uma cópia profunda para evitar mutação direta do estado
@@ -93,7 +102,7 @@ const DevelopPage = () => {
           />
           <button type="submit">Adicionar</button>
         </form>
-        <button onClick={() => { if(window.confirm("Gerar novas palavras irá substituir o layout atual. Deseja continuar?")) return; }}>
+        <button onClick={() => { alert("Função temporariamente desativada para evitar custos desnecessários. Entre em contato com o desenvolvedor para mais informações."); /* fetchWords() */ }}>
           Gerar
         </button>
       </footer>
