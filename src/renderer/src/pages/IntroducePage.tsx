@@ -14,7 +14,7 @@ const IntroducePage = () => {
     <form
       onSubmit={(event:FormEvent<HTMLFormElement>)=>{
         event.preventDefault();
-        navigate("/preview");
+        navigate("/develop?title="+(event.currentTarget.elements.namedItem("title-input") as HTMLInputElement).value+"&description="+(event.currentTarget.elements.namedItem("description-input") as HTMLInputElement).value);
 
       }}
     >

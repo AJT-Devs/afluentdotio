@@ -1,5 +1,5 @@
 import Pool from "@renderer/components/Pool";
-import FooterPreview from "@renderer/layout/FooterPreview";
+import Footer from "@renderer/layout/Footer";
 
 const PreviewPage = () => {
 
@@ -22,7 +22,7 @@ const PreviewPage = () => {
 
   return <>
       <Pool title={res.title} layers={res.layers}/>
-      <FooterPreview/>
+      <Footer/>
   </>;
 }
 

@@ -37,4 +37,30 @@ footer{
         font-weight: bold;
         cursor: pointer;
     }
+
+    form{
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        gap: 20px;
+
+        label{
+            color: var(--branco);
+            font-size: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-weight: bold;
+            width: 100%;
+            
+            input{
+                padding: 10px;
+                border: none;
+                border-radius: 15px;
+                background-color: var(--branco);
+                font-size: 1rem;
+                width: 100%;
+            }
+        }
+}
 }

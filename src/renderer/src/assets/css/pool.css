@@ -1,9 +1,3 @@
-/* Adicionar ao final de src/Pool.css */
-body{
-    overflow: hidden;
-    background-color: var(--branco);
-}
-
 .pool-content {
   position: absolute;
   top: 0;
@@ -36,14 +30,15 @@ body{
   position: absolute;
   /* Centraliza o item em seu próprio ponto de âncora */
   transform: translate(-50%, -50%); 
-  background-color: var(--azul-claro);
-  color: var(--branco);
+  border: 2px solid var(--preto);
+  background-color: var(--branco);
+  color: var(--preto);
   padding: 10px 15px;
   border-radius: 15px;
   font-size: 1rem;
   white-space: nowrap; /* Impede que o texto quebre linha */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: grab;
+  cursor: pointer;
   user-select: none;
 }
 
