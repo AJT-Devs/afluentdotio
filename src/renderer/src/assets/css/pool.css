@@ -1,0 +1,48 @@
+.pool-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  transition: none;
+  width: 100vw;
+  height: calc(100vh - 100px);
+}
+
+.pool-viewport.space-pressed {
+  cursor: grab;
+}
+
+.pool-viewport.panning {
+  cursor: grabbing;
+}
+
+.pool-title {
+  position: absolute;
+  /* Centraliza o H1 em seu próprio ponto de âncora */
+  transform: translate(-50%, -50%); 
+  font-size: 2.5rem;
+  color: var(--preto);
+  z-index: 10;  
+  user-select: none;
+}
+
+.pool-item {
+  position: absolute;
+  /* Centraliza o item em seu próprio ponto de âncora */
+  transform: translate(-50%, -50%); 
+  border: 2px solid var(--preto);
+  background-color: var(--branco);
+  color: var(--preto);
+  padding: 10px 15px;
+  border-radius: 15px;
+  font-size: 1rem;
+  white-space: nowrap; /* Impede que o texto quebre linha */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pool-item:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  z-index: 5;
+}

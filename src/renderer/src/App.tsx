@@ -1,34 +1,51 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import React, { useState, useEffect } from "react";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import StartPage from './pages/StartPage'
+import IntroducePage from "./pages/IntroducePage";
+import PreviewPage from "./pages/PreviewPage";
+import DevelopPage from "./pages/DevelopPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import Spinner from "./components/LoadSpinner/loadSpinner";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <StartPage/>
+  },
+  {
+    path: "/introduction",
+    element: <IntroducePage/>
+  },
+  {
+    path: "/preview",
+    element: <PreviewPage/>
+  },
+  {
+    path: "/develop",
+    element: <DevelopPage/>
+  },
+  {
+    path: "*",
+    element: <NotFoundPage/>
+  }
+]);
 
 function App(): React.JSX.Element {
-  const ipcHandle = (): void => window.api.createBrainstorm({name: "loja de eletronicos", context: "importados da china", userId: 1});
+    const [loading, setLoading] = useState(true);
+
+    useEffect (() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+      return <Spinner />;
+    }
 
   return (
-    <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
-      </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
-      <Versions></Versions>
-    </>
+    <RouterProvider router={router}/>
   )
 }
 

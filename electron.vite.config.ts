@@ -15,6 +15,10 @@ export default defineConfig({
         '@renderer': resolve('src/renderer/src')
       }
     },
-    plugins: [react()]
+    plugins: [react()],
+    server: {
+      host: '0.0.0.0',
+      port: 5173      // Porta padrão do Vite, ajuste se for diferente
+  }
   }
 })

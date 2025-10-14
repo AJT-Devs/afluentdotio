@@ -1,0 +1,26 @@
+.start-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  gap: 20px;
+  background-color: var(--azul-escuro);
+
+  .afluent-logo{
+    height: 2rem;
+    fill: var(--branco);
+  }
+
+  button{
+    padding: 10px 35px;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--branco);
+    color: var(--preto);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
