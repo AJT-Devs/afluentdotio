@@ -1,61 +1,63 @@
 import { PrismaClient } from '@prisma/client'
 import { Brainstorm } from '../entities/Brainstorm'
 
-
+//sugestão do prisma deixar uma instancia global de fora da classe
+//funciona como singletown, para nao criar conexões com o banco a cada chamada de metodo
 const prisma = new PrismaClient();
 
-export async function createBrainstorm(brainstorm: Brainstorm) {
-    const result = await prisma.brainstorm.create({
-        data: {
-            name: brainstorm.name,
-            context: brainstorm.context,
-            userId: brainstorm.userId    
-        },
-        select: {
-            id: true,
-            name: true,     
-            context: true,
-            date: true
-        }
-    })
-    return result
+export class BrainstormModel {
+    public static async createBrainstorm(brainstorm: Brainstorm): Promise<Partial<Brainstorm>> {
+        const result = await prisma.brainstorm.create({
+            data: {
+                name: brainstorm.name,
+                context: brainstorm.context,
+                userId: brainstorm.userId    
+            },
+            select: {
+                id: true,
+                name: true,     
+                context: true,
+                date: true
+            }
+        })
+        return result
+    }
+
+    static async updateBrainstorm(brainstorm: Brainstorm): Promise<Brainstorm> {
+        const result = await prisma.brainstorm.update({
+            where: { id: brainstorm.id },
+            data: {
+                name: brainstorm.name,
+                context: brainstorm.context 
+            }
+        })
+        return result
+    }
+
+    static async deleteBrainstorm(id: number): Promise<Brainstorm> {
+        const result = await prisma.brainstorm.delete({
+            where: {
+                id: id
+            }
+        })
+        return result
+    }
+
+    static async getAllBrainstormByUser(userId: number): Promise<Brainstorm[]> {
+        const result = await prisma.brainstorm.findMany({
+            where: {
+                userId: userId
+            }
+        })
+        return result
+    }   
+
+    static async getBrainstormById(id: number): Promise<Brainstorm | null> {
+        const result = await prisma.brainstorm.findUnique({
+            where: {
+                id: id
+            }
+        })
+        return result
+    }
 }
-
-export async function updateBrainstorm(brainstorm: Brainstorm) {
-    const result = await prisma.brainstorm.update({
-        where: { id: brainstorm.id },
-        data: {
-            name: brainstorm.name,
-            context: brainstorm.context 
-        }
-    })
-    return result
-}
-
-export async function deleteBrainstorm(id: number) {
-    const result = await prisma.brainstorm.delete({
-        where: {
-            id: id
-        }
-    })
-    return result
-}
-
-export async function getAllBrainstormByUser(userId: number) {
-    const result = await prisma.brainstorm.findMany({
-        where: {
-            userId: userId
-        }
-    })
-    return result
-}   
-
-export async function getBrainstormById(id: number) {
-    const result = await prisma.brainstorm.findUnique({
-        where: {
-            id: id
-        }
-    })
-    return result
-}
-

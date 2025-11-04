@@ -58,3 +58,4 @@ export async function getAllWordByBrainstorm(brainstormId: number){
     })
     return result
 }
+

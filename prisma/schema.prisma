@@ -18,6 +18,7 @@ model User {
   id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(255)
   photo     String?  @db.VarChar(255)
+  aikey     String?  @db.VarChar(255)
 
   brainstorms Brainstorm[]
 }
