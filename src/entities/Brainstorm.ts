@@ -4,7 +4,7 @@ export class Brainstorm{
     context
     date
     userId
-    constructor(id: number, name: string, context: string, date: Date, userId: number) {
+    constructor(id: number | null, name: string, context: string, date: Date | null, userId: number ) {
         this.id = id
         this.name = name
         this.context = context
