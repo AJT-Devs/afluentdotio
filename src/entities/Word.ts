@@ -4,7 +4,7 @@ export class Word{
     category
     proximity
     brainstormId
-    constructor(id: number, word: string, category: string, proximity: number, brainstormId: number){
+    constructor(id: string | null, word: string, category: string, proximity: number, brainstormId: string | null){
         this.id = id
         this.word = word
         this.category = category

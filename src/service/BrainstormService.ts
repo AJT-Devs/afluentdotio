@@ -4,7 +4,7 @@ import { GoogleGenAI } from "@google/genai";
 
 export default class BrainstormService {
 
-    public static async GenerateWords(brainstorm: Brainstorm, apiKey: string): Promise<string[][] | Error> {
+    public static async GenerateBrainstorm(brainstorm: Brainstorm, apiKey: string): Promise<string[][] | Error> {
         const ai = new GoogleGenAI({ apiKey: apiKey });
             try {
                 const response = await ai.models.generateContent({

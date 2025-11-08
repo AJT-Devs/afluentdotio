@@ -2,7 +2,6 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { generateBrainstorm } from '../service/BrainstormService'
 
 
 function createWindow(): void {
@@ -61,10 +60,10 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
-  ipcMain.handle('createBrainstorm', async (event, brainstorm) => {
-    const result = await generateBrainstorm(brainstorm);
-    return result
-  })
+  // ipcMain.handle('createBrainstorm', async (event, brainstorm) => {
+  //   const result = await generateBrainstorm(brainstorm);
+  //   return result
+  // })
 
   createWindow()
 

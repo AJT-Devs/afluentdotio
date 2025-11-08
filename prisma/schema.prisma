@@ -10,25 +10,25 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(255)
-  photo     String?  @db.VarChar(255)
-  aikey     String?  @db.VarChar(255)
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   
+  photo     String?  
+  aikey     String?  
 
   brainstorms Brainstorm[]
 }
 
 model Brainstorm {
-  id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(255)
-  context     String   @db.VarChar(255)
-  date        DateTime @db.Timestamp() @default(dbgenerated("(CURRENT_TIMESTAMP)"))
-  userId      Int
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   
+  context     String   
+  date        DateTime @default(now()) 
+  userId      String @db.ObjectId
 
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
@@ -36,11 +36,17 @@ model Brainstorm {
 }
 
 model Word {
-  id          Int      @id @default(autoincrement())
-  word        String   @db.VarChar(255)
-  category    String   @db.VarChar(255)
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  word        String
+  category    String
   proximity   Int
-  brainstormId Int
+  brainstormId String @db.ObjectId
 
   brainstorm  Brainstorm @relation(fields: [brainstormId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model ErrorLog {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  message   Json
+  date      DateTime @default(now())
 }

@@ -32,7 +32,7 @@ export class UserModel {
         return result;
     }   
 
-    static async deleteUser(id: number): Promise<User> {
+    static async deleteUser(id: string): Promise<User> {
         const result = await prisma.user.delete({
             where: {
                 id: id
@@ -51,7 +51,7 @@ export class UserModel {
         });
         return result;
     }
-    static async getUserById(id: number): Promise<Partial<User> | null> {
+    static async getUserById(id: string): Promise<Partial<User> | null> {
         const result = await prisma.user.findUnique({
             where: {
                 id: id
@@ -65,7 +65,7 @@ export class UserModel {
         return result;
     }
 
-    static async getAiKey(id: number): Promise<string | null> {
+    static async getAiKey(id: string): Promise<string | null> {
         const result = await prisma.user.findUnique({
             where: {
                 id: id

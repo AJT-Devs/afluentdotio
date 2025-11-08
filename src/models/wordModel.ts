@@ -7,7 +7,7 @@ export async function createWord(word: Word){
     const result = await prisma.word.create({
         data: { 
             word: word.word,
-            category: "general", // definir categoria depois
+            category: word.category,
             proximity: word.proximity,
             brainstormId: word.brainstormId
         },

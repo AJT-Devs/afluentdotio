@@ -34,7 +34,7 @@ export class BrainstormModel {
         return result
     }
 
-    static async deleteBrainstorm(id: number): Promise<Brainstorm> {
+    static async deleteBrainstorm(id: string): Promise<Brainstorm> {
         const result = await prisma.brainstorm.delete({
             where: {
                 id: id
@@ -43,7 +43,7 @@ export class BrainstormModel {
         return result
     }
 
-    static async getAllBrainstormByUser(userId: number): Promise<Brainstorm[]> {
+    static async getAllBrainstormByUser(userId: string): Promise<Brainstorm[]> {
         const result = await prisma.brainstorm.findMany({
             where: {
                 userId: userId
@@ -52,7 +52,7 @@ export class BrainstormModel {
         return result
     }   
 
-    static async getBrainstormById(id: number): Promise<Brainstorm | null> {
+    static async getBrainstormById(id: string): Promise<Brainstorm | null> {
         const result = await prisma.brainstorm.findUnique({
             where: {
                 id: id

@@ -3,7 +3,7 @@ export class User {
     name
     photo
     aikey
-    constructor(id: number, 
+    constructor(id: string | null | undefined, 
                 name: string | null | undefined, 
                 photo: string | null | undefined, 
                 aikey: string | null | undefined
