@@ -34,7 +34,7 @@ export default class BrainstormService {
                 }
                 return words
             } catch (error) {
-                return new Error("erro ao gerar palavras");
+                throw new Error("erro ao gerar palavras");
             }
     }
 }
