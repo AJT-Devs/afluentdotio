@@ -13,7 +13,6 @@ const StartPage = () => {
       onClick={() => { navigate("/introduction"); }} >
       INICIAR
     </button>
-
   </div>;
 }
 

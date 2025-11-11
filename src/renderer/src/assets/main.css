@@ -1,10 +1,12 @@
-@import './base.css';
-@import './css/layout.css';
+@import '@xyflow/react/dist/style.css';
 
-@import './css/start-page.css';
-@import './css/introduce-page.css';
-@import './css/develope-page.css';
-@import './css/pool.css';
+@import './base.css';
+@import './stylesheets/layouts/layout.css';
+
+@import './stylesheets/pages/start-page.css';
+@import './stylesheets/pages/introduce-page.css';
+@import './stylesheets/pages/develope-page.css';
+@import './stylesheets/components/pool.css';
 
 .titleBar{
     width: 100%;
