@@ -1,11 +1,12 @@
-import { PrismaClient } from "@prisma/client";
-import { User } from "../entities/User";
+import PrismaSingleton from "../PrismaSingleton";
+import { User } from "../../entities/User";
+import { UserModelAdapter } from "./UserModelAdapter";
 
-const prisma = new PrismaClient();
-
-export class UserModel {
-    static async createUser(user: User): Promise<Partial<User>> {
-        const result = await prisma.user.create({
+export class PrismaUserModel implements UserModelAdapter {
+    private prisma = PrismaSingleton.getInstance();
+    
+    public async createUser(user: User): Promise<Partial<User>> {
+        const result = await this.prisma.user.create({
             data: {
                 name: user.name,
                 photo: user.photo,
@@ -20,8 +21,8 @@ export class UserModel {
         return result;
     }
 
-    static async updateUser(user: User): Promise<User> {
-        const result = await prisma.user.update({
+    public async updateUser(user: User): Promise<User> {
+        const result = await this.prisma.user.update({
             where: { id: user.id },
             data: {
                 name: user.name,
@@ -32,8 +33,8 @@ export class UserModel {
         return result;
     }   
 
-    static async deleteUser(id: string): Promise<User> {
-        const result = await prisma.user.delete({
+    public async deleteUser(id: string): Promise<User> {
+        const result = await this.prisma.user.delete({
             where: {
                 id: id
             }
@@ -41,8 +42,8 @@ export class UserModel {
         return result;
     }
 
-    static async getAllUsers(): Promise<Partial<User>[]> {
-        const result = await prisma.user.findMany({
+    public async getAllUsers(): Promise<Partial<User>[]> {
+        const result = await this.prisma.user.findMany({
             select: {
                 id: true,
                 name: true,
@@ -51,8 +52,8 @@ export class UserModel {
         });
         return result;
     }
-    static async getUserById(id: string): Promise<Partial<User> | null> {
-        const result = await prisma.user.findUnique({
+    public async getUserById(id: string): Promise<Partial<User> | null> {
+        const result = await this.prisma.user.findUnique({
             where: {
                 id: id
             },
@@ -65,8 +66,8 @@ export class UserModel {
         return result;
     }
 
-    static async getAiKey(id: string): Promise<string | null> {
-        const result = await prisma.user.findUnique({
+    public async getAiKey(id: string): Promise<string | null> {
+        const result = await this.prisma.user.findUnique({
             where: {
                 id: id
             },

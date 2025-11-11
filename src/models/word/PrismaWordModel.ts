@@ -1,12 +1,12 @@
-import { PrismaClient } from "@prisma/client";
-import { Word } from "../entities/Word";
+import PrismaSingleton from "../PrismaSingleton";
+import { Word } from "../../entities/Word";
+import { WordModelAdapter } from "./WordModelAdapter";
 
-const prisma = new PrismaClient();
+export class PrismaWordModel implements WordModelAdapter {
+    private prisma = PrismaSingleton.getInstance();
 
-export class WordModel {
-
-    public static async createWord(word: Word): Promise<Word> {
-    const result = await prisma.word.create({
+    public async createWord(word: Word): Promise<Word> {
+    const result = await this.prisma.word.create({
         data: { 
             word: word.word,
             category: word.category,
@@ -17,8 +17,8 @@ export class WordModel {
     return result
 }
 
-    public static async updateWord(word: Word): Promise<Word> {
-        const result = await prisma.word.update({
+    public  async updateWord(word: Word): Promise<Word> {
+        const result = await this.prisma.word.update({
             where: { id: word.id }, 
             data: {
                 word: word.word,
@@ -37,8 +37,8 @@ export class WordModel {
         return result
     }
 
-    public static async deleteWord(id: string): Promise<Word> {
-        const result = await prisma.word.delete({
+    public async deleteWord(id: string): Promise<Word> {
+        const result = await this.prisma.word.delete({
             where: { 
                 id: id
             }, 
@@ -46,8 +46,8 @@ export class WordModel {
         return result
     }
 
-    public static async getWordById(id: string): Promise<Word | null> {
-        const result = await prisma.word.findUnique({
+    public async getWordById(id: string): Promise<Word | null> {
+        const result = await this.prisma.word.findUnique({
             where: {
                 id: id
             }
@@ -55,8 +55,8 @@ export class WordModel {
         return result
     }
 
-    public static async getAllWordByBrainstorm(brainstormId: string): Promise<Word[]> {
-        const result = await prisma.word.findMany({
+    public async getAllWordByBrainstorm(brainstormId: string): Promise<Word[]> {
+        const result = await this.prisma.word.findMany({
             where: {
                 brainstormId: brainstormId
             }
