@@ -1,14 +1,15 @@
-import { Brainstorm } from "../entities/Brainstorm";
+import { Brainstorm } from "../../entities/Brainstorm";
 import { GoogleGenAI } from "@google/genai";
+import { BrainstormServiceAdapter } from "./BrainstormServiceAdapter";
 
 
-export default class BrainstormService {
+export default class BrainstormGeminiService implements BrainstormServiceAdapter {
 
-    public static async GenerateBrainstorm(brainstorm: Brainstorm, apiKey: string): Promise<string[][] | Error> {
+    public async GenerateBrainstorm(brainstorm: Brainstorm, apiKey: string, aiModelPreference: AiModels): Promise<string[][] | Error> {
         const ai = new GoogleGenAI({ apiKey: apiKey });
             try {
                 const response = await ai.models.generateContent({
-                    model: "gemini-2.5-flash",
+                    model: aiModelPreference,
                     contents: `Quero criar um brainstorm com o título ${brainstorm.name} e o contexto ${brainstorm.context}`,
                     config:{
                         "systemInstruction": "Sua única função é gerar palavras-chave. Responda APENAS com o resultado. O formato de cada item é: UMA_UNICA_PALAVRA sem espaços, um espaço em branco, e um número de 0 a 3. Itens são separados por vírgula. Exemplo: PalavraExemplo 0, OutraPalavra 1. É PROIBIDO usar mais de uma palavra por item. Gere palavras para todos os níveis de 0 a 3."

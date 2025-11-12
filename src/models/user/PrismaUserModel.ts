@@ -10,7 +10,8 @@ export class PrismaUserModel implements UserModelAdapter {
             data: {
                 name: user.name,
                 photo: user.photo,
-                aikey: user.aikey
+                aikey: user.aikey,
+                preferenceaimodel: user.preferenceaimodel
             },
             select: {
                 id: true,
@@ -27,7 +28,8 @@ export class PrismaUserModel implements UserModelAdapter {
             data: {
                 name: user.name,
                 photo: user.photo,
-                aikey: user.aikey
+                aikey: user.aikey,
+                preferenceaimodel: user.preferenceaimodel
             }
         })
         return result;
@@ -47,7 +49,8 @@ export class PrismaUserModel implements UserModelAdapter {
             select: {
                 id: true,
                 name: true,
-                photo: true
+                photo: true,
+                preferenceaimodel: true
             }
         });
         return result;
@@ -60,7 +63,8 @@ export class PrismaUserModel implements UserModelAdapter {
             select: {
                 id: true,
                 name: true,
-                photo: true
+                photo: true,
+                preferenceaimodel: true
             }
         });
         return result;

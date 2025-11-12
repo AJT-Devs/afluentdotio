@@ -1,19 +1,22 @@
 import { Brainstorm } from '../entities/Brainstorm';
 import { SuccessResponse } from '../entities/SuccessResponse';
-import BrainstormService from '../service/brainstormService';
+import BrainstormGeminiService from '../service/brainstorm/BrainstormGeminiService';
 import { PrismaBrainstormModel } from '../models/brainstorm/PrismaBrainstormModel';
 import { PrismaErrorLogModel } from '../models/errorLog/PrismaErrorLogModel';
 import { BrainstormModelAdapter } from '../models/brainstorm/BrainstormModelAdapter';
 import { ErrorLogModelAdapter } from '../models/errorLog/ErrorLogModelAdapter';
+import { BrainstormServiceAdapter } from '../service/brainstorm/BrainstormServiceAdapter';
 export default class BrainstormController {
     private static BrainstormModel: BrainstormModelAdapter = new PrismaBrainstormModel();
     private static ErrorLogModel: ErrorLogModelAdapter = new PrismaErrorLogModel();
-    public static async generateAIWords(brainstorm: Brainstorm, apiKey: string): Promise<SuccessResponse | Error > {
+    private static BrainstormService: BrainstormServiceAdapter = new BrainstormGeminiService();
+
+    public static async generateAIWords(brainstorm: Brainstorm, apiKey: string, aiModelPreference: AiModels): Promise<SuccessResponse | Error > {
         try{
-            const words = await BrainstormService.GenerateBrainstorm(brainstorm, apiKey);
+            const words = await this.BrainstormService.GenerateBrainstorm(brainstorm, apiKey, aiModelPreference);
             return new SuccessResponse(200, "Palavras geradas com sucesso", words);
 
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao gerar palavras com IA");
         }
@@ -25,7 +28,7 @@ export default class BrainstormController {
 
             return new SuccessResponse(201, "Brainstorm salvo com sucesso", response);
 
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao salvar brainstorm");
         }
@@ -35,7 +38,7 @@ export default class BrainstormController {
         try{
             const response = await this.BrainstormModel.updateBrainstorm(brainstorm);
             return new SuccessResponse(200, "Brainstorm atualizado com sucesso", response);
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao atualizar brainstorm");
         }
@@ -45,7 +48,7 @@ export default class BrainstormController {
         try{
             const response = await this.BrainstormModel.deleteBrainstorm(id);
             return new SuccessResponse(200, "Brainstorm deletado com sucesso", response);
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao deletar brainstorm");
         }
@@ -58,7 +61,7 @@ export default class BrainstormController {
                 return new SuccessResponse(404, "Brainstorm não encontrado", {});
             }
             return new SuccessResponse(200, "Brainstorm encontrado com sucesso", response);
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao buscar brainstorm");
         }
@@ -68,7 +71,7 @@ export default class BrainstormController {
         try{
             const response = await this.BrainstormModel.getAllBrainstormByUser(userId);
             return new SuccessResponse(200, `Brainstorms do usuário id: ${userId}`, response);
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao buscar brainstorms");
         }

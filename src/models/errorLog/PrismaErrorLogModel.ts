@@ -1,5 +1,5 @@
 import PrismaSingleton from "../PrismaSingleton";
-import { ErrorLog } from "../../entities/errorLog"
+import { ErrorLog } from "../../entities/ErrorLog"
 import { ErrorLogModelAdapter } from "./ErrorLogModelAdapter";
 
 export class PrismaErrorLogModel implements ErrorLogModelAdapter {

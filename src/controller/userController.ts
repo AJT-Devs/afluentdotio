@@ -14,7 +14,7 @@ export default class UserController {
         try{
             const User = await this.UserModel.createUser(user);
             return new SuccessResponse(201, "Usuário criado com sucesso", User);
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao criar usuário");
         }
@@ -24,7 +24,7 @@ export default class UserController {
         try{
             const userResponse = await this.UserModel.updateUser(user);
             return new SuccessResponse(200, "Usuário atualizado com sucesso", userResponse);
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao atualizar usuário");
         }
@@ -34,7 +34,7 @@ export default class UserController {
         try{
             const userResponse = await this.UserModel.deleteUser(id);
             return new SuccessResponse(200, "Usuário deletado com sucesso", userResponse);
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao deletar usuário");
         }
@@ -47,7 +47,7 @@ export default class UserController {
             }
 
             return new SuccessResponse(200, "Usuário encontrado com sucesso", userResponse);
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao buscar usuário");
         }
@@ -57,7 +57,7 @@ export default class UserController {
         try{
             const users = await this.UserModel.getAllUsers();
             return new SuccessResponse(200, "Usuários encontrados com sucesso", users);
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao buscar usuários");
         }
@@ -71,7 +71,7 @@ export default class UserController {
             }
 
             return new SuccessResponse(200, "Chave AI encontrada com sucesso", {aikey: userResponse});
-        }catch(error){
+        }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao buscar chave AI");
         }   

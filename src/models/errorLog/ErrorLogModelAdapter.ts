@@ -1,4 +1,4 @@
-import { ErrorLog } from "../../entities/errorLog";
+import { ErrorLog } from "../../entities/ErrorLog";
 
 export interface ErrorLogModelAdapter {
     createErrorLog(errorLog: ErrorLog): Promise<ErrorLog>;
