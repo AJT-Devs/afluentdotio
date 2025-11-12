@@ -1,4 +1,4 @@
-import TitleBar from "@renderer/components/title";
+import TitleBar from "@renderer/components/Title";
 
 const NotFoundPage = () => {
   return <>
