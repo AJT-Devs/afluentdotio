@@ -1,5 +1,5 @@
-import { style } from 'motion/react-client';
 import React, { useState, useRef, useEffect, useLayoutEffect, CSSProperties } from 'react';
+import "@renderer/assets/stylesheets/components/pool.css";
 
 // --- Constantes para a lógica do layout elíptico ---
 const CENTER_X = 600;

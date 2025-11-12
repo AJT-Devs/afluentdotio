@@ -4,6 +4,8 @@ import { useBranstormingStore } from "../../../store/BranstormingStore";
 import Pool from "@renderer/components/Pool";
 import TitleBar from '@renderer/layout/TitleBar';
 
+import "@renderer/assets/stylesheets/pages/develope-page.css";
+
 
 
 const DevelopPage = () => {

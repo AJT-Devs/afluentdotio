@@ -2,11 +2,11 @@
 
 @import './base.css';
 @import './stylesheets/layouts/layout.css';
-
+/* 
 @import './stylesheets/pages/start-page.css';
 @import './stylesheets/pages/introduce-page.css';
 @import './stylesheets/pages/develope-page.css';
-@import './stylesheets/components/pool.css';
+@import './stylesheets/components/pool.css'; */
 
 .titleBar{
     width: 100%;

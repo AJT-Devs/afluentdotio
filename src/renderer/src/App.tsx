@@ -5,7 +5,7 @@ import IntroducePage from "./pages/IntroducePage";
 import PreviewPage from "./pages/PreviewPage";
 import DevelopPage from "./pages/DevelopPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import Spinner from "./components/LoadSpinner/loadSpinner";
+import Spinner from "./components/loadSpinner";
 
 const router = createBrowserRouter([
   {

@@ -1,5 +1,6 @@
 import { RiLoader4Fill } from "react-icons/ri";
-import './spinner.css';
+
+import "@renderer/assets/stylesheets/components/spinner.css";
 
 export default function Spinner() {
   return (

@@ -5,6 +5,8 @@ import {useNavigate} from "react-router-dom"
 import { useBranstormingStore } from "../../../store/BranstormingStore";
 import TitleBar from '@renderer/layout/TitleBar';
 
+import "@renderer/assets/stylesheets/pages/introduce-page.css";
+
 const IntroducePage = () => {
   const navigate = useNavigate();
 

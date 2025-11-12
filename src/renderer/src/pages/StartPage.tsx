@@ -2,6 +2,8 @@ import Afluent from "@renderer/components/AfluentLogo";
 import { useNavigate } from "react-router-dom";
 import TitleBar from '@renderer/layout/TitleBar';
 
+import "@renderer/assets/stylesheets/pages/start-page.css";
+
 const StartPage = () => {
   const navigate = useNavigate();
 

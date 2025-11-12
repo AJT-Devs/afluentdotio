@@ -1,6 +1,8 @@
 import Pool from "@renderer/components/Pool";
 import Footer from "@renderer/layout/Footer";
 
+import "@renderer/assets/stylesheets/pages/preview-page.css";
+
 const PreviewPage = () => {
 
   const res = {
