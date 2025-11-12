@@ -17,16 +17,14 @@ const Separator = ContextMenu.Separator;
 const Content = (props: ComponentProps<typeof ContextMenu.Content>) => {
   return (
     <ContextMenu.Content 
-      {...props} 
-      className="context-menu"
+      {...props}
     />
   );
 };
 const Item = (props: ContextMenuItemProps) => {
   return (
     <ContextMenu.Item 
-      {...props} 
-      className="context-menu"
+      {...props}
     />
   );
 };
