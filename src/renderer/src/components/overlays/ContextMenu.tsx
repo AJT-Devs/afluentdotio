@@ -2,10 +2,12 @@
 import { ContextMenu } from "radix-ui";
 import { ComponentProps } from "react";
 
+import "@renderer/assets/stylesheets/components/context-menu.css";
+
 type RadixItemProps = ComponentProps<typeof ContextMenu.Item>
 
 export interface ContextMenuItemProps extends RadixItemProps {
-    onSelect: () => void;
+    onSelect: () => void,         
 }
 
 
@@ -18,6 +20,7 @@ const Content = (props: ComponentProps<typeof ContextMenu.Content>) => {
   return (
     <ContextMenu.Content 
       {...props}
+      className="menu-context"
     />
   );
 };
@@ -25,6 +28,8 @@ const Item = (props: ContextMenuItemProps) => {
   return (
     <ContextMenu.Item 
       {...props}
+      className="menu-context-item"
+      
     />
   );
 };
