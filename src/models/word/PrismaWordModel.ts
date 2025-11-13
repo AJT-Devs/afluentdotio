@@ -17,7 +17,7 @@ export class PrismaWordModel implements WordModelAdapter {
     return result
 }
 
-    public  async updateWord(word: Word): Promise<Word> {
+    public async updateWord(word: Word): Promise<Word> {
         const result = await this.prisma.word.update({
             where: { id: word.id }, 
             data: {
