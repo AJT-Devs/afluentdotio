@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="post">Post</button>
+    <button id="get">Get</button>
+    <button id="delete">Delete</button>
+    <button id="put">Put</button>
+    <button id="getall">GetAll</button>
+    <p id="p"></p>
+</body>
+<script>
+    const post = document.getElementById('post');
+    const get = document.getElementById('get');
+    const del= document.getElementById('delete');
+    const put = document.getElementById('put');
+    const getall = document.getElementById('getall');
+    post.addEventListener('click',async () => {
+        alert("a");
+        const response = await window.user.postUser({name: 'tulio', photo: 'urlfoto', aikey:'ai', aipreference: 'gpt'});
+        document.getElementsByTId('p').innerHTML = `<p>Posted user: ${JSON.stringify(response)}</p>`;
+    });
+    getall.addEventListener('click', async () => {
+        const users = await window.user.getAllUsers();
+        console.log(users);
+    });
+</script>
+</html>
