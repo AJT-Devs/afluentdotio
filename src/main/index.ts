@@ -1,9 +1,11 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
-import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+import { electronApp, optimizer } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
 import UserController from '../controller/userController'
+
+import MongooseSingleton from '../models/MongooseSingleton';
 
 
 function createWindow(): void {
@@ -50,9 +52,17 @@ function createWindow(): void {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
+
+  try {
+    console.log('Tentando: Iniciando conexão com o banco de dados...')
+    await MongooseSingleton.getInstance();
+    console.log('Joia: Conexão com o banco de dados estabelecida.')
+  } catch (err) {
+    console.error('F: Não foi possível conectar ao banco de dados. Encerrando a aplicação.', err)
+  }
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
