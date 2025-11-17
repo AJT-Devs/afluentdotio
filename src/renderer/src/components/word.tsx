@@ -1,9 +1,11 @@
-import { ContextMenuComponent, ContextMenuItemProps } from "./ContextMenu";
+import { ContextMenuComponent, ContextMenuItemProps } from "./overlays/ContextMenu";
 import { useState } from "react";
-// import "@renderer/assets/stylesheets/components/word.css";
+import "@renderer/assets/stylesheets/components/word.css";
 
 interface WordProps {
-  wordText: string;
+  wordText: string,
+  onEditWord: ()=>void,
+  onDeleteWord: ()=>void,
 }
 
 const Word = (props: WordProps) => {
@@ -18,14 +20,10 @@ const Word = (props: WordProps) => {
         </ContextMenuComponent.Trigger>
         <ContextMenuComponent.Portal>
           <ContextMenuComponent.Content>
-            <ContextMenuComponent.Item onSelect={()=>{
-              
-            }}>
+            <ContextMenuComponent.Item onSelect={props.onEditWord}>
               Editar
             </ContextMenuComponent.Item>
-            <ContextMenuComponent.Item onSelect={()=>{
-              
-            }}>
+            <ContextMenuComponent.Item onSelect={props.onDeleteWord}>
               Deletar
             </ContextMenuComponent.Item>
           </ContextMenuComponent.Content>

@@ -18,7 +18,6 @@ const StartPage = () => {
     </button>
 
     <Word wordText="Teste"/>
-
   </div>;
 }
 

@@ -1,0 +1,35 @@
+.menu-context{
+    background-color: var(--background);
+    padding: 5px 10px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
+    border: .1px solid var(--sec-elements);
+    z-index: 9999;
+    min-width: max-content;
+    position: absolute;
+
+    .menu-context-item{
+        color: var(--pri-text);
+        padding: 5px 15px;
+        border-radius: 10px;
+        margin: 5px 0;
+        outline: none;
+
+        &:hover{
+            background-color: var(--des-color);
+            cursor: pointer;
+        }
+    }
+
+    .menu-context-item[data-highlighted]{
+        background-color: var(--des-color);
+    }
+    .menu-context-item[data-disable], .menu-context-item:disabled{
+        display: none;
+        pointer-events: none;
+    }
+
+    .menu-context-item-delete{
+        color: var(--vermelho);
+    }
+}
