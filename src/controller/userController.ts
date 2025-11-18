@@ -1,14 +1,19 @@
 import { User } from '../entities/User';
 import { SuccessResponse } from '../entities/SuccessResponse';
-import { PrismaUserModel } from '../models/user/PrismaUserModel';
-import { PrismaErrorLogModel } from '../models/errorLog/PrismaErrorLogModel';
 import { UserModelAdapter } from '../models/user/UserModelAdapter';
 import { ErrorLogModelAdapter } from '../models/errorLog/ErrorLogModelAdapter';
 
+import { PrismaErrorLogModel } from '../models/errorLog/PrismaErrorLogModel';
+import mongooseErrorLogModel from '../models/errorLog/MongooseErrorLogModel';
+
+import { PrismaUserModel } from '../models/user/PrismaUserModel';
+import MongooseUserModel from '../models/user/MongooseUserModel';
 
 export default class UserController {
-    private static UserModel: UserModelAdapter = new PrismaUserModel();
-    private static ErrorLogModel: ErrorLogModelAdapter = new PrismaErrorLogModel();
+    // private static UserModel: UserModelAdapter = new PrismaUserModel();
+    // private static ErrorLogModel: ErrorLogModelAdapter = new PrismaErrorLogModel();
+    private static UserModel: UserModelAdapter = new MongooseUserModel();
+    private static ErrorLogModel: ErrorLogModelAdapter = new mongooseErrorLogModel();
 
     public static async postUser(user: User): Promise<SuccessResponse | Error> {
         try{
