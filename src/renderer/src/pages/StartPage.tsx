@@ -17,7 +17,7 @@ const StartPage = () => {
       INICIAR
     </button>
 
-    <Word wordText="Teste"/>
+    <Word wordText="Teste" onDeleteWord={()=>{}} onEditWord={()=>{}}/>
   </div>;
 }
 
