@@ -11,14 +11,15 @@ export default class MongooseSingleton {
     }
     try {
       // Tenta pegar do arquivo .env, se não achar, avisa no console
-      const uri = process.env.MONGODB_URI || process.env.DATABASE_URL
+      // const uri = process.env.MONGODB_URI || process.env.DATABASE_URL
+      const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/afluentdb"
 
       if (!uri) {
         throw new Error('ERRO CRÍTICO: A URL do Mongo não foi encontrada no .env')
       }
 
       // Conecta no banco
-      this.instance = await mongoose.connect(uri)
+      this.instance = await mongoose.connect(uri as string)
 
       console.log('✅ Conexão com MongoDB (Mongoose) estabelecida com sucesso!')
       return this.instance

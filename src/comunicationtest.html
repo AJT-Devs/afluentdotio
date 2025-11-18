@@ -22,7 +22,7 @@
     post.addEventListener('click',async () => {
         alert("a");
         const response = await window.user.postUser({name: 'tulio', photo: 'urlfoto', aikey:'ai', aipreference: 'gpt'});
-        document.getElementsByTId('p').innerHTML = `<p>Posted user: ${JSON.stringify(response)}</p>`;
+        document.getElementById('p').innerHTML = `<p>Posted user: ${JSON.stringify(response)}</p>`;
     });
     getall.addEventListener('click', async () => {
         const users = await window.user.getAllUsers();
