@@ -3,6 +3,9 @@
   "include": ["electron.vite.config.*", "src/main/**/*", "src/preload/**/*", "src/entities/**/*", "src/models/**/*",  "src/service/**/*", "src/*d.ts", "src/controller/**/*", "src/endpoint/**/*", "mongoose/**/*"],
   "compilerOptions": {
     "composite": true,
-    "types": ["electron-vite/node"]
+    "types": ["electron-vite/node"],
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
   }
 }
