@@ -32,7 +32,7 @@
   --azul-escuro: #253045;
   --azul-claro: #7291B2;
 
-  --background: #var(--branco);
+  --background: var(--branco);
 
   --pri-text: var(--preto);
   --sec-text: var(--cinza-claro);
