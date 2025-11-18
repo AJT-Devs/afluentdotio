@@ -6,21 +6,28 @@
   width: 100vw;
   height: 100vh;
   gap: 20px;
-  background-color: var(--azul-escuro);
+  background-color: var(--background);
 
   .afluent-logo{
     height: 2rem;
-    fill: var(--branco);
+    fill: var(--logo);
   }
 
   button{
     padding: 10px 35px;
     border: none;
     border-radius: 15px;
-    background-color: var(--branco);
-    color: var(--preto);
+    border: 3px solid var(--back-ena-btn);
+    background-color: transparent;
+    color: var(--text-ena-btn-off);
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
+    transition: all .3s ease-in-out;
+
+    &:hover{
+      background-color: var(--back-ena-btn);
+      color: var(--text-ena-btn-on);
+    }
   }
 }

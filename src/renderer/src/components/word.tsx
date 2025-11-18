@@ -10,21 +10,28 @@ interface WordProps {
 
 const Word = (props: WordProps) => {
   const [wordText, setWordText] = useState(props.wordText);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <ContextMenuComponent.Root modal={false}>
-      <ContextMenuComponent.Trigger asChild>
-        <span className="word">{wordText}</span>
+    <ContextMenuComponent.Root 
+      modal={false}
+      onOpenChange={setIsMenuOpen}
+    >
+      <ContextMenuComponent.Trigger>
+        <span 
+          className={`word ${isMenuOpen ? "word-focus" : ""}`} 
+          tabIndex={0}
+          aria-label={`Word element - ${wordText}`}
+          title={`${wordText}`}
+        >
+        {wordText}</span>
       </ContextMenuComponent.Trigger>
       <ContextMenuComponent.Portal>
-        <ContextMenuComponent.Content 
-          // onOpenAutoFocus={(e) => e.preventDefault()}
-          // onCloseAutoFocus={(e) => e.preventDefault()}
-        >
-          <ContextMenuComponent.Item onSelect={props.onEditWord} tabIndex={0}>
+        <ContextMenuComponent.Content>
+          <ContextMenuComponent.Item onSelect={props.onEditWord} tabIndex={0} aria-label="Botão Editar">
             Editar
           </ContextMenuComponent.Item>
-          <ContextMenuComponent.Item onSelect={props.onDeleteWord}  tabIndex={0}>
+          <ContextMenuComponent.Item onSelect={props.onDeleteWord}  tabIndex={0} aria-label="Botão Deletar">
             Deletar
           </ContextMenuComponent.Item>
         </ContextMenuComponent.Content>

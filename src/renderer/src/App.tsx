@@ -6,6 +6,7 @@ import PreviewPage from "./pages/PreviewPage";
 import DevelopPage from "./pages/DevelopPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Spinner from "./components/loadSpinner";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 const router = createBrowserRouter([
   {
@@ -46,9 +47,9 @@ function App(): React.JSX.Element {
     }
 
   return (
-    <>
+    <ThemeProvider>
       <RouterProvider router={router}/>
-    </>
+    </ThemeProvider>
   )
 }
 

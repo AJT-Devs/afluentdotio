@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import TitleBar from '@renderer/layout/TitleBar';
 import Word from "@renderer/components/Word";
 
+import ThemeToggle from "@renderer/components/ThemeToggle";
+
 import "@renderer/assets/stylesheets/pages/start-page.css";
 
 const StartPage = () => {
@@ -10,6 +12,7 @@ const StartPage = () => {
 
   return <div
     className="start-page">
+      
     <TitleBar />
     <Afluent />
     <button
@@ -18,6 +21,7 @@ const StartPage = () => {
     </button>
 
     <Word wordText="Teste" onDeleteWord={()=>{}} onEditWord={()=>{}}/>
+    <ThemeToggle />
   </div>;
 }
 

@@ -1,6 +1,6 @@
-:root {
+:root[data-theme="dark"]{
   --branco: #E5E7EF;
-  --preto: #131315;
+  --preto: #202124;
   --vermelho: #EF5252;
   --verde: #70C06C;
   --cinza-escuro: #2F333C;
@@ -8,7 +8,9 @@
   --azul-escuro: #253045;
   --azul-claro: #7291B2;
 
-  --background: #202124;
+  --background: var(--preto);
+
+  --logo: var(--branco);
   
   --pri-text: var(--branco);
   --sec-text: var(--cinza-claro);
@@ -20,11 +22,16 @@
   --text-ena-btn-off: var(--branco);
   --text-ena-btn-on: var(--preto);
   --des-color: var(--azul-claro);
+
+  --word-focus: var(--branco);
+  --word-blur: var(--cinza-claro);
+  --word-ia-focus: var(--des-color);
+  --word-ia-blur: var(--cinza-escuro);
 }
 
-:root-white{
+:root[data-theme="light"]{
   --branco: #E5E7EF;
-  --preto: #131315;
+  --preto: #202124;
   --vermelho: #EF5252;
   --verde: #70C06C;
   --cinza-escuro: #2F333C;
@@ -34,7 +41,9 @@
 
   --background: var(--branco);
 
-  --pri-text: var(--preto);
+  --logo: var(--preto);
+
+  --pri-text: var(--cinza-escuro);
   --sec-text: var(--cinza-claro);
   --pri-elements: var(--cinza-escuro);
   --sec-elements: var(--cinza-claro);
@@ -44,6 +53,11 @@
   --text-ena-btn-off: var(--cinza-escuro);
   --text-ena-btn-on: var(--branco);
   --des-color: var(--azul-claro);
+
+  --word-focus: var(--cinza-escuro);
+  --word-blur: var(--cinza-claro);
+  --word-ia-focus: var(--cinza-escuro);
+  --word-ia-blur: var(--cinza-claro);
 }
 
 *,

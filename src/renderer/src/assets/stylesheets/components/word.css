@@ -1,0 +1,35 @@
+.word, .word-ai{
+    user-select: none;
+    border: 3px solid var(--word-blur);
+    padding: 5px 15px;
+    border-radius: 15px;
+    color: var(--word-blur);
+    font-weight: bold;
+    transition: all .3s ease-in-out;
+
+    &:hover, &:focus{
+        border-color: var(--word-focus);
+        color: var(--word-focus);
+        outline: none;
+    }
+}
+
+.word-focus{
+    border-color: var(--word-focus);
+    color: var(--word-focus);
+}
+
+.word-ai{
+    border: 3px solid var(--word-ai-blur);
+    color: var(--word-ai-blur);
+
+    &:hover, &:focus{
+        border-color: var(--word-focus);
+        color: var(--word-focus);
+    }
+}
+
+.word-ai-focus{
+    border-color: var(--word-focus);
+    color: var(--word-focus);
+}
