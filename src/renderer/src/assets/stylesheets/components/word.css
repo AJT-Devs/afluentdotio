@@ -2,6 +2,7 @@
     user-select: none;
     border: 3px solid var(--word-blur);
     padding: 5px 15px;
+    font-size: 1rem;
     border-radius: 15px;
     color: var(--word-blur);
     font-weight: bold;
@@ -22,7 +23,7 @@
 .word-ai{
     border: 3px solid var(--word-ai-blur);
     color: var(--word-ai-blur);
-
+    
     &:hover, &:focus{
         border-color: var(--word-focus);
         color: var(--word-focus);

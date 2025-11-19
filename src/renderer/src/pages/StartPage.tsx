@@ -9,20 +9,22 @@ import "@renderer/assets/stylesheets/pages/start-page.css";
 
 const StartPage = () => {
   const navigate = useNavigate();
+  return (
+    <div
+      className="start-page">
+        
+      <TitleBar />
+      <Afluent />
+      <button
+        onClick={() => { navigate("/introduction"); }} >
+        INICIAR
+      </button>
 
-  return <div
-    className="start-page">
-      
-    <TitleBar />
-    <Afluent />
-    <button
-      onClick={() => { navigate("/introduction"); }} >
-      INICIAR
-    </button>
 
-    <Word wordText="Teste" onDeleteWord={()=>{}} onEditWord={()=>{}}/>
-    <ThemeToggle />
-  </div>;
+      <Word wordText="Teste" onDeleteWord={()=>{}} onEditWord={()=>{}}/>
+      <ThemeToggle />
+    </div>
+  )
 }
 
 export default StartPage;

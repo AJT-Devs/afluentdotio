@@ -1,13 +1,16 @@
-:root[data-theme="dark"]{
-  --branco: #E5E7EF;
-  --preto: #202124;
-  --vermelho: #EF5252;
-  --verde: #70C06C;
-  --cinza-escuro: #2F333C;
-  --cinza-claro: #949CAE;
-  --azul-escuro: #253045;
-  --azul-claro: #7291B2;
+:root{
+    --branco: #E5E7EF;
+    --preto: #202124;
+    --vermelho: #EF5252;
+    --verde: #70C06C;
+    --cinza-escuro: #2F333C;
+    --cinza-claro: #949CAE;
+    --cinza: #4E5668;
+    --azul-escuro: #253045;
+    --azul-claro: #7291B2;
+}
 
+:root[data-theme="dark"]{
   --background: var(--preto);
 
   --logo: var(--branco);
@@ -30,15 +33,6 @@
 }
 
 :root[data-theme="light"]{
-  --branco: #E5E7EF;
-  --preto: #202124;
-  --vermelho: #EF5252;
-  --verde: #70C06C;
-  --cinza-escuro: #2F333C;
-  --cinza-claro: #949CAE;
-  --azul-escuro: #253045;
-  --azul-claro: #7291B2;
-
   --background: var(--branco);
 
   --logo: var(--preto);
@@ -48,7 +42,7 @@
   --pri-elements: var(--cinza-escuro);
   --sec-elements: var(--cinza-claro);
   --back-dis-btn: var(--cinza-claro);
-  --text-dis-btn: var(--cinza-escuro);
+  --text-dis-btn: var(--cinza);
   --back-ena-btn: var(--cinza-escuro);
   --text-ena-btn-off: var(--cinza-escuro);
   --text-ena-btn-on: var(--branco);

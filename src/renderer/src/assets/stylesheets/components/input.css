@@ -1,0 +1,19 @@
+input{
+    padding: 12px;
+    border: 3px solid var(--pri-elements);
+    background-color: transparent;
+    outline: none;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--pri-text);
+    transition: all .2s ease-in-out;
+
+    &::placeholder{
+        color: var(--sec-text);
+    }
+
+    &:hover, &:focus{
+        border-color: var(--des-color);
+    }
+}

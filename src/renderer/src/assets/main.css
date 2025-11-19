@@ -2,6 +2,8 @@
 
 @import './base.css';
 @import './stylesheets/layouts/layout.css';
+@import './stylesheets/components/button.css';
+@import './stylesheets/components/input.css';
 /* 
 @import './stylesheets/pages/start-page.css';
 @import './stylesheets/pages/introduce-page.css';
