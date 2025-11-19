@@ -1,11 +1,8 @@
 // src/mongoose/UserMongooseSchema.ts
 import mongoose, { Schema, Document } from 'mongoose'
+import { User } from '../src/entities/User'
 
-export interface IUserDoc extends Document {
-  name: string
-  photo?: string
-  aikey?: string
-  preferenceaimodel?: string
+export interface IUserDoc extends Omit<User, 'id'>, Document {
 }
 
 const UserSchema = new Schema<IUserDoc>({

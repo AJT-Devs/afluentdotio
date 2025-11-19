@@ -1,10 +1,8 @@
 import mongoose, { Schema, Document } from 'mongoose'
+import { Word } from '../src/entities/Word'
 
-export interface IWordDoc extends Document {
-  word: string
-  category: string
-  proximity: number
-  brainstormId: mongoose.Types.ObjectId // Link para o Brainstorm
+export interface IWordDoc extends Omit<Word, 'id'>, Document {
+  brainstormId: mongoose.Types.ObjectId
 }
 
 const WordSchema = new Schema<IWordDoc>({

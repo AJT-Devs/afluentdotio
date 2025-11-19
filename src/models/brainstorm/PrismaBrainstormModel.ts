@@ -9,7 +9,8 @@ export class PrismaBrainstormModel implements BrainstormModelAdapter {
             data: {
                 name: brainstorm.name,
                 context: brainstorm.context,
-                userId: brainstorm.userId    
+                userId: brainstorm.userId,
+                pool: brainstorm.pool    
             },
             select: {
                 id: true,
@@ -26,7 +27,7 @@ export class PrismaBrainstormModel implements BrainstormModelAdapter {
             where: { id: brainstorm.id },
             data: {
                 name: brainstorm.name,
-                context: brainstorm.context 
+                context: brainstorm.context,
             }
         })
         return result

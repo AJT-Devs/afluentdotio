@@ -24,8 +24,8 @@ function createWindow(): void {
     },
     titleBarStyle: 'hidden',
     webPreferences: {
-      preload: join(__dirname, '../preload/preload.mjs'),
-      sandbox: false,
+      preload: join(__dirname, '../preload/preload.cjs'),
+      sandbox: true,
       devTools: true
     }
   })

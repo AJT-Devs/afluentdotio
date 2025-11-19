@@ -32,8 +32,40 @@ model Brainstorm {
   userId      String @db.ObjectId
 
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
+  pool      PoolType
   words       Word[]
+}
+type PoolType {
+  nodes    NodeType[]
+  edges    EdgeType[]
+  viewport ViewportType
+}
+
+type NodeType {
+  id        String      @map("_id") @db.ObjectId 
+  word      String
+  range     Int          
+  position  PositionType
+  category  String
+  proximity String
+}
+
+type PositionType {
+  x Float
+  y Float
+}
+
+type EdgeType {
+  id       String @map("_id") @db.ObjectId
+  sourceNodeId String @db.ObjectId
+  targetNodeId String @db.ObjectId
+  label        String
+}
+
+type ViewportType {
+  x    Float @default(0)
+  y    Float @default(0)
+  zoom Float @default(1)
 }
 
 model Word {
