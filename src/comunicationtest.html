@@ -11,6 +11,7 @@
     <button id="delete">Delete</button>
     <button id="put">Put</button>
     <button id="getall">GetAll</button>
+    <button id="postBrainstorm">Post Brainstorm</button>
     <p id="p"></p>
 </body>
 <script>
@@ -27,6 +28,13 @@
     getall.addEventListener('click', async () => {
         const users = await window.user.getAllUsers();
         console.log(users);
+    });
+
+    const postBrainstorm = document.getElementById('postBrainstorm');
+    postBrainstorm.addEventListener('click', async () => {
+        alert("b");
+        const response = await window.brainstorm.postBrainstorm({name: 'brainstorm1', context: 'example context', userId: `691e97f31d6eda00a74041df`});
+        document.getElementById('p').innerHTML = `<p>Posted brainstorm: ${JSON.stringify(response)}</p>`;
     });
 </script>
 </html>

@@ -15,7 +15,7 @@ const BrainstormSchema = new Schema<IBrainstormDoc>({
   },
   pool: {
         nodes: [{
-            nodeId: { type: Schema.Types.ObjectId, required: true, auto: true },
+            id: { type: Schema.Types.ObjectId, required: true, auto: true },
             word: String,
             range: Number,
             position: { x: Number, y: Number },
@@ -23,7 +23,7 @@ const BrainstormSchema = new Schema<IBrainstormDoc>({
             proximity: String
         }],
         edges: [{
-            edgeId: { type: Schema.Types.ObjectId, required: true, auto: true },
+            id: { type: Schema.Types.ObjectId, required: true, auto: true },
             sourceNodeId: { type: Schema.Types.ObjectId, required: true },
             targetNodeId: { type: Schema.Types.ObjectId, required: true },
             label: String

@@ -3,7 +3,7 @@ import { ErrorLogModelAdapter } from './ErrorLogModelAdapter'
 import { ErrorLog } from '../../entities/ErrorLog'
 import { ErrorLogModelDB, IErrorLogDoc } from '../../../mongoose/ErrorLogMongooseSchema'
 
-export default class mongooseErrorLogModel implements ErrorLogModelAdapter {
+export default class MongooseErrorLogModel implements ErrorLogModelAdapter {
   private toEntity(doc: IErrorLogDoc): ErrorLog {
     return doc.toObject() as unknown as ErrorLog
   }

@@ -33,7 +33,6 @@ model Brainstorm {
 
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   pool      PoolType
-  words       Word[]
 }
 type PoolType {
   nodes    NodeType[]
@@ -67,17 +66,6 @@ type ViewportType {
   y    Float @default(0)
   zoom Float @default(1)
 }
-
-model Word {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  word        String
-  category    String
-  proximity   Int
-  brainstormId String @db.ObjectId
-
-  brainstorm  Brainstorm @relation(fields: [brainstormId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-}
-
 model ErrorLog {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   message   Json
