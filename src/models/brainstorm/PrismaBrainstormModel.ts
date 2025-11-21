@@ -4,7 +4,7 @@ import { BrainstormModelAdapter } from './BrainstormModelAdapter';
 
 export class PrismaBrainstormModel implements BrainstormModelAdapter {
     private prisma = PrismaSingleton.getInstance();
-    public async createBrainstorm(brainstorm: Brainstorm): Promise<Partial<Brainstorm>> {
+    public async createBrainstorm(brainstorm: Brainstorm): Promise<Brainstorm> {
         const result = await this.prisma.brainstorm.create({
             data: {
                 name: brainstorm.name,
@@ -12,12 +12,6 @@ export class PrismaBrainstormModel implements BrainstormModelAdapter {
                 userId: brainstorm.userId,
                 pool: brainstorm.pool    
             },
-            select: {
-                id: true,
-                name: true,     
-                context: true,
-                date: true
-            }
         });
         return result;
     }

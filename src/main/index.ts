@@ -69,6 +69,8 @@ app.whenReady().then(async () => {
   UserIpcEndpoints.postUser();
   
   BrainstormIpcEndpoint.postBrainstorm();
+  BrainstormIpcEndpoint.updateBrainstorm();
+  BrainstormIpcEndpoint.getBrainstormById();
 
   createWindow()
 

@@ -5,56 +5,76 @@ import { UserModelDb, IUserDoc } from '../../../mongoose/UserMongooseSchema'
 
 export default class MongooseUserModel implements UserModelAdapter {
   private toEntity(doc: IUserDoc): User {
-    // Convert Mongoose document to User entity
-    return doc.toObject() as unknown as User
+    return doc.toObject() as unknown as User;
   }
 
   public async createUser(user: User): Promise<User> {
-    await MongooseSingleton.getInstance()
+    const { id, ...userData } = user;
+    await MongooseSingleton.getInstance();
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id: _, ...userData } = user
-
-    const createdUserDoc = await UserModelDb.create(userData)
+    const createdUserDoc = await UserModelDb.create(userData);
     return this.toEntity(createdUserDoc)
   }
 
-  public async updateUser(user: User): Promise<User> {
-    await MongooseSingleton.getInstance()
+  public async updateUser(user: User): Promise<User | null> {
+    await MongooseSingleton.getInstance();
 
-    const updatedUserDoc = await UserModelDb.findByIdAndUpdate(user.id, { ...user }, { new: true })
+    const updatedUserDoc = await UserModelDb.findByIdAndUpdate(
+      user.id, { ...user }, { new: true }).exec();
 
-    if (!updatedUserDoc) throw new Error('Usuário não encontrado.')
+    if (!updatedUserDoc){
+      return null;
+    }
 
-    return this.toEntity(updatedUserDoc)
+    return this.toEntity(updatedUserDoc);
   }
 
-  public async deleteUser(id: string): Promise<User> {
-    await MongooseSingleton.getInstance()
+  public async deleteUser(id: string): Promise<User | null> {
+    await MongooseSingleton.getInstance();
 
-    const deletedDoc = await UserModelDb.findByIdAndDelete(id)
-    if (!deletedDoc) throw new Error('Usuário não encontrado.')
-    return this.toEntity(deletedDoc)
+    const deletedDoc = await UserModelDb.findByIdAndDelete(id).exec();
+    if (!deletedDoc) {
+      return null;
+    }
+    return this.toEntity(deletedDoc);
   }
 
   public async getAllUsers(): Promise<Partial<User>[]> {
-    await MongooseSingleton.getInstance()
+    await MongooseSingleton.getInstance();
 
-    const userDocs = await UserModelDb.find().exec()
-    return userDocs.map((doc) => this.toEntity(doc))
+    const userDocs = await UserModelDb.find().exec();
+    userDocs.map((doc) => this.toEntity(doc));
+    return userDocs.map((doc) => ({
+      id: doc.id,
+      name: doc.name,
+      photo: doc.photo,
+      preferenceaimodel: doc.preferenceaimodel
+    }));
   }
 
   public async getUserById(id: string): Promise<Partial<User> | null> {
-    await MongooseSingleton.getInstance()
+    await MongooseSingleton.getInstance();
 
-    const userDoc = await UserModelDb.findById(id, 'id name photo preferenceaimodel').exec()
-    return userDoc ? this.toEntity(userDoc) : null
+    const userDoc = await UserModelDb.findById(id, 'id name photo preferenceaimodel').exec();
+
+    if (!userDoc) {
+      return null;
+    }
+
+    const {aikey, ...user} = this.toEntity(userDoc);
+    return user;
   }
 
   public async getAiKey(id: string): Promise<string | null> {
-    await MongooseSingleton.getInstance()
+    await MongooseSingleton.getInstance();
 
-    const userDoc = await UserModelDb.findById(id, 'aikey').exec()
-    return userDoc ? userDoc.aikey : null
+    const userDoc = await UserModelDb.findById(id, 'aikey').exec();
+    if (!userDoc) {
+      return null;
+    }
+    if (!userDoc.aikey) {
+      return null;
+    }
+    return userDoc.aikey;
   }
 }

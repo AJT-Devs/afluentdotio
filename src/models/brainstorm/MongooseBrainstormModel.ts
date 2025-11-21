@@ -9,14 +9,16 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
   }
 
   public async createBrainstorm(brainstorm: Brainstorm): Promise<Brainstorm> {
+    const { id, date, ...brainstormData } = brainstorm;
     await MongooseSingleton.getInstance();
-    const createdDoc = await BrainstormModelDb.create(brainstorm);
+    const createdDoc = await BrainstormModelDb.create(brainstormData);
     return this.toEntity(createdDoc);
   }
 
   public async updateBrainstorm(brainstorm: Brainstorm): Promise<Brainstorm | null> {
     await MongooseSingleton.getInstance();
-    const updatedDoc = await BrainstormModelDb.findByIdAndUpdate(brainstorm.id, { ...brainstorm }, { new: true });
+    const updatedDoc = await BrainstormModelDb.findByIdAndUpdate(
+      brainstorm.id, { ...brainstorm }, { new: true }).exec();
     if (!updatedDoc) {
       return null;
     }
@@ -29,7 +31,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
       brainstormId,
       { $set: { 'pool.viewport': viewport } },
       { new: true }
-    );
+    ).exec();
     if (!updatedDoc) {
       return null;
     }
@@ -42,7 +44,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
       { _id: brainstormId, 'pool.nodes.id': node.id },
       { $set: { 'pool.nodes.$': node } },
       { new: true }
-    );
+    ).exec();
     if (!updatedDoc) {
       return null;
     }
@@ -55,7 +57,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
       { _id: brainstormId, 'pool.edges.id': edge.id },
       { $set: { 'pool.edges.$': edge } },
       { new: true }
-    );
+    ).exec();
     if (!updatedDoc) {
       return null;
     }
@@ -64,7 +66,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
 
   public async deleteBrainstorm(id: string): Promise<Brainstorm | null> {
     await MongooseSingleton.getInstance();
-    const deletedDoc = await BrainstormModelDb.findByIdAndDelete(id);
+    const deletedDoc = await BrainstormModelDb.findByIdAndDelete(id).exec();
     if (!deletedDoc) {
       return null;
     }
@@ -77,7 +79,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
       brainstormId,
       { $pull: { 'pool.nodes': { id: nodeId } } },
       { new: true }
-    );
+    ).exec();
     if (!updatedDoc) {
       return null;
     }
@@ -90,7 +92,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
       brainstormId,
       { $pull: { 'pool.edges': { id: edgeId } } },
       { new: true }
-    );
+    ).exec();
     if (!updatedDoc) {
       return null;
     }
@@ -124,7 +126,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
       brainstormId,
       { $push: { 'pool.nodes': node } },
       { new: true }
-    );
+    ).exec();
     if (!updatedDoc) {
       return null;
     }
@@ -137,7 +139,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
       brainstormId,
       { $push: { 'pool.edges': edge } },
       { new: true }
-    );
+    ).exec();
     if (!updatedDoc) {
       return null;
     }

@@ -14,7 +14,7 @@ export class PrismaErrorLogModel implements ErrorLogModelAdapter {
         return response;
     }
 
-    public async updateErrorLog(errorLog: ErrorLog): Promise<ErrorLog> {
+    public async updateErrorLog(errorLog: ErrorLog): Promise<ErrorLog | null> {
         const response = await this.prisma.errorLog.update({
             where: {
                 id: errorLog.id
@@ -23,15 +23,23 @@ export class PrismaErrorLogModel implements ErrorLogModelAdapter {
                 message: errorLog.message
             }
         });
+        if (!response) {
+            return null;
+        }
+
         return response;
     }
 
-    public async deleteErrorLog(id: string): Promise<ErrorLog> {
+    public async deleteErrorLog(id: string): Promise<ErrorLog | null> {
         const response = await this.prisma.errorLog.delete({
             where: {
                 id: id
             }
         });
+        if (!response) {
+            return null;
+        }
+
         return response;
     }
 
@@ -41,6 +49,9 @@ export class PrismaErrorLogModel implements ErrorLogModelAdapter {
                 id: id
             }
         });
+        if (!response) {
+            return null;
+        }
         return response;
     }
 

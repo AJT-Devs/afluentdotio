@@ -6,13 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-    <button id="post">Post</button>
-    <button id="get">Get</button>
-    <button id="delete">Delete</button>
-    <button id="put">Put</button>
-    <button id="getall">GetAll</button>
-    <button id="postBrainstorm">Post Brainstorm</button>
+    <button id="post">Post User</button>
+    <button id="get">Get User</button>
+    <button id="delete">Delete User</button>
+    <button id="put">Put User</button>
+    <button id="getall">Get User</button>
     <p id="p"></p>
+    <button id="postBrainstorm">Post Brainstorm</button>
+    <button id="updateBrainstorm">Update Brainstorm</button>
+    <button id="getBrainstormById">Get Brainstorm By Id</button>
 </body>
 <script>
     const post = document.getElementById('post');
@@ -30,11 +32,22 @@
         console.log(users);
     });
 
+    
     const postBrainstorm = document.getElementById('postBrainstorm');
     postBrainstorm.addEventListener('click', async () => {
-        alert("b");
         const response = await window.brainstorm.postBrainstorm({name: 'brainstorm1', context: 'example context', userId: `691e97f31d6eda00a74041df`});
         document.getElementById('p').innerHTML = `<p>Posted brainstorm: ${JSON.stringify(response)}</p>`;
     });
+    const updateBrainstorm = document.getElementById('updateBrainstorm');
+    updateBrainstorm.addEventListener('click', async () => {
+        const response = await window.brainstorm.updateBrainstorm({id: '691e9bb7c3d0d66fff1a1c06', name: 'updatedName2', userId: `691e97f31d6eda00a74041df`});
+        document.getElementById('p').innerHTML = `<p>Updated brainstorm: ${JSON.stringify(response)}</p>`;
+    });
+    const getBrainstormById = document.getElementById('getBrainstormById');
+    getBrainstormById.addEventListener('click', async () => {
+        const response = await window.brainstorm.getBrainstormById('691e9bb7c3d0d66fff1a1c06');
+        document.getElementById('p').innerHTML = `<p>Got brainstorm by id: ${JSON.stringify(response)}</p>`;
+    });
+
 </script>
 </html>
