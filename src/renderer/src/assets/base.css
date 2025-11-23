@@ -8,10 +8,13 @@
     --cinza: #4E5668;
     --azul-escuro: #253045;
     --azul-claro: #7291B2;
+
+    --h-title-bar: 40px
 }
 
 :root[data-theme="dark"]{
   --background: var(--preto);
+  --title-bar: var(--cinza-escuro);
 
   --logo: var(--branco);
   
@@ -34,6 +37,7 @@
 
 :root[data-theme="light"]{
   --background: var(--branco);
+  --title-bar: var(--cinza-claro);
 
   --logo: var(--preto);
 

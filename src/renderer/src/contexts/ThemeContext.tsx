@@ -30,9 +30,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     localStorage.setItem('theme', theme);
     
     // Opcional: Comunicar com o processo principal do Electron
-    // if (window.electron?.ipcRenderer) {
-    //   window.electron.ipcRenderer.send('theme-changed', theme);
-    // }
+    if (window.electron?.ipcRenderer) {
+      window.electron.ipcRenderer.send('theme-changed', theme);
+    }
   }, [theme]);
 
   // Detecta mudanças na preferência do sistema

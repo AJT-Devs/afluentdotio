@@ -1,0 +1,15 @@
+.console-brainstorming{
+    position: fixed;
+    top: var(--h-title-bar);
+    left: 0;
+    height: calc(100vh - var(--h-title-bar));
+    width: 100%;
+    /* border: 10px solid red; */
+    background: none;
+    pointer-events: none;
+}
+
+input, button, textarea{
+    background-color: var(--background);
+    pointer-events: auto;
+}

@@ -10,6 +10,8 @@ import { BrainstormIpcEndpoint } from '../endpoint/ipc/BrainstormIpcEndpoint';
 
 
 
+
+
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -20,8 +22,8 @@ function createWindow(): void {
     icon: icon,
     ...(process.platform === 'linux' ? { icon } : {}),
     titleBarOverlay: {
-      color: '#253045',
-      symbolColor: '#e8e9ed',
+      color: 'rgba(47, 51, 60, 0)',
+      symbolColor: '#202124',
       height: 40
     },
     titleBarStyle: 'hidden',
@@ -31,6 +33,16 @@ function createWindow(): void {
       devTools: true
     }
   })
+
+  ipcMain.on('theme-changed', (event, theme) => {
+    // console.log('Tema mudou para:', theme);
+    const isDark = theme === 'dark';
+    
+    mainWindow.setTitleBarOverlay({
+      color: isDark ? '#2F333C' : '#949CAE',
+      symbolColor: isDark ? '#E5E7EF' : '#202124'
+    });
+  });
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
@@ -49,6 +61,7 @@ function createWindow(): void {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
   // mainWindow.loadFile('src/comunicationtest.html')
+
 }
 
 // This method will be called when Electron has finished

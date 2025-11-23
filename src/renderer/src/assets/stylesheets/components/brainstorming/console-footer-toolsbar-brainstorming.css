@@ -1,0 +1,29 @@
+.footer-toolsbar{
+    position: fixed;
+    left: 0;
+    bottom: 20px;
+    padding: 0 10%;
+    
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: center;
+    /* border: 1px solid red; */
+    gap: 20px;  
+
+    .word-creator{
+        display: flex;
+        flex-grow: 1;
+        gap: 20px;
+        
+        .word-creator-input{
+            width: 100%;
+        }
+    }
+
+    
+
+    .ai-button:hover .ai-icon, .ai-button:focus .ai-icon{
+        fill: var(--text-ena-btn-on);
+    }
+}

@@ -1,8 +1,5 @@
 import Afluent from "@renderer/components/AfluentLogo";
 import { useNavigate } from "react-router-dom";
-import TitleBar from '@renderer/layout/TitleBar';
-import Word from "@renderer/components/Word";
-import Pool from "@renderer/components/Pool";
 
 import ThemeToggle from "@renderer/components/ThemeToggle";
 
@@ -13,18 +10,16 @@ const StartPage = () => {
   return (
     <div className="start-page">
         
-      {/* <TitleBar />
+      
+      
       <Afluent />
       <button
         onClick={() => { navigate("/introduction"); }} >
         INICIAR
       </button>
 
-
-      <Word wordText="Teste" onDeleteWord={()=>{}} onEditWord={()=>{}}/>
       <ThemeToggle />
-       */}
-      <Pool/>
+      
     </div>
   )
 }

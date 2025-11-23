@@ -1,8 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useBranstormingStore } from "../store/BranstormingStore";
-import Pool from "@renderer/components/Pool";
-import TitleBar from '@renderer/layout/TitleBar';
 
 import "@renderer/assets/stylesheets/pages/develope-page.css";
 
@@ -89,7 +87,6 @@ const DevelopPage = () => {
 
   return (
     <div className="develop-page-container">
-      <TitleBar />
       <Pool 
         title={title} 
         layers={data.layers}

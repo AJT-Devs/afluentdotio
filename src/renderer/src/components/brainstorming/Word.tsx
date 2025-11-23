@@ -1,8 +1,8 @@
-import MenuContext from "./overlays/contextmenu/MenuContext";
+import MenuContext from "@renderer/components/overlays/contextmenu/MenuContext";
 import { useState, memo } from "react";
-import DialogEditTextOfWord from "./overlays/dialogs/DialogEditTextOfWord";
+import DialogEditTextOfWord from "@renderer/components/overlays/dialogs/DialogEditTextOfWord";
 import {NodeProps, Node, Handle, Position} from '@xyflow/react';
-import "@renderer/assets/stylesheets/components/word.css";
+import "@renderer/assets/stylesheets/components/brainstorming/word.css";
 
 export interface WordNodeData extends Record<string, unknown> {
   wordText: string;

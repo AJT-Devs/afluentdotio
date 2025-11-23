@@ -1,9 +1,10 @@
-import { ReactFlow, Background, Node, useNodesState } from '@xyflow/react';
+import { ReactFlow, Controls, Background, Node, useNodesState } from '@xyflow/react';
 import { useState, useEffect } from 'react';
+import Console, {ConsoleProps} from "@renderer/components/brainstorming/ConsoleBrainstorming"
 
 import Word, {WordNodeData} from "./Word";
 
-import "@renderer/assets/stylesheets/components/pool.css";
+import "@renderer/assets/stylesheets/components/brainstorming/pool.css";
 
 interface WordData {
   id: string;
@@ -18,10 +19,26 @@ const MOCK_WORDS: WordData[] = [
   { id: '5', text: 'Futuro' },
 ];
 
+type ConsoleType = ConsoleProps;
+
+interface PoolProps {
+  consoleProps : ConsoleType;
+}
+
 const nodeTypes = { word: Word };
 
-const Pool = () => {
+const Pool = ({consoleProps, ...props}:PoolProps) => {
   const [words, setWords] = useState<WordData[]>(MOCK_WORDS);
+
+  const handleAddWord = (text: string) => {
+    const newWord: WordData = {
+      id: Date.now().toString(), // ID temporário
+      text,
+    };
+
+    console.log('➕ Adicionando palavra:', text);
+    setWords((prev) => [...prev, newWord]);
+  };
 
   const handleEditWord = (id: string, newText: string): void => {
     console.log('Editando palavra:', id, newText);
@@ -84,8 +101,11 @@ const Pool = () => {
         nodes={nodes}
         onNodesChange={onNodesChange}
         nodeTypes={nodeTypes}
+        proOptions={{ hideAttribution: true }}
         fitView
       >
+        {/* <Controls/> */}
+        <Console onAddWord={handleAddWord} />
         <Background />
       </ReactFlow>
     </div>

@@ -1,5 +1,5 @@
-const TitkeBar = () => {
+const TitleBar = () => {
     return <div className='titleBar'/>
 }
 
-export default TitkeBar;
+export default TitleBar;

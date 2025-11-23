@@ -3,10 +3,11 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import StartPage from './pages/StartPage'
 import IntroducePage from "./pages/IntroducePage";
 import PreviewPage from "./pages/PreviewPage";
-import DevelopPage from "./pages/DevelopPage";
+import BrainstormingPage from "./pages/BrainstormingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Spinner from "./components/loadSpinner";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import TitleBar from "./layout/TitleBar";
 
 const router = createBrowserRouter([
   {
@@ -22,8 +23,8 @@ const router = createBrowserRouter([
     element: <PreviewPage/>
   },
   {
-    path: "/develop",
-    element: <DevelopPage/>
+    path: "/brainstorming",
+    element: <BrainstormingPage/>
   },
   {
     path: "*",
@@ -43,12 +44,19 @@ function App(): React.JSX.Element {
     }, []);
 
     if (loading) {
-      return <Spinner />;
+      return (
+        <ThemeProvider>
+          <TitleBar />
+          <Spinner /> 
+        </ThemeProvider>
+      );
     }
 
   return (
     <ThemeProvider>
-      <RouterProvider router={router}/>
+      <TitleBar />
+      {/* <RouterProvider router={router}/> */}
+      <BrainstormingPage/>
     </ThemeProvider>
   )
 }

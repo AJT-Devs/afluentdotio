@@ -1,6 +1,7 @@
 .alert-dialog-overlay {
     background-color: rgba(70, 78, 93, 0.4);
     position: fixed;
+    z-index: 9000 !important;
     inset: 0;
     animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -9,6 +10,7 @@
     background-color: var(--background);
     border-radius: 10px;
     position: fixed;
+    z-index: 9000 !important;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

@@ -1,0 +1,8 @@
+.brainstorming-page{
+    width: 100%;
+    height: calc(100vh - var(--h-title-bar));
+    position: absolute;
+    top: var(--h-title-bar);
+    left: 0;
+    z-index: 1;
+}

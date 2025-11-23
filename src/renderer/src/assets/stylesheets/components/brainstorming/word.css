@@ -7,6 +7,7 @@
     color: var(--word-blur);
     font-weight: bold;
     transition: all .3s ease-in-out;
+    background-color: var(--background);
 
     &:hover, &:focus{
         border-color: var(--word-focus);

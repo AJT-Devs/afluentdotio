@@ -4,21 +4,14 @@
 @import './stylesheets/layouts/layout.css';
 @import './stylesheets/components/button.css';
 @import './stylesheets/components/input.css';
-/* 
-@import './stylesheets/pages/start-page.css';
-@import './stylesheets/pages/introduce-page.css';
-@import './stylesheets/pages/develope-page.css';
-@import './stylesheets/components/pool.css'; */
-
-
 
 .titleBar{
     width: 100%;
-    height: 40px;
+    height: var(--h-title-bar);
     -webkit-app-region: drag;
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1000;
-    background-color: var(--azul-escuro);
+    z-index: 9999;
+    background-color: var(--title-bar);
 }
