@@ -1,0 +1,59 @@
+.alert-dialog-overlay {
+    background-color: rgba(70, 78, 93, 0.4);
+    position: fixed;
+    inset: 0;
+    animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.alert-dialog {
+    background-color: var(--background);
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 800px;
+    padding: 25px;
+    animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+    & .alert-dialog-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+}
+
+.alert-dialog-title{
+    color: var(--pri-text);
+    font-size: 1.5rem;
+}
+
+.alert-dialog-description {
+    margin: 0 0 20px 0;
+    color: var(--sec-text);
+    font-size: 1rem;
+}
+
+.alert-dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+@keyframes overlayShow {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes contentShow {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -48%) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
