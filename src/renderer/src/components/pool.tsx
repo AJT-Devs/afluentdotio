@@ -6,7 +6,7 @@ interface PoolProps {
 }
 
 const Pool = (props: PoolProps) => {
-
+  
 }
 
 export default Pool;
