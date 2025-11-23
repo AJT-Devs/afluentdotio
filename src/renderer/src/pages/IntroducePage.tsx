@@ -2,7 +2,7 @@ import Header from "@renderer/layout/Header";
 import * as motion from "motion/react-client"
 import { FormEvent } from "react";
 import {useNavigate} from "react-router-dom"
-import { useBranstormingStore } from "../../../store/BranstormingStore";
+import { useBranstormingStore } from "../store/BranstormingStore";
 import TitleBar from '@renderer/layout/TitleBar';
 
 import "@renderer/assets/stylesheets/pages/introduce-page.css";

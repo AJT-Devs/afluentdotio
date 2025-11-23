@@ -1,6 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useBranstormingStore } from "../../../store/BranstormingStore";
+import { useBranstormingStore } from "../store/BranstormingStore";
 import Pool from "@renderer/components/Pool";
 import TitleBar from '@renderer/layout/TitleBar';
 
