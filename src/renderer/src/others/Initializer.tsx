@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const  = ({ children }: { children: React.ReactNode }) => {
+const Initializer = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
