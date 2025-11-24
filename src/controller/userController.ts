@@ -28,6 +28,9 @@ export default class UserController {
     public static async updateUser(user: User): Promise<SuccessResponse | Error> {
         try{
             const userResponse = await this.UserModel.updateUser(user);
+            if(!userResponse){
+                return new SuccessResponse(404, "Usuário não encontrado", {});
+            }
             return new SuccessResponse(200, "Usuário atualizado com sucesso", userResponse);
         }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
@@ -38,6 +41,9 @@ export default class UserController {
     public static async deleteUser(id: string): Promise<SuccessResponse | Error> {
         try{
             const userResponse = await this.UserModel.deleteUser(id);
+            if(!userResponse){
+                return new SuccessResponse(404, "Usuário não encontrado", {});
+            }
             return new SuccessResponse(200, "Usuário deletado com sucesso", userResponse);
         }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);

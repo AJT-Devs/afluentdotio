@@ -6,48 +6,81 @@
     <title>Document</title>
 </head>
 <body>
-    <button id="post">Post User</button>
-    <button id="get">Get User</button>
-    <button id="delete">Delete User</button>
-    <button id="put">Put User</button>
-    <button id="getall">Get User</button>
-    <p id="p"></p>
-    <button id="postBrainstorm">Post Brainstorm</button>
-    <button id="updateBrainstorm">Update Brainstorm</button>
-    <button id="getBrainstormById">Get Brainstorm By Id</button>
+    <div>
+        <input type="text" id="inputUser" placeholder="User ID"/>
+        <button onclick="postUser()">Post User</button>
+        <button onclick="getUserById()">Get User by id</button>
+        <button onclick="deleteUser()">Delete User</button>
+        <button onclick="updateUser()">update User</button>
+        <button onclick="getAllUsers()">Get User</button>
+        <button onclick="getAiKey()">Get Ai Key</button>
+        <p id="pUser"></p>
+    </div>
+
+    <div>
+        <input type="text" id="inputBrainstorm" placeholder="Brainstorm ID"/>
+        <button onclick="postBrainstorm()">Post Brainstorm</button>
+        <button onclick="updateBrainstorm()">Update Brainstorm</button>
+        <button onclick="getBrainstormById()">Get Brainstorm By Id</button>
+        <p id="pBrainstorm"></p>
+    </div>
 </body>
 <script>
-    const post = document.getElementById('post');
-    const get = document.getElementById('get');
-    const del= document.getElementById('delete');
-    const put = document.getElementById('put');
-    const getall = document.getElementById('getall');
-    post.addEventListener('click',async () => {
-        alert("a");
-        const response = await window.user.postUser({name: 'tulio', photo: 'urlfoto', aikey:'ai', aipreference: 'gpt'});
-        document.getElementById('p').innerHTML = `<p>Posted user: ${JSON.stringify(response)}</p>`;
-    });
-    getall.addEventListener('click', async () => {
-        const users = await window.user.getAllUsers();
-        console.log(users);
-    });
+    const pUser = document.getElementById('pUser');
+    const inputUser = document.getElementById('inputUser');
 
-    
-    const postBrainstorm = document.getElementById('postBrainstorm');
-    postBrainstorm.addEventListener('click', async () => {
+    async function postUser() {
+        const response = await window.user.postUser({name: 'tulio', photo: 'urlfoto', aikey:'ai', aipreference: 'gpt'});
+        pUser.innerHTML = `Posted user: ${JSON.stringify(response)}`;
+    }
+    async function updateUser() {
+        const response = await window.user.updateUser({id: inputUser.value, name: 'tulio updated', photo: 'urlfoto updated', aikey:'ai updated', aipreference: 'gpt updated'});
+        pUser.innerHTML = `Updated user: ${JSON.stringify(response)}`;
+        inputUser.value = '';
+    }
+    async function deleteUser() {
+        const response = await window.user.deleteUser(inputUser.value);
+        pUser.innerHTML = `Deleted user: ${JSON.stringify(response)}`;
+        inputUser.value = '';
+    }
+    async function getUserById() {
+        const response = await window.user.getUserById(inputUser.value);
+        pUser.innerHTML = `Got user by id: ${JSON.stringify(response)}`;
+        inputUser.value = '';
+    }
+    async function getAllUsers() {
+        const response = await window.user.getAllUsers();
+        pUser.innerHTML = `Got all users: ${JSON.stringify(response)}`;
+    }
+    async function getAiKey() {
+        const response = await window.user.getAiKey(inputUser.value);
+        pUser.innerHTML = `Got Ai Key: ${JSON.stringify(response)}`;
+        inputUser.value = '';
+    }
+
+
+    const inputBrainstorm = document.getElementById('inputBrainstorm');
+    const pBrainstorm = document.getElementById('pBrainstorm');
+
+    async function postBrainstorm() {
         const response = await window.brainstorm.postBrainstorm({name: 'brainstorm1', context: 'example context', userId: `691e97f31d6eda00a74041df`});
-        document.getElementById('p').innerHTML = `<p>Posted brainstorm: ${JSON.stringify(response)}</p>`;
-    });
-    const updateBrainstorm = document.getElementById('updateBrainstorm');
-    updateBrainstorm.addEventListener('click', async () => {
-        const response = await window.brainstorm.updateBrainstorm({id: '691e9bb7c3d0d66fff1a1c06', name: 'updatedName2', userId: `691e97f31d6eda00a74041df`});
-        document.getElementById('p').innerHTML = `<p>Updated brainstorm: ${JSON.stringify(response)}</p>`;
-    });
-    const getBrainstormById = document.getElementById('getBrainstormById');
-    getBrainstormById.addEventListener('click', async () => {
-        const response = await window.brainstorm.getBrainstormById('691e9bb7c3d0d66fff1a1c06');
-        document.getElementById('p').innerHTML = `<p>Got brainstorm by id: ${JSON.stringify(response)}</p>`;
-    });
+        pBrainstorm.innerHTML = `Posted brainstorm: ${JSON.stringify(response)}`;
+    }
+    async function updateBrainstorm() {
+        const response = await window.brainstorm.updateBrainstorm({id: inputBrainstorm.value, name: 'brainstorm updated', context: 'example context updated', userId: `691e97f31d6eda00a74041df`});
+        pBrainstorm.innerHTML = `Updated brainstorm: ${JSON.stringify(response)}`;
+        inputBrainstorm.value = '';
+    }
+    async function deleteBrainstorm() {
+        const response = await window.brainstorm.deleteBrainstorm(inputBrainstorm.value);
+        pBrainstorm.innerHTML = `Deleted brainstorm: ${JSON.stringify(response)}`;
+        inputBrainstorm.value = '';
+    }
+    async function getBrainstormById() {
+        const response = await window.brainstorm.getBrainstormById(inputBrainstorm.value);
+        pBrainstorm.innerHTML = `Got brainstorm by id: ${JSON.stringify(response)}`;
+        inputBrainstorm.value = '';
+    }
 
 </script>
 </html>
