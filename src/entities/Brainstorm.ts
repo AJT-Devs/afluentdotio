@@ -42,7 +42,7 @@ export class BrainstormNode {
     position
     category
     proximity
-    constructor(nodeId: string, word: string, range: number, position: Position, category: string, proximity: number) {}
+    constructor(id: string, word: string, range: number, position: Position, category: string, proximity: number) {}
 }
 
 export class BrainstormEdge {

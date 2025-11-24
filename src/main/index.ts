@@ -88,7 +88,17 @@ app.whenReady().then(async () => {
   
   BrainstormIpcEndpoint.postBrainstorm();
   BrainstormIpcEndpoint.updateBrainstorm();
+  BrainstormIpcEndpoint.updateViewport();
+  BrainstormIpcEndpoint.updatePoolNode();
+  BrainstormIpcEndpoint.updatePoolEdge();
+  BrainstormIpcEndpoint.deleteBrainstorm();
+  BrainstormIpcEndpoint.deletePoolNode();
+  BrainstormIpcEndpoint.deletePoolEdge();
+  BrainstormIpcEndpoint.getAllBrainstormByUser();
   BrainstormIpcEndpoint.getBrainstormById();
+  BrainstormIpcEndpoint.getBrainstormPoolById();
+  BrainstormIpcEndpoint.addPoolNodes();
+  BrainstormIpcEndpoint.addPoolEdges();
 
   createWindow()
 

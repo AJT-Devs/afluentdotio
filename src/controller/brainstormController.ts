@@ -143,7 +143,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async getAllBrainstorms(userId: string): Promise<SuccessResponse | Error> {
+    public static async getAllBrainstormByUser(userId: string): Promise<SuccessResponse | Error> {
         try{
             const response: Brainstorm[] = await this.BrainstormModel.getAllBrainstormByUser(userId);
             return new SuccessResponse(200, `Brainstorms do usuário id: ${userId}`, response);
