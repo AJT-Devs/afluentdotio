@@ -61,7 +61,14 @@ function createWindow(): void {
   // } else {
   //   mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   // }
-  mainWindow.loadFile('src/comunicationtest.html')
+
+   if (is.dev ) {
+    mainWindow.loadURL('http://localhost:5173')
+  } else {
+    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+  }
+
+  // mainWindow.loadFile('src/comunicationtest.html')
 
 }
 

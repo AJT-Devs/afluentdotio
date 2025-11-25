@@ -14,7 +14,7 @@ const StartPage = () => {
       
       <Afluent />
       <button
-        onClick={() => { navigate("/introduction"); }} >
+        onClick={() => { navigate("/login"); }} >
         INICIAR
       </button>
 
