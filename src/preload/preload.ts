@@ -20,6 +20,7 @@ const user: UserIpcAdapter = {
 }
 
 const brainstorm: BrainstormIpcAdapter = {
+  generateAIWords: (brainstorm: Brainstorm, aiKey: string, aiModelPreference: AiModels) => ipcRenderer.invoke('generateAIWords', brainstorm, aiKey, aiModelPreference),
   postBrainstorm: (brainstorm: Brainstorm) => ipcRenderer.invoke('postBrainstorm', brainstorm),
   updateBrainstorm: (brainstorm: Brainstorm) => ipcRenderer.invoke('updateBrainstorm', brainstorm),
   updateViewport: (brainstormId: string, viewport: any) => ipcRenderer.invoke('updateViewport', brainstormId, viewport),

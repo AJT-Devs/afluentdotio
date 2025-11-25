@@ -2,6 +2,7 @@ import { Brainstorm, Viewport, BrainstormEdge, BrainstormNode } from "../../enti
 import { SuccessResponse } from "../../entities/SuccessResponse";
 
 export default interface BrainstormIpcAdapter {
+    generateAIWords(brainstorm: Brainstorm, aiKey: string, aiModelPreference: string): Promise<SuccessResponse | Error> ;
     postBrainstorm(brainstorm: Brainstorm): Promise<SuccessResponse | Error> ;
     updateBrainstorm(brainstorm: Brainstorm): Promise<SuccessResponse | Error> ;
     updateViewport(brainstormId: string, viewport: Viewport): Promise<SuccessResponse | Error> ;

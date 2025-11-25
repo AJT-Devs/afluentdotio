@@ -4,6 +4,13 @@ import BrainstormController from "../../controller/brainstormController";
 import { Brainstorm, BrainstormEdge, BrainstormNode, Viewport } from "../../entities/Brainstorm";
 
 export class BrainstormIpcEndpoint {
+    public static async generateAIWords(): Promise<void> {
+        ipcMain.handle('generateAIWords', async (event, brainstorm: Brainstorm, aiKey: string, aiModelPreference: AiModels) => {
+            const result = await BrainstormController.generateAIWords(brainstorm, aiKey, aiModelPreference);
+            return result;
+        });
+    }
+    
     public static async postBrainstorm(): Promise<void> {
         ipcMain.handle('postBrainstorm', async (event, brainstorm:Brainstorm) => {
             const result = await BrainstormController.postBrainstorm(brainstorm);

@@ -22,6 +22,9 @@
         <input type="text" id="inputNode" placeholder="Node ID"/>
         <input type="text" id="inputEdge" placeholder="Edge ID"/>
         <input type="text" id="inputOther" placeholder="Other ID"/>
+
+        <button onclick="generateAIWords()">Generate AI Words</button>
+
         <button onclick="postBrainstorm()">Post Brainstorm</button>
         <button onclick="updateBrainstorm()">Update Brainstorm</button>
         <button onclick="updateViewport()">Update Viewport</button>
@@ -77,6 +80,13 @@
     const inputEdge = document.getElementById('inputEdge');
     const inputOther = document.getElementById('inputOther');
     const pBrainstorm = document.getElementById('pBrainstorm');
+
+    async function generateAIWords() {
+        const response = await window.brainstorm.generateAIWords({name: `carros malucos`, context:`carros muito malucos`}, inputOther.value, `gemini-2.5-flash`);
+        pBrainstorm.innerHTML = `Generated AI Words: ${JSON.stringify(response)}`;
+        console.log(response);
+        inputBrainstorm.value = '';
+    }
 
     async function postBrainstorm() {
         const response = await window.brainstorm.postBrainstorm({name: 'brainstorm1', context: 'example context', userId: inputUser.value});

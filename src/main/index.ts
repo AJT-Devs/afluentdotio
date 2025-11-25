@@ -7,6 +7,7 @@ import icon from '../../resources/icon.png?asset'
 
 import { UserIpcEndpoints } from '../endpoint/ipc/UserIpcEndpoint';
 import { BrainstormIpcEndpoint } from '../endpoint/ipc/BrainstormIpcEndpoint';
+import { Brainstorm } from '../entities/Brainstorm';
 
 
 
@@ -86,6 +87,7 @@ app.whenReady().then(async () => {
   UserIpcEndpoints.getAllUsers();
   UserIpcEndpoints.getAiKey();
   
+  BrainstormIpcEndpoint.generateAIWords();
   BrainstormIpcEndpoint.postBrainstorm();
   BrainstormIpcEndpoint.updateBrainstorm();
   BrainstormIpcEndpoint.updateViewport();
