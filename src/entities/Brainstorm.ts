@@ -16,22 +16,23 @@ export class Brainstorm {
     }
 }
 
-class BrainstormPool {
-    nodes = Array<BrainstormNode>()
-    edges = Array<BrainstormEdge>()
-    viewport = { x: 0, y: 0, zoom: 1 }
+export class BrainstormPool {
+    nodes 
+    edges 
+    viewport 
 
-    constructor(nodes: BrainstormNode[], edges: BrainstormEdge[], viewport: Viewport) {
-        this.nodes = nodes,
-        this.edges = edges,
-        this.viewport = viewport
+    constructor(nodes?: BrainstormNode[], edges?: BrainstormEdge[], viewport?: Viewport) {
+        this.nodes = nodes || Array<BrainstormNode>(),
+        this.edges = edges || Array<BrainstormEdge>(),
+        this.viewport = viewport || new Viewport(0,0,1)
     }
-}
-class Position {
+    }
+export class Position {
     x
     y
     constructor(x: number,y: number) {
-
+        this.x = x
+        this.y = y
     }
 }
 

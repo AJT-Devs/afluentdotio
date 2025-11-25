@@ -1,4 +1,4 @@
-import { Brainstorm, Viewport, BrainstormNode, BrainstormEdge } from '../entities/Brainstorm';
+import { Brainstorm, Viewport, BrainstormNode, BrainstormEdge, BrainstormPool } from '../entities/Brainstorm';
 import { SuccessResponse } from '../entities/SuccessResponse';
 import BrainstormGeminiService from '../service/brainstorm/BrainstormGeminiService';
 
@@ -30,6 +30,7 @@ export default class BrainstormController {
     
     public static async postBrainstorm(brainstorm: Brainstorm): Promise<SuccessResponse | Error> {
         try{
+            if(!brainstorm.pool) brainstorm.pool = new BrainstormPool([], [], new Viewport(0,0,1));
             const response = await this.BrainstormModel.createBrainstorm(brainstorm);
 
             return new SuccessResponse(201, "Brainstorm salvo com sucesso", response);

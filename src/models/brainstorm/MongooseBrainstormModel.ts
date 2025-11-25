@@ -41,7 +41,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
   public async updatePoolNode(brainstormId: string, node: BrainstormNode): Promise<Partial<Brainstorm> | null> {
     await MongooseSingleton.getInstance();
     const updatedDoc = await BrainstormModelDb.findOneAndUpdate(
-      { _id: brainstormId, 'pool.nodes.id': node.id },
+      { _id: brainstormId, 'pool.nodes._id': node.id },
       { $set: { 'pool.nodes.$': node } },
       { new: true }
     ).exec();
@@ -54,7 +54,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
   public async updatePoolEdge(brainstormId: string, edge: BrainstormEdge): Promise<Partial<Brainstorm> | null> {
     await MongooseSingleton.getInstance();
     const updatedDoc = await BrainstormModelDb.findOneAndUpdate(
-      { _id: brainstormId, 'pool.edges.id': edge.id },
+      { _id: brainstormId, 'pool.edges._id': edge.id },
       { $set: { 'pool.edges.$': edge } },
       { new: true }
     ).exec();
@@ -77,7 +77,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
     await MongooseSingleton.getInstance();
     const updatedDoc = await BrainstormModelDb.findByIdAndUpdate(
       brainstormId,
-      { $pull: { 'pool.nodes': { id: nodeId } } },
+      { $pull: { 'pool.nodes': { _id: nodeId } } },
       { new: true }
     ).exec();
     if (!updatedDoc) {
@@ -90,7 +90,7 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
     await MongooseSingleton.getInstance();
     const updatedDoc = await BrainstormModelDb.findByIdAndUpdate(
       brainstormId,
-      { $pull: { 'pool.edges': { id: edgeId } } },
+      { $pull: { 'pool.edges': { _id: edgeId } } },
       { new: true }
     ).exec();
     if (!updatedDoc) {

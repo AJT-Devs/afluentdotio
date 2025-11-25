@@ -19,6 +19,8 @@
 
     <div>
         <input type="text" id="inputBrainstorm" placeholder="Brainstorm ID"/>
+        <input type="text" id="inputNode" placeholder="Node ID"/>
+        <input type="text" id="inputEdge" placeholder="Edge ID"/>
         <input type="text" id="inputOther" placeholder="Other ID"/>
         <button onclick="postBrainstorm()">Post Brainstorm</button>
         <button onclick="updateBrainstorm()">Update Brainstorm</button>
@@ -71,15 +73,17 @@
 
 
     const inputBrainstorm = document.getElementById('inputBrainstorm');
+    const inputNode = document.getElementById('inputNode');
+    const inputEdge = document.getElementById('inputEdge');
     const inputOther = document.getElementById('inputOther');
     const pBrainstorm = document.getElementById('pBrainstorm');
 
     async function postBrainstorm() {
-        const response = await window.brainstorm.postBrainstorm({name: 'brainstorm1', context: 'example context', userId: `691e97f31d6eda00a74041df`});
+        const response = await window.brainstorm.postBrainstorm({name: 'brainstorm1', context: 'example context', userId: inputUser.value});
         pBrainstorm.innerHTML = `Posted brainstorm: ${JSON.stringify(response)}`;
     }
     async function updateBrainstorm() {
-        const response = await window.brainstorm.updateBrainstorm({id: inputBrainstorm.value, name: 'brainstorm updated', context: 'example context updated', userId: `691e97f31d6eda00a74041df`});
+        const response = await window.brainstorm.updateBrainstorm({id: inputBrainstorm.value, name: 'brainstorm updated', context: 'example context updated', userId: inputUser.value});
         pBrainstorm.innerHTML = `Updated brainstorm: ${JSON.stringify(response)}`;
         inputBrainstorm.value = '';
     }
@@ -89,12 +93,12 @@
         inputBrainstorm.value = '';
     }
     async function updatePoolNode() {
-        const response = await window.brainstorm.updatePoolNode(inputBrainstorm.value, {id: 'node123', word: 'update node', range: 5, position: {x: 50, y: 50}, category: 'category1', proximity: 10});
+        const response = await window.brainstorm.updatePoolNode(inputBrainstorm.value, {id: inputNode.value, word: 'update node', range: 5, position: {x: 50, y: 50}, category: 'category1', proximity: 10});
         pBrainstorm.innerHTML = `Updated pool node: ${JSON.stringify(response)}`;
         inputBrainstorm.value = '';
     }
     async function updatePoolEdge() {
-        const response = await window.brainstorm.updatePoolEdge(inputBrainstorm.value, {id: inputOther.value, source: 'node1', target: 'node2'});
+        const response = await window.brainstorm.updatePoolEdge(inputBrainstorm.value, {id: inputEdge.value, sourceNodeId: inputNode.value, targetNodeId: inputOther.value, label: `teste`});
         pBrainstorm.innerHTML = `Updated pool edge: ${JSON.stringify(response)}`;
         inputBrainstorm.value = '';
     }
@@ -129,12 +133,12 @@
         inputBrainstorm.value = '';
     }
     async function addPoolNodes() {
-        const response = await window.brainstorm.addPoolNodes(inputBrainstorm.value, {id: 'node123', word: 'new node', range: 5, position: {x: 50, y: 50}, category: 'category1', proximity: 10});
+        const response = await window.brainstorm.addPoolNodes(inputBrainstorm.value, {brainstormId: inputBrainstorm.value, word: 'new node', range: 5, position: {x: 50, y: 50}, category: 'category1', proximity: 10});
         pBrainstorm.innerHTML = `Added pool nodes: ${JSON.stringify(response)}`;
         inputBrainstorm.value = '';
     }
     async function addPoolEdges() {
-        const response = await window.brainstorm.addPoolEdges(inputBrainstorm.value, {id: 'edge123', source: 'node1', target: 'node2'});
+        const response = await window.brainstorm.addPoolEdges(inputBrainstorm.value, {brainstormId: inputBrainstorm.value, sourceNodeId: inputNode.value, targetNodeId: inputOther.value, label: `teste`});
         pBrainstorm.innerHTML = `Added pool edges: ${JSON.stringify(response)}`;
         inputBrainstorm.value = '';
     }
