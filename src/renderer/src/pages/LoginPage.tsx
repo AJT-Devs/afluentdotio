@@ -52,7 +52,7 @@ const LoginPage = () => {
       <AfluentLogo />
       <div className="user-list">
         {users.map((user) => (
-          <div key={user.id} className="user-card">
+          <div key={user.id} className="user-card" tabIndex={0}>
             <img src={user.photo} alt={`${user.name} foto`} className="photo" />
             <h2>{user.name}</h2>
           </div>

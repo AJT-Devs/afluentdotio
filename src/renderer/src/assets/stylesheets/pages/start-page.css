@@ -3,8 +3,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: calc(100vh - var(--h-title-bar));
   gap: 20px;
   background-color: var(--background);
 
