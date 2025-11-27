@@ -8,8 +8,8 @@ import "@renderer/assets/stylesheets/pages/login-page.css";
 import { useEffect, useState, useRef } from "react";
 import { User } from "src/entities/User";
 import { SuccessResponse } from "src/entities/SuccessResponse";
-import { Plus } from "lucide-react";
-import { Dialog } from "@radix-ui/react-dialog";
+import { Plus, CircleUserRound } from "lucide-react";
+import DialogCreateUser from "@renderer/components/overlays/dialogs/DialogCreateUser";
 
 
 
@@ -31,10 +31,15 @@ const LoginPage = () => {
     }
   }
 
-  function openUserModal() {
-    createUserRef.current = true;
-  }
+  // function openUserModal() {
+  //   setIsDialogOpen(true);
+  // }
 
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+
+  async function createUser(){
+
+  }
 
 
   useEffect(() => {
@@ -64,20 +69,25 @@ const LoginPage = () => {
       <div className="user-list">
         {users.map((user) => (
           <button key={user.id} className="user-card" tabIndex={0} onClick={() => {setUserId(user.id); console.log("Selected user ID:", user.id)} }>
-            <img src={user.photo} alt={`${user.name} foto`} className="photo" />
+            {user.photo ? <img src={user.photo} alt={`${user.name} foto`} className="photo" /> : <CircleUserRound size={30} />}
+            
             <h2>{user.name}</h2>
           </button>
             )
         )}
-        <button className="user-card" tabIndex={0} onClick={() => openUserModal()}>
+        <button className="user-card" tabIndex={0} onClick={() => setIsDialogOpen(true)}>
           <Plus size={30} />
         </button>
-      </div>
-      {createUserRef && <Dialog />}
+      </div>  
       <button
         onClick={() => handleLogin(userId)} >
         LOGIN
       </button>
+      <DialogCreateUser
+        open={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+        actionSubmit={(name: string, photo?: string | null) => {}}
+      />
     </div>
   )
 }
