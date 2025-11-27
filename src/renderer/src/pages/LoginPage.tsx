@@ -6,11 +6,10 @@ import AfluentLogo from "@renderer/components/AfluentLogo";
 
 import "@renderer/assets/stylesheets/pages/login-page.css";
 import { useEffect, useState, useRef } from "react";
-import { User } from "src/entities/User";
-import { SuccessResponse } from "src/entities/SuccessResponse";
+import { User } from "../../../entities/User";
+import { SuccessResponse } from "../../../entities/SuccessResponse";
 import { Plus, CircleUserRound } from "lucide-react";
 import DialogCreateUser from "@renderer/components/overlays/dialogs/DialogCreateUser";
-
 
 
 
@@ -37,7 +36,16 @@ const LoginPage = () => {
 
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
-  async function createUser(){
+  async function createUser(name:string, photo:string | null | undefined){
+    const user = new User(null, name, photo ?? null, null, null);
+
+    const response: SuccessResponse | Error = await window.user.postUser(user);
+    if (response instanceof Error) {
+      console.error("Error creating user:", response.message);
+    } else {
+      const createdUser: User = response.data;
+      setUsers((prevUsers) => [...prevUsers, createdUser]);
+    }
 
   }
 
@@ -86,7 +94,7 @@ const LoginPage = () => {
       <DialogCreateUser
         open={isDialogOpen}
         onOpenChange={setIsDialogOpen}
-        actionSubmit={(name: string, photo?: string | null) => {}}
+        actionSubmit={(name: string, photo?: string | null) => {createUser(name, photo);}}
       />
     </div>
   )

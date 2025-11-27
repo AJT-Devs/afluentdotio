@@ -22,21 +22,28 @@ const DialogCreateUser = ({
         onOpenChange(false);
     };
 
+    const inputStyle = {
+        fontWeight: '700',
+        fontSize: '16px',
+        color: 'white'
+    };
+
     return (
         <DialogContent.Root open={open} onOpenChange={onOpenChange}>
             <DialogContent.Content>
-                <DialogContent.Title>Cadastrar usuário</DialogContent.Title>
+                <DialogContent.Title>Cadastrar perfil</DialogContent.Title>
                 
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="username-input">Nome:</label>
+                    <label htmlFor="username-input" style={inputStyle}>Nome * :</label>
                     <input type="text" 
                         name="username-input"
                         id="username-input"
                         placeholder="Username"
                         onChange={(e) => setName(e.target.value)}
                         autoFocus
+                        
                     />
-                    <label htmlFor="photo-input">Foto de usuário:</label>
+                    <label htmlFor="photo-input" style={inputStyle}>Foto de perfil:</label>
                     <input type="text" 
                         name="photo-input"
                         id="photo-input"
