@@ -10,6 +10,8 @@ import { User } from "../../../entities/User";
 import { SuccessResponse } from "../../../entities/SuccessResponse";
 import { Plus, CircleUserRound } from "lucide-react";
 import DialogCreateUser from "@renderer/components/overlays/dialogs/DialogCreateUser";
+import { ErrorModal } from "@renderer/components/modals/ErrorModal";
+import { SuccessModal } from "@renderer/components/modals/SuccessModal";
 
 
 
@@ -22,7 +24,9 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const [userId, setUserId] = useState<string | null>(null); 
-  const createUserRef = useRef<boolean>(false);
+
+   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   function handleLogin(userTarget: string | null) {
     if (userTarget !== null) {
@@ -30,9 +34,6 @@ const LoginPage = () => {
     }
   }
 
-  // function openUserModal() {
-  //   setIsDialogOpen(true);
-  // }
 
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
@@ -40,13 +41,14 @@ const LoginPage = () => {
     const user = new User(null, name, photo ?? null, null, null);
 
     const response: SuccessResponse | Error = await window.user.postUser(user);
-    if (response instanceof Error) {
-      console.error("Error creating user:", response.message);
-    } else {
-      const createdUser: User = response.data;
-      setUsers((prevUsers) => [...prevUsers, createdUser]);
-    }
 
+    if (response instanceof Error) {
+      setErrorMessage(response.message);
+      return;
+    } 
+    const createdUser: User = response.data;
+    setUsers((prevUsers) => [...prevUsers, createdUser]);
+    setSuccessMessage(response.message);
   }
 
 
@@ -57,13 +59,12 @@ const LoginPage = () => {
     const fetchUsers = async () => {
       const response: SuccessResponse | Error = await window.user.getAllUsers();
       if (response instanceof Error) {
-        console.error("Error fetching users:", response.message);
-      }else{
-        response.data.map((user: User) => {
-        setUsers((prevUsers) => [...prevUsers, user]);
-        console.log("User fetched:", user);
-      });
+        setErrorMessage(response.message);
+        return;
       }
+      response.data.map((user: User) => {
+        setUsers((prevUsers) => [...prevUsers, user]);
+      })
       
     };
 
@@ -96,6 +97,8 @@ const LoginPage = () => {
         onOpenChange={setIsDialogOpen}
         actionSubmit={(name: string, photo?: string | null) => {createUser(name, photo);}}
       />
+      {successMessage && <SuccessModal message={successMessage} onClose={() => setSuccessMessage(null)} />}
+      {errorMessage && <ErrorModal message={errorMessage} onClose={() => setErrorMessage(null)} />}
     </div>
   )
 }
