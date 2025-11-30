@@ -60,8 +60,8 @@ function App(): React.JSX.Element {
   return (
     <ThemeProvider>
       <TitleBar />
-      <RouterProvider router={router}/>
-      {/* <BrainstormingPage/> */}
+      {/* <RouterProvider router={router}/> */}
+      <BrainstormingPage/>
     </ThemeProvider>
   )
 }

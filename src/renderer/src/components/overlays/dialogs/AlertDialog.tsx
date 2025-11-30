@@ -1,15 +1,5 @@
 import React, {ComponentProps, ReactNode} from "react";
-import { 
-    Root,
-    Trigger,
-    Portal,
-    Overlay,
-    Content as ContentD,
-    Action,
-    Cancel,
-    Title as TitleD,
-    Description as DescriptionD,
-} from "@radix-ui/react-alert-dialog";
+import { Root,Trigger, Portal, Overlay,Content as ContentD, Action, Cancel, Title as TitleD, Description as DescriptionD } from "@radix-ui/react-alert-dialog";
 import "@renderer/assets/stylesheets/components/alert-dialog.css"
 
 interface ContentProps {

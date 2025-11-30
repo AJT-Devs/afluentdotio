@@ -1,4 +1,4 @@
-.menu-context {
+.drop-menu {
   background-color: var(--background);
   padding: 5px 10px;
   border-radius: 20px;
@@ -6,10 +6,12 @@
   border: 0.1px solid var(--sec-elements);
   z-index: 9999;
   min-width: max-content;
+  margin-top: 15px;
+  margin-left: 20px;
   /* position: fixed; */
 }
 
-.menu-context-item {
+.drop-menu-item {
   color: var(--pri-text);
   padding: 5px 15px;
   border-radius: 10px;
@@ -19,25 +21,24 @@
   user-select: none;
 }
 
-.menu-context-item:hover, .menu-context-item:focus {
+.drop-menu-item:hover, .drop-menu-item:focus {
   background-color: var(--des-color);
 }
 
-.menu-context-item[data-highlighted] {
+.drop-menu-item[data-highlighted] {
   background-color: var(--des-color);
 }
 
-.menu-context-item[data-disabled],
-.menu-context-item:disabled {
+.drop-menu-item[data-disabled],
+.drop-menu-item:disabled {
   display: none;
   pointer-events: none;
 }
 
-.menu-context-item-delete {
+.drop-menu-item-delete {
   color: var(--vermelho);
   &:hover{
     background-color: var(--vermelho);
     color: var(--pri-text);
   }
 }
-

@@ -7,12 +7,14 @@ import "@renderer/assets/stylesheets/components/brainstorming/word.css";
 export interface WordNodeData extends Record<string, unknown> {
   wordText: string;
   onEditWord: (id: string, newText: string) => void;
-  onDeleteWord: (id: string) => void; 
+  onDeleteWord: (id: string) => void;
 }
 
 const Word = memo((props: NodeProps<Node<WordNodeData, string | undefined>>) => {
 
   const { data, id } = props;
+
+  const wordMaxText = 10;
 
   // Tipagem dos props vindos do React Flow
   const wordTextInterface = data.wordText as string;
@@ -32,7 +34,6 @@ const Word = memo((props: NodeProps<Node<WordNodeData, string | undefined>>) => 
   const handleDelete = () => {
       onDeleteWord(id);
   }
-
   
   return (
     <>
@@ -40,14 +41,21 @@ const Word = memo((props: NodeProps<Node<WordNodeData, string | undefined>>) => 
             modal={false}
             onOpenChange={setIsMenuOpen}
         >
-            <MenuContext.Trigger>
+            <MenuContext.Trigger onFocus={(event)=>{
+                console.log("entrou")
+                event.target.addEventListener('keydown', (event : any)=>{
+                    console.log(event.key)
+                    if(event.key === "Delete") handleDelete();
+                    else if(event.key === "F2") setIsDialogOpen(true);
+                })
+            }}>
                 <span 
                     className={`word ${isMenuOpen ? "word-focus" : ""}` } 
                     tabIndex={0}
                     aria-label={`Word element - ${wordText}`}
                     title={`${wordText}`}
                 >
-                    {wordText}
+                    {wordText.length > wordMaxText ? (wordText.slice(0, wordMaxText) + "...") : wordText}
                 </span>
             </MenuContext.Trigger>
               <MenuContext.Content>
