@@ -43,7 +43,7 @@ const Word = memo((props: NodeProps<Node<WordNodeData, string | undefined>>) => 
         >
             <MenuContext.Trigger onFocus={(event)=>{
                 console.log("entrou")
-                event.target.addEventListener('keydown', (event : any)=>{
+                event.target.addEventListener('keydown', (event : KeyboardEvent)=>{
                     console.log(event.key)
                     if(event.key === "Delete") handleDelete();
                     else if(event.key === "F2") setIsDialogOpen(true);
