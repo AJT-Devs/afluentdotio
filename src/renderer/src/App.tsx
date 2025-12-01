@@ -9,6 +9,7 @@ import Spinner from "./components/loadSpinner";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import TitleBar from "./layout/TitleBar";
 import LoginPage from "./pages/LoginPage";
+import DashboardPage from "./pages/DashboardPage";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage/>
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardPage/>
   },
   {
     path: "/introduction",
@@ -60,8 +65,8 @@ function App(): React.JSX.Element {
   return (
     <ThemeProvider>
       <TitleBar />
-      {/* <RouterProvider router={router}/> */}
-      <BrainstormingPage/>
+      <RouterProvider router={router}/>
+      {/* <BrainstormingPage/> */}
     </ThemeProvider>
   )
 }

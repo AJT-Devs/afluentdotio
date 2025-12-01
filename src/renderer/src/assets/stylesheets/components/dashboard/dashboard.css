@@ -1,6 +1,25 @@
-button {
-    height: 55px;
-    width: 125px;
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 3px solid var(--pri-elements);
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
+    width: 900px;
+}
+
+.search-input {
+    border : none;
+    background: none;
+}
+
+.button {
     padding: 8px 16px;
     border-radius: 15px;
     border: 3px solid var(--back-ena-btn);

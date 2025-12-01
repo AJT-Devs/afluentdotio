@@ -30,8 +30,9 @@ const LoginPage = () => {
 
   function handleLogin(userTarget: string | null) {
     if (userTarget !== null) {
-      navigate("/introduction");
+      navigate("/dashboard");
     }
+    localStorage.setItem("userId", userTarget ?? "");
   }
 
 
@@ -77,7 +78,7 @@ const LoginPage = () => {
       <AfluentLogo />
       <div className="user-list">
         {users.map((user) => (
-          <button key={user.id} className="user-card" tabIndex={0} onClick={() => {setUserId(user.id); console.log("Selected user ID:", user.id)} }>
+          <button key={user.id} className="user-card" tabIndex={0} onClick={() => {setUserId(user.id)} }>
             {user.photo ? <img src={user.photo} alt={`${user.name} foto`} className="photo" /> : <CircleUserRound size={30} />}
             
             <h2>{user.name}</h2>
