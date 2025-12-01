@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import Console from '@renderer/components/brainstorming/ConsoleBrainstorming';
 import Word, { WordNodeData } from './Word';
 import '@renderer/assets/stylesheets/components/brainstorming/pool.css';
-import Title from './Title';
+// import Title from './Title';
 
 // ========================================
 // TYPES
@@ -18,8 +18,8 @@ interface WordData {
   y: number;
 }
 
-const [brainstormTitle, setBrainstormTitle] = useState('Meu Brainstorming');
-const [showTitle, setShowTitle] = useState(true);
+// const [brainstormTitle, setBrainstormTitle] = useState('Meu Brainstorming');
+// const [showTitle, setShowTitle] = useState(true);
 
 // ========================================
 // CONFIGURAÇÕES
@@ -309,10 +309,17 @@ const Pool = () => {
         fitView
         minZoom={0.2}
         maxZoom={2}
-      >
+
+        fitViewOptions={{
+          padding: 0.1,      // 20% de margem
+          minZoom: 0.2,      // Zoom mínimo do fit
+          maxZoom: 1.5,      // Zoom máximo do fit
+          duration: 0,     // Animação em ms (0 = instantâneo)
+        }}
+        >
         <Console onAddWord={handleAddWord} isFreeMode={isFreeMode} handleToggleFreeMode={handleToggleFreeMode}/>
 
-        <Background color="#cbd5e1" gap={20} />
+        <Background gap={20} />
       </ReactFlow>
     </div>
   );
