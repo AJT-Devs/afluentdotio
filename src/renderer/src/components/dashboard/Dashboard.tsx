@@ -5,7 +5,7 @@ import { useState, useEffect, Key } from "react";
 import '@renderer/assets/stylesheets/components/dashboard/dashboard.css';
 import { Brainstorm } from "src/entities/Brainstorm";
 import { ErrorModal } from "../modals/ErrorModal";
-import { error } from "console";
+import { SuccessResponse } from "src/entities/SuccessResponse";
 
 
 
@@ -20,16 +20,29 @@ export default function Dashboard(){
     }
 
     const [typeListNavSelected, setTypeListNavSelected] = useState<Key>('grid');
+    const [userId, setUserId] = useState<string>('')
     const [brainstormList, setBrainstormList] = useState<Brainstorm[]>([]);
+    const [brainstormId, setBrainstormId] = useState<string>('');
 
     const [errorMessage, setErrorMessage] = useState<string | null> (null);
 
     useEffect(() => {
         const getBrainstormList = async () => {
-            try{}catch(error){
+            try{
+                setUserId(sessionStorage.getItem(userId)?? '');
+                const response: SuccessResponse | Error = await window.brainstorm.getBrainstormById(userId);
+                if(response instanceof Error) {
+                    setErrorMessage(response.message);
+                    return;
+                }
+                response.data.map((brainstorm: Brainstorm) => {
+                    setBrainstormList((prevList) => [...prevList, brainstorm]);
+                })
+            }catch(error){
                 setErrorMessage("Erro inesperado");
             }
         }
+        getBrainstormList;
     },[]);
 
     return (
@@ -51,8 +64,13 @@ export default function Dashboard(){
             </div>
         </nav>
         <main>
-            
-            
+            {
+                brainstormList.map((brainstorm)=>(
+                    <button key={brainstorm.id} className="user-card" tabIndex={0} onClick={() => {setBrainstormId(brainstorm.id)} }>            
+                    <h2 title={brainstorm.name}>{brainstorm.name.length > 5 ? brainstorm.name.slice(0, 5) + "..." : brainstorm.name}</h2>
+          </button>
+                ))
+            }
         </main>
         {errorMessage && <ErrorModal message={errorMessage} onClose={()=> setErrorMessage(null)} /> }
         </>
