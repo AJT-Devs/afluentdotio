@@ -33,6 +33,10 @@
   --word-blur: var(--cinza-claro);
   --word-ia-focus: var(--des-color);
   --word-ia-blur: var(--cinza-escuro);
+
+  --dashboard-nav-back: var(--cinza-escuro);
+  --dashboard-nav-item-back: var(--preto);
+  --dashboard-nav-item-icon: var(--branco);
 }
 
 :root[data-theme="light"]{
@@ -56,6 +60,10 @@
   --word-blur: var(--cinza-claro);
   --word-ia-focus: var(--cinza-escuro);
   --word-ia-blur: var(--cinza-claro);
+
+  --dashboard-nav-back: var(--cinza-claro);
+  --dashboard-nav-item-back: var(--branco);
+  --dashboard-nav-item-icon: var(--preto);
 }
 
 *,

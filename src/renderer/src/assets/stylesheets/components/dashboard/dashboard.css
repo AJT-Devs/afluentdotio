@@ -44,7 +44,7 @@ nav{
 }
 
 .div-type-list-nav {
-    background: var(--cinza-escuro);
+    background: var(--dashboard-nav-back);
     padding: 10px;
     border-radius: 15px;
     display: flex;
@@ -57,6 +57,6 @@ nav{
 }
 
 .type-list-nav-selected {
-    background: var(--preto);    
+    background: var(--dashboard-nav-item-back);    
     border-radius: 5px;
 }
