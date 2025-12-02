@@ -1,6 +1,7 @@
 import { CircleUserRound, Bolt, Search} from "lucide-react";
-import '../../assets/stylesheets/components/dashboard/dashboard.css';
 import { NavigateFunction, useNavigate } from "react-router";
+
+import '@renderer/assets/stylesheets/components/dashboard/dashboard.css';
 
 
 
@@ -11,16 +12,14 @@ export default function Dashboard(){
     }
 
     return (
-        <>
-            <header className="dashboard-header">
-                <CircleUserRound size={55} />
-                <div className="search-header">
-                    <input type="text" placeholder="Busque..." className="search-input" />
-                    <Search size={30} />
-                </div>
-                <button className="button" onClick={handleCriar}>CRIAR</button>
-                <Bolt size={55} />
-            </header>
-        </>
+        <header className="dashboard-header">
+            <CircleUserRound size={60} className="icon" />
+            <div className="search-header">
+                <input type="text" placeholder="Busque..." className="search-input" />
+                <div className="icon-search"><Search size={30} /></div>
+            </div>
+            <button onClick={handleCriar}>CRIAR</button>
+            <Bolt size={50} className="icon"/>
+        </header>
     );
 }

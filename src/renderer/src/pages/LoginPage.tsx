@@ -13,6 +13,8 @@ import DialogCreateUser from "@renderer/components/overlays/dialogs/DialogCreate
 import { ErrorModal } from "@renderer/components/modals/ErrorModal";
 import { SuccessModal } from "@renderer/components/modals/SuccessModal";
 
+import img from "@renderer/assets/imgUserTest.jpg";
+
 
 
 
@@ -79,25 +81,21 @@ const LoginPage = () => {
       <div className="user-list">
         {users.map((user) => (
           <button key={user.id} className="user-card" tabIndex={0} onClick={() => {setUserId(user.id)} }>
-            {user.photo ? <img src={user.photo} alt={`${user.name} foto`} className="photo" /> : <CircleUserRound size={30} />}
+            {user.photo ? <img src={img} alt={`${user.name} foto`} className="photo" /> : <CircleUserRound size={60} />}
             
-            <h2>{user.name}</h2>
+            <h2 title={user.name}>{user.name.length > 5 ? user.name.slice(0, 5) + "..." : user.name}</h2>
           </button>
             )
         )}
         <button className="user-card" tabIndex={0} onClick={() => setIsDialogOpen(true)}>
-          <Plus size={30} />
+          <Plus size={50} />
         </button>
       </div>  
       <button
         onClick={() => handleLogin(userId)} >
         LOGIN
       </button>
-      <DialogCreateUser
-        open={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-        actionSubmit={(name: string, photo?: string | null) => {createUser(name, photo);}}
-      />
+      <DialogCreateUser open={isDialogOpen} onOpenChange={setIsDialogOpen} actionSubmit={(name: string, photo?: string | null) => {createUser(name, photo);}} />
       {successMessage && <SuccessModal message={successMessage} onClose={() => setSuccessMessage(null)} />}
       {errorMessage && <ErrorModal message={errorMessage} onClose={() => setErrorMessage(null)} />}
     </div>

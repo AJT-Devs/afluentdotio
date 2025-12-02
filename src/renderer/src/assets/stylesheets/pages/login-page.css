@@ -12,6 +12,9 @@
     height: 2rem;
     fill: var(--logo);
   }
+  h2{
+    font-size: 1.5rem;
+  }
 }
 
 .user-list {
@@ -27,4 +30,15 @@
 .user-card {
   width: 150px;
   height: 150px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+
+  img{
+   width: 60px;
+   border-radius: 100%;
+  }
 }
