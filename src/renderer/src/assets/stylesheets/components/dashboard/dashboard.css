@@ -28,7 +28,35 @@ header{
         }
     }
 
-    .icon{
+    
+}
+
+.icon{
         color: var(--pri-elements);
-    }
+}
+
+nav{
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    
+}
+
+.div-type-list-nav {
+    background: var(--cinza-escuro);
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+
+.type-list-nav {
+    padding: 5px;
+}
+
+.type-list-nav-selected {
+    background: var(--preto);    
+    border-radius: 5px;
 }

@@ -5,7 +5,7 @@ import AfluentLogo from "@renderer/components/AfluentLogo";
 
 
 import "@renderer/assets/stylesheets/pages/login-page.css";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, ImgHTMLAttributes } from "react";
 import { User } from "../../../entities/User";
 import { SuccessResponse } from "../../../entities/SuccessResponse";
 import { Plus, CircleUserRound } from "lucide-react";
@@ -13,7 +13,7 @@ import DialogCreateUser from "@renderer/components/overlays/dialogs/DialogCreate
 import { ErrorModal } from "@renderer/components/modals/ErrorModal";
 import { SuccessModal } from "@renderer/components/modals/SuccessModal";
 
-import img from "@renderer/assets/imgUserTest.jpg";
+import img1 from '../../../../assets/public/golang-sh-600x600.png'
 
 
 
@@ -24,17 +24,23 @@ const LoginPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const hasFetchedUsers= useRef<boolean>(false);
   const navigate = useNavigate();
-
+  
   const [userId, setUserId] = useState<string | null>(null); 
+  const [userPhoto, setUserPhoto] = useState<string | null> (null);
 
-   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   function handleLogin(userTarget: string | null) {
     if (userTarget !== null) {
       navigate("/dashboard");
     }
-    localStorage.setItem("userId", userTarget ?? "");
+    sessionStorage.setItem("userId", userTarget ?? "");
+    sessionStorage.setItem("userPhoto", userPhoto ?? "");
+  }
+
+  function handleVoltar(){
+    return navigate("/")
   }
 
 
@@ -54,7 +60,7 @@ const LoginPage = () => {
     setSuccessMessage(response.message);
   }
 
-
+  
   useEffect(() => {
     if (hasFetchedUsers.current) return;
     hasFetchedUsers.current = true;
@@ -77,11 +83,11 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      <AfluentLogo />
+      <div onClick={handleVoltar}><AfluentLogo /></div>
       <div className="user-list">
         {users.map((user) => (
           <button key={user.id} className="user-card" tabIndex={0} onClick={() => {setUserId(user.id)} }>
-            {user.photo ? <img src={img} alt={`${user.name} foto`} className="photo" /> : <CircleUserRound size={60} />}
+            {user.photo ? <img src={img1} alt={`${user.name} foto`} className="photo" /> : <CircleUserRound size={60} />}
             
             <h2 title={user.name}>{user.name.length > 5 ? user.name.slice(0, 5) + "..." : user.name}</h2>
           </button>

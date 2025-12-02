@@ -2,6 +2,9 @@ import DialogContent from "./Dialog";
 import * as React from "react";
 import { useState } from "react";
 
+import { CircleUserRound } from "lucide-react";
+import img1 from '../../../../../../assets/public/golang-sh-600x600.png'
+
 interface DialogCreateUser {
     open: boolean;
     onOpenChange: (open: boolean) => void;
@@ -22,11 +25,22 @@ const DialogCreateUser = ({
         onOpenChange(false);
     };
 
+    const handlePhoto = (photoOption: string) =>{
+        setPhoto(photoOption);
+    }
+
     const inputStyle = {
         fontWeight: '700',
         fontSize: '16px',
         color: 'white'
     };
+
+    const divinputstyle = {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px'
+    }
+
 
     return (
         <DialogContent.Root open={open} onOpenChange={onOpenChange}>
@@ -41,15 +55,19 @@ const DialogCreateUser = ({
                         placeholder="Username"
                         onChange={(e) => setName(e.target.value)}
                         autoFocus
-                        
+                        required
                     />
-                    <label htmlFor="photo-input" style={inputStyle}>Foto de perfil:</label>
-                    <input type="text" 
-                        name="photo-input"
-                        id="photo-input"
-                        placeholder="Cole a url da sua imagem"
-                        onChange={(e) => setPhoto(e.target.value)}
-                    />
+                    <label htmlFor="photo-input" style={inputStyle}>Avatar de perfil:</label>
+                    <div style={divinputstyle}>
+                        <button onClick={()=>handlePhoto('')} type="button">
+                            <CircleUserRound size={50}/>
+                        </button>
+                        <button onClick={()=>handlePhoto('img1')} type="button">
+                            <img src={img1} width={50} height={50}/>
+                        </button>
+
+                    </div>
+
                     <div className="dialog-buttons">
                         <DialogContent.Close asChild>
                             <button type="button">Cancelar</button>
