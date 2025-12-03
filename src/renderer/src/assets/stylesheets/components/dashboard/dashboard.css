@@ -60,3 +60,9 @@ nav{
     background: var(--dashboard-nav-item-back);    
     border-radius: 5px;
 }
+
+/* main {
+    display:grid;
+    grid-template-columns: auto auto auto auto;
+    grid-auto-flow: row;
+} */

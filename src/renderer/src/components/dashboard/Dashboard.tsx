@@ -1,6 +1,6 @@
 import { CircleUserRound, Bolt, Search, List, Grid2X2 } from "lucide-react";
 import { useNavigate } from "react-router";
-import { useState, useEffect, Key } from "react";
+import { useState, useEffect, Key, useRef } from "react";
 
 import '@renderer/assets/stylesheets/components/dashboard/dashboard.css';
 import { Brainstorm } from "src/entities/Brainstorm";
@@ -20,17 +20,24 @@ export default function Dashboard(){
     }
 
     const [typeListNavSelected, setTypeListNavSelected] = useState<Key>('grid');
-    const [userId, setUserId] = useState<string>('')
     const [brainstormList, setBrainstormList] = useState<Brainstorm[]>([]);
     const [brainstormId, setBrainstormId] = useState<string>('');
 
     const [errorMessage, setErrorMessage] = useState<string | null> (null);
 
+    const hasFetchedBrainstorms = useRef<Boolean>(false);
+
     useEffect(() => {
+        if(hasFetchedBrainstorms.current){
+            return;
+        }
+        hasFetchedBrainstorms.current = true;
         const getBrainstormList = async () => {
             try{
-                setUserId(sessionStorage.getItem(userId)?? '');
-                const response: SuccessResponse | Error = await window.brainstorm.getBrainstormById(userId);
+                const userId = sessionStorage.getItem('userId') || '';
+
+                const response: SuccessResponse | Error = await window.brainstorm.getAllBrainstormByUser(userId);
+                console.log(response);
                 if(response instanceof Error) {
                     setErrorMessage(response.message);
                     return;
@@ -42,7 +49,7 @@ export default function Dashboard(){
                 setErrorMessage("Erro inesperado");
             }
         }
-        getBrainstormList;
+        getBrainstormList();
     },[]);
 
     return (
@@ -64,13 +71,14 @@ export default function Dashboard(){
             </div>
         </nav>
         <main>
-            {
+            {   brainstormList.length > 0 &&
                 brainstormList.map((brainstorm)=>(
-                    <button key={brainstorm.id} className="user-card" tabIndex={0} onClick={() => {setBrainstormId(brainstorm.id)} }>            
-                    <h2 title={brainstorm.name}>{brainstorm.name.length > 5 ? brainstorm.name.slice(0, 5) + "..." : brainstorm.name}</h2>
-          </button>
+                    <button key={brainstorm.id} className="brainstorm-card" tabIndex={0} onClick={() => {setBrainstormId(brainstorm.id)} }>            
+                        <h2 title={brainstorm.name}>{brainstorm.name.length > 5 ? brainstorm.name.slice(0, 5) + "..." : brainstorm.name}</h2>
+                    </button>
                 ))
             }
+            { brainstormList.length <= 0 && <p>Nenhum brainstorm encontrado.</p> }
         </main>
         {errorMessage && <ErrorModal message={errorMessage} onClose={()=> setErrorMessage(null)} /> }
         </>

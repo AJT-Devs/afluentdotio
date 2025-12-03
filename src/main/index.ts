@@ -62,7 +62,7 @@ function createWindow(): void {
   //   mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   // }
 
-   if (is.dev ) {
+  if (is.dev ) {
     mainWindow.loadURL('http://localhost:5173')
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
