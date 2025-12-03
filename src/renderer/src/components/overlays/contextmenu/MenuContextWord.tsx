@@ -4,8 +4,8 @@ import DialogEditTextOfWord from "../dialogs/DialogEditTextOfWord";
 
 export interface MenuContextWordProps {
     wordText: string;
-    onEditWord: (newText: string) => void;
-    onDeleteWord: () => void;
+    handleEditWord: (newText: string) => void;
+    handleDeleteWord: () => void;
 }
 
 const MenuContextWord = (props : MenuContextWordProps) => {
@@ -15,7 +15,7 @@ const MenuContextWord = (props : MenuContextWordProps) => {
 
     const handleEditSubmit = (newText: string) => {
         setWordText(newText);
-        props.onEditWord(newText);
+        props.handleEditWord(newText);
     };
 
     return (
@@ -46,7 +46,7 @@ const MenuContextWord = (props : MenuContextWordProps) => {
                       </MenuContext.Item>
                       
                       <MenuContext.Item 
-                          onSelect={props.onDeleteWord}  
+                          onSelect={props.handleDeleteWord}  
                           tabIndex={0} 
                           aria-label="Botão Deletar"
                       >

@@ -1,16 +1,16 @@
-// src/renderer/src/components/Pool.tsx
-
 import { ReactFlow, Background, Node, useNodesState } from '@xyflow/react';
 import { useState, useEffect } from 'react';
 import Console from '@renderer/components/brainstorming/ConsoleBrainstorming';
 import Word, { WordNodeData } from './Word';
+import {calculateAllPositions, recalculateRangesFromPositions} from "@renderer/hooks/CalculatePoolFunctions";
 import '@renderer/assets/stylesheets/components/brainstorming/pool.css';
+
 // import Title from './Title';
 
 // ========================================
 // TYPES
 // ========================================
-interface WordData {
+export interface WordData {
   id: string;
   text: string;
   range: number;
@@ -21,86 +21,6 @@ interface WordData {
 // const [brainstormTitle, setBrainstormTitle] = useState('Meu Brainstorming');
 // const [showTitle, setShowTitle] = useState(true);
 
-// ========================================
-// CONFIGURAÇÕES
-// ========================================
-const LAYOUT_CONFIG = {
-  wordsPerFirstLayer: 10,
-  baseRadius: 260,
-  radiusIncrement: 160,
-  capacityMultiplier: 1.2,
-};
-
-// ========================================
-// FUNÇÕES DE CÁLCULO
-// ========================================
-
-const calculateLayer = (range: number): number => {
-  const { wordsPerFirstLayer, capacityMultiplier } = LAYOUT_CONFIG;
-  if (range < wordsPerFirstLayer) return 1;
-
-  let accumulated = wordsPerFirstLayer;
-  let layer = 1;
-  let layerCapacity = wordsPerFirstLayer;
-
-  while (range >= accumulated) {
-    layer++;
-    layerCapacity = Math.floor(layerCapacity * capacityMultiplier);
-    accumulated += layerCapacity;
-  }
-
-  return layer;
-};
-
-const calculateRadius = (layer: number): number => {
-  const { baseRadius, radiusIncrement } = LAYOUT_CONFIG;
-  return baseRadius + (layer - 1) * radiusIncrement;
-};
-
-const getLayerCapacity = (layer: number): number => {
-  const { wordsPerFirstLayer, capacityMultiplier } = LAYOUT_CONFIG;
-  if (layer === 1) return wordsPerFirstLayer;
-
-  let capacity = wordsPerFirstLayer;
-  for (let i = 2; i <= layer; i++) {
-    capacity = Math.floor(capacity * capacityMultiplier);
-  }
-
-  return capacity;
-};
-
-const getLayerStartRange = (layer: number): number => {
-  if (layer === 1) return 0;
-
-  let accumulated = 0;
-  for (let i = 1; i < layer; i++) {
-    accumulated += getLayerCapacity(i);
-  }
-
-  return accumulated;
-};
-
-const calculatePosition = (range: number): { x: number; y: number } => {
-  const layer = calculateLayer(range);
-  const radius = calculateRadius(layer);
-  const layerStartRange = getLayerStartRange(layer);
-  const positionInLayer = range - layerStartRange;
-  const layerCapacity = getLayerCapacity(layer);
-  const angleStep = (2 * Math.PI) / layerCapacity;
-  const angle = positionInLayer * angleStep;
-
-  const x = Math.cos(angle) * radius;
-  const y = Math.sin(angle) * radius;
-
-  return { x, y };
-};
-
-const calculateAllPositions = (wordsList: Omit<WordData, 'x' | 'y'>[]): WordData[] => {
-  return wordsList.map((word) => {
-    const { x, y } = calculatePosition(word.range);
-    return { ...word, x, y };
-  });
-};
 
 // ========================================
 // DADOS INICIAIS
@@ -126,31 +46,6 @@ const nodeTypes = {
 const Pool = () => {
   const [words, setWords] = useState<WordData[]>(MOCK_WORDS);
   const [isFreeMode, setIsFreeMode] = useState(false); // ← NOVO
-
-  // ========================================
-  // RECALCULAR RANGES BASEADO EM POSIÇÕES
-  // ========================================
-  const recalculateRangesFromPositions = (wordsList: WordData[]): WordData[] => {
-    const wordsWithDistance = wordsList.map((word) => {
-      const distance = Math.sqrt(word.x ** 2 + word.y ** 2);
-      return { ...word, distance };
-    });
-
-    const sorted = wordsWithDistance.sort((a, b) => a.distance - b.distance);
-
-    const wordsWithNewRanges = sorted.map((word, index) => ({
-      ...word,
-      range: index,
-    }));
-
-    const recalculated = calculateAllPositions(
-      wordsWithNewRanges.map(({ distance, ...word }) => word)
-    );
-
-    console.log('📐 Ranges recalculados:', recalculated);
-
-    return recalculated;
-  };
 
   // ========================================
   // HANDLERS
@@ -200,10 +95,10 @@ const Pool = () => {
     setWords(updatedWords);
   };
 
-  const handleNodeDragStop = (event, node) => {
+  const handleNodeDragStop = (node) => {
     if (!isFreeMode) return;
 
-    console.log('📍 Palavra movida:', node.id, 'para', node.position);
+    // console.log('📍 Palavra movida:', node.id, 'para', node.position);
 
     setWords((prev) =>
       prev.map((word) =>
@@ -220,11 +115,11 @@ const Pool = () => {
 
   const handleToggleFreeMode = () => {
     if (isFreeMode) {
-      console.log('🔒 Desativando modo livre - Recalculando ranges...');
+      // console.log('🔒 Desativando modo livre - Recalculando ranges...');
       const reorganized = recalculateRangesFromPositions(words);
       setWords(reorganized);
     } else {
-      console.log('🔓 Ativando modo livre - Pode mover livremente!');
+      // console.log('🔓 Ativando modo livre - Pode mover livremente!');
     }
 
     setIsFreeMode((prev) => !prev);
@@ -251,7 +146,6 @@ const Pool = () => {
 
   useEffect(() => {
   if (isFreeMode) {
-    console.log('🔓 Modo livre ativo');
     
     // Cria mapa de nodes atuais
     const currentNodesMap = new Map(nodes.map(n => [n.id, n]));

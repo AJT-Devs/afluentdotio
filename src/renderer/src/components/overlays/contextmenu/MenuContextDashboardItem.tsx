@@ -3,10 +3,14 @@ import { useState, ReactNode } from "react";
 
 export interface MenuContextDashboardItemProps {
     children : ReactNode;
-    onEditNameBrainstorm : (newName : string)=>void;
+    handleOpenBrainstorm: (id : string | number)=>void;
+    handleDuplicatorBrainstorm : (id : string | number)=>void;
+    handleEditNameBrainstorm : (id : string | number, newName : string)=>void;
+    handleConfirmDeleteBrainstorm : (id : string | number)=>void;
+    handleDeleteBrainstorm : (id : string | number)=>void;
 }
 
-const MenuContextDashboardItem = (props : MenuContextDashboardItemProps) => {
+const MenuContextDashboardItem = ({children, handleOpenBrainstorm, handleDuplicatorBrainstorm, handleEditNameBrainstorm, handleConfirmDeleteBrainstorm, ...props} : MenuContextDashboardItemProps) => {
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -16,27 +20,27 @@ const MenuContextDashboardItem = (props : MenuContextDashboardItemProps) => {
                 modal={false}
             >
                 <MenuContext.Trigger>
-                    {props.children}
+                    {children}
                 </MenuContext.Trigger>
                   <MenuContext.Content>
                       <MenuContext.Item 
                           tabIndex={0} 
                           aria-label="Botão Abrir"
-                          onSelect={()=>{}}
+                          onSelect={()=>{handleOpenBrainstorm}}
                       >
                           Abrir
                       </MenuContext.Item>
                       <MenuContext.Item 
                           tabIndex={0} 
                           aria-label="Botão Duplicar"
-                          onSelect={()=>{setIsDialogOpen(true)}}
+                          onSelect={()=>{handleDuplicatorBrainstorm}}
                       >
                           Duplicar
                       </MenuContext.Item>
                       <MenuContext.Item 
                           tabIndex={0} 
                           aria-label="Botão Renomear"
-                          onSelect={()=>{}}
+                          onSelect={()=>{handleEditNameBrainstorm}}
                       >
                           Renomear
                       </MenuContext.Item>
@@ -44,7 +48,7 @@ const MenuContextDashboardItem = (props : MenuContextDashboardItemProps) => {
                           tabIndex={0} 
                           className="menu-context-item-delete"
                           aria-label="Botão Mover para lixeira"
-                          onSelect={()=>{}}
+                          onSelect={()=>{handleConfirmDeleteBrainstorm}}
                       >
                           Mover Para Lixeira
                       </MenuContext.Item>

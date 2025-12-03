@@ -6,8 +6,8 @@ import "@renderer/assets/stylesheets/components/brainstorming/word.css";
 
 export interface WordNodeData extends Record<string, unknown> {
   wordText: string;
-  onEditWord: (id: string, newText: string) => void;
-  onDeleteWord: (id: string) => void;
+  handleEditWord: (id: string, newText: string) => void;
+  handleDeleteWord: (id: string) => void;
 }
 
 const Word = memo((props: NodeProps<Node<WordNodeData, string | undefined>>) => {
@@ -18,8 +18,8 @@ const Word = memo((props: NodeProps<Node<WordNodeData, string | undefined>>) => 
 
   // Tipagem dos props vindos do React Flow
   const wordTextInterface = data.wordText as string;
-  const onEditWord = data.onEditWord as (id: string, newText: string) => void;
-  const onDeleteWord= data.onDeleteWord as (id: string) => void;
+  const handleEditWord = data.handleEditWord as (id: string, newText: string) => void;
+  const handleDeleteWord= data.handleDeleteWord as (id: string) => void;
 
   // Estados internos
   const [wordText, setWordText] = useState(wordTextInterface);
@@ -28,11 +28,11 @@ const Word = memo((props: NodeProps<Node<WordNodeData, string | undefined>>) => 
 
   const handleEditSubmit = (newText: string) => {
       setWordText(newText);
-      onEditWord(id, newText);
+      handleEditWord(id, newText);
   };
 
   const handleDelete = () => {
-      onDeleteWord(id);
+      handleDeleteWord(id);
   }
   
   return (
