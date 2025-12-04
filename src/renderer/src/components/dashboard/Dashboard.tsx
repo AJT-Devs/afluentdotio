@@ -22,6 +22,8 @@ export default function Dashboard(){
     const [typeListNavSelected, setTypeListNavSelected] = useState<Key>('grid');
     const [brainstormList, setBrainstormList] = useState<Brainstorm[]>([]);
     const [brainstormId, setBrainstormId] = useState<string>('');
+    const [userPhoto, setUserPhoto] = useState<string | null>(null);
+    const [userId, setUserId] = useState<string | null>(null);
 
     const [errorMessage, setErrorMessage] = useState<string | null> (null);
 
@@ -34,9 +36,17 @@ export default function Dashboard(){
         hasFetchedBrainstorms.current = true;
         const getBrainstormList = async () => {
             try{
-                const userId = sessionStorage.getItem('userId') || '';
+                const userIdsession = sessionStorage.getItem('userId') || null;
+                setUserId(userIdsession);
+                const userPhoto = sessionStorage.getItem('userPhoto') || null;
+                setUserPhoto(userPhoto);
 
-                const response: SuccessResponse | Error = await window.brainstorm.getAllBrainstormByUser(userId);
+                if(!userIdsession){
+                    setErrorMessage("Erro ao encontrar usuário. Por favor, faça login novamente.");
+                    return;
+                }
+
+                const response: SuccessResponse<Brainstorm[]> | Error = await window.brainstorm.getAllBrainstormByUser(userIdsession);
                 console.log(response);
                 if(response instanceof Error) {
                     setErrorMessage(response.message);
@@ -55,7 +65,8 @@ export default function Dashboard(){
     return (
         <>
         <header className="dashboard-header">
-            <CircleUserRound size={60} className="icon" onClick={handleVoltar}/>
+            {userPhoto ? <img src={userPhoto} alt="User Photo" className="photo-user-header" onClick={handleVoltar} width={50} height={50} />
+             : <CircleUserRound size={50} className="icon btn-config" tabIndex={0} onClick={handleVoltar}/>}
             <div className="search-header">
                 <input type="text" placeholder="Busque..." className="search-input" />
                 <div className="icon-search"><Search size={30} /></div>
@@ -64,7 +75,7 @@ export default function Dashboard(){
             <Bolt size={50} className="icon btn-config" tabIndex={0}/>
         </header>
         <nav>
-            <p>Meus Brainstorms</p>
+            <p className="dashboard-nav-p">Meus Brainstorms</p>
             <div className="div-type-list-nav">
                 <Grid2X2 key={'grid'} size={35} className={`icon type-list-nav ${typeListNavSelected == 'grid'? 'type-list-nav-selected' : ''}`} onClick={()=>{setTypeListNavSelected('grid')}} />
                 <List key={'list'} size={35} className={`icon type-list-nav ${typeListNavSelected == 'list'? 'type-list-nav-selected' : ''}`} onClick={()=>{setTypeListNavSelected('list')}} />
@@ -78,7 +89,7 @@ export default function Dashboard(){
                     </button>
                 ))
             }
-            { brainstormList.length <= 0 && <p>Nenhum brainstorm encontrado.</p> }
+            { brainstormList.length <= 0 && <p className="dashboard-main-p">Nenhum brainstorm encontrado.</p> }
         </main>
         {errorMessage && <ErrorModal message={errorMessage} onClose={()=> setErrorMessage(null)} /> }
         </>

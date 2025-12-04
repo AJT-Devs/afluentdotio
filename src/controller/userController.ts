@@ -15,19 +15,19 @@ export default class UserController {
     private static UserModel: UserModelAdapter = new MongooseUserModel();
     private static ErrorLogModel: ErrorLogModelAdapter = new mongooseErrorLogModel();
 
-    public static async postUser(user: User): Promise<SuccessResponse | Error> {
+    public static async postUser(user: User): Promise<SuccessResponse<Partial<User>> | Error> {
         try{
-            const User = await this.UserModel.createUser(user);
-            return new SuccessResponse(201, "Usuário criado com sucesso", User);
+            const userResponse: Partial<User> = await this.UserModel.createUser(user);
+            return new SuccessResponse(201, "Usuário criado com sucesso", userResponse);
         }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
             return new Error("Erro ao criar usuário");
         }
     }
     
-    public static async updateUser(user: User): Promise<SuccessResponse | Error> {
+    public static async updateUser(user: User): Promise<SuccessResponse<User> | Error> {
         try{
-            const userResponse = await this.UserModel.updateUser(user);
+            const userResponse: User | null = await this.UserModel.updateUser(user);
             if(!userResponse){
                 return new SuccessResponse(404, "Usuário não encontrado", {});
             }
@@ -38,9 +38,9 @@ export default class UserController {
         }
     }
 
-    public static async deleteUser(id: string): Promise<SuccessResponse | Error> {
+    public static async deleteUser(id: string): Promise<SuccessResponse<User> | Error> {
         try{
-            const userResponse = await this.UserModel.deleteUser(id);
+            const userResponse: User | null = await this.UserModel.deleteUser(id);
             if(!userResponse){
                 return new SuccessResponse(404, "Usuário não encontrado", {});
             }
@@ -50,9 +50,9 @@ export default class UserController {
             return new Error("Erro ao deletar usuário");
         }
     }
-    public static async getUserById(id: string): Promise<SuccessResponse | Error> {
+    public static async getUserById(id: string): Promise<SuccessResponse<Partial<User>> | Error> {
         try{
-            const userResponse = await this.UserModel.getUserById(id);
+            const userResponse: Partial<User> | null = await this.UserModel.getUserById(id);
             if(!userResponse){
                 return new SuccessResponse(404, "Usuário não encontrado", {});
             }
@@ -64,9 +64,9 @@ export default class UserController {
         }
     }
 
-    public static async getAllUsers(): Promise<SuccessResponse | Error> {
+    public static async getAllUsers(): Promise<SuccessResponse<Partial<User>[]> | Error> {
         try{
-            const users = await this.UserModel.getAllUsers();
+            const users: Partial<User>[] = await this.UserModel.getAllUsers();
             return new SuccessResponse(200, "Usuários encontrados com sucesso", users);
         }catch(error: unknown){
             await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
@@ -74,9 +74,9 @@ export default class UserController {
         }
     }
 
-    public static async getAiKey(id: string): Promise<SuccessResponse | Error> {
+    public static async getAiKey(id: string): Promise<SuccessResponse<Partial<User>> | Error> {
         try{
-            const userResponse = await this.UserModel.getAiKey(id);
+            const userResponse:  string | null = await this.UserModel.getAiKey(id);
             if(!userResponse){
                 return new SuccessResponse(404, "Usuário não encontrado", {});
             }

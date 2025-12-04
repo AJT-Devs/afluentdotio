@@ -5,7 +5,7 @@ import AfluentLogo from "@renderer/components/AfluentLogo";
 
 
 import "@renderer/assets/stylesheets/pages/login-page.css";
-import { useEffect, useState, useRef, ImgHTMLAttributes } from "react";
+import { useEffect, useState, useRef} from "react";
 import { User } from "../../../entities/User";
 import { SuccessResponse } from "../../../entities/SuccessResponse";
 import { Plus, CircleUserRound } from "lucide-react";
@@ -13,7 +13,14 @@ import DialogCreateUser from "@renderer/components/overlays/dialogs/DialogCreate
 import { ErrorModal } from "@renderer/components/modals/ErrorModal";
 import { SuccessModal } from "@renderer/components/modals/SuccessModal";
 
-import img1 from '../../../../assets/public/golang-sh-600x600.png'
+import cobol from '../../../../assets/public/cobol.png'
+import cpp from '../../../../assets/public/cpp.png'
+import delphi from '../../../../assets/public/delphi.png'
+import golang from '../../../../assets/public/golang.png'
+import java from '../../../../assets/public/java.png'
+import kotlin from '../../../../assets/public/kotlin.png'
+import python from '../../../../assets/public/python.png'
+import rust from '../../../../assets/public/rust.png'
 
 
 
@@ -31,12 +38,26 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  // Mapeamento de caminhos de imagem
+  const imageMap: { [key: string]: string } = {
+    [cobol]: cobol,
+    [cpp]: cpp,
+    [delphi]: delphi,
+    [golang]: golang,
+    [java]: java,
+    [kotlin]: kotlin,
+    [python]: python,
+    [rust]: rust
+  };
+
   function handleLogin(userTarget: string | null) {
     if (userTarget !== null) {
       navigate("/dashboard");
+      sessionStorage.setItem("userId", userId ?? "naofoi");
+      sessionStorage.setItem("userPhoto", userPhoto ?? "");
+      return;
     }
-    sessionStorage.setItem("userId", userTarget ?? "");
-    sessionStorage.setItem("userPhoto", userPhoto ?? "");
+    setErrorMessage("Selecione um usuário para continuar.");
   }
 
   function handleToBack(){
@@ -49,7 +70,7 @@ const LoginPage = () => {
   async function createUser(name:string, photo:string | null | undefined){
     const user = new User(null, name, photo ?? null, null, null);
 
-    const response: SuccessResponse | Error = await window.user.postUser(user);
+    const response: SuccessResponse<User> | Error = await window.user.postUser(user);
 
     if (response instanceof Error) {
       setErrorMessage(response.message);
@@ -66,7 +87,7 @@ const LoginPage = () => {
     hasFetchedUsers.current = true;
 
     const fetchUsers = async () => {
-      const response: SuccessResponse | Error = await window.user.getAllUsers();
+      const response: SuccessResponse<User[]> | Error = await window.user.getAllUsers();
       if (response instanceof Error) {
         setErrorMessage(response.message);
         return;
@@ -86,8 +107,8 @@ const LoginPage = () => {
       <div onClick={handleToBack}><AfluentLogo /></div>
       <div className="user-list">
         {users.map((user) => (
-          <button key={user.id} className="user-card" tabIndex={0} onClick={() => {setUserId(user.id)} }>
-            {user.photo ? <img src={img1} alt={`${user.name} foto`} className="photo" /> : <CircleUserRound size={60} />}
+          <button key={user.id} className="user-card" tabIndex={0} onClick={() => {setUserId(user.id); setUserPhoto(user.photo)} }>
+            {user.photo ? <img src={imageMap[user.photo] || user.photo} alt={`${user.name} foto`} className="photo" /> : <CircleUserRound size={60} />}
             
             <h2 title={user.name}>{user.name.length > 5 ? user.name.slice(0, 5) + "..." : user.name}</h2>
           </button>

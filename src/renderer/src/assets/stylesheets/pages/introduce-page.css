@@ -21,7 +21,7 @@
         gap: 25px;
 
         label{
-            color: var(--branco);
+            color: var(--pri-elements);
             font-size: 1.2rem;
             display: flex;
             flex-direction: column;
@@ -34,6 +34,7 @@
                 border: none;
                 border-radius: 15px;
                 background-color: var(--branco);
+                color: var(--sec-text);
                 font-size: 1rem;
                 width: 100%;
             }
@@ -42,8 +43,8 @@
                 border: none;
                 border-radius: 15px;
                 background-color: var(--branco);
+                color: var(--sec-text);
                 font-size: 1rem;
-                resize: none;
                 height: 40vh;
                 width: 100%;
             }

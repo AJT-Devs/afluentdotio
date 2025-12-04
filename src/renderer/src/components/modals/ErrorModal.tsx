@@ -9,16 +9,19 @@ interface ErrorModalProps {
 
 
 export function ErrorModal({ message, onClose }: ErrorModalProps) {
-    const handeClick = () => {
+    const handeClick = (status: number) => {
         onClose();
-        window.location.reload();
+        if (status === 1) {
+            window.location.reload();
+        }
     }
     return (
-        <BaseModal onClose={handeClick}>
+        <BaseModal onClose={() => handeClick(0)}>
             <div className="error-modal">
                 <h2>Erro</h2>
                 <p>{message}</p>
-                <button onClick={handeClick}>Tente Novamente</button>
+                <button onClick={() => handeClick(1)}>Tente Novamente</button>
+                <button onClick={() => handeClick(0)}>Fechar</button>
             </div>
         </BaseModal>
     );

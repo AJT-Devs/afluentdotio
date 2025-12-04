@@ -13,7 +13,7 @@ export default class BrainstormController {
     private static ErrorLogModel: ErrorLogModelAdapter = new MongooseErrorLogModel();
     private static BrainstormService: BrainstormServiceAdapter = new BrainstormGeminiService();
 
-    public static async generateAIWords(brainstorm: Brainstorm, apiKey: string, aiModelPreference: AiModels): Promise<SuccessResponse | Error > {
+    public static async generateAIWords(brainstorm: Brainstorm, apiKey: string, aiModelPreference: AiModels): Promise<SuccessResponse<Brainstorm> | Error > {
         try{
             const words: string[][] | Error = await this.BrainstormService.GenerateBrainstorm(brainstorm, apiKey, aiModelPreference);
             if(words instanceof Error){
@@ -27,8 +27,8 @@ export default class BrainstormController {
             return new Error("Erro ao gerar palavras com IA");
         }
     }
-    
-    public static async postBrainstorm(brainstorm: Brainstorm): Promise<SuccessResponse | Error> {
+        
+    public static async postBrainstorm(brainstorm: Brainstorm): Promise<SuccessResponse<Brainstorm> | Error> {
         try{
             if(!brainstorm.pool) brainstorm.pool = new BrainstormPool([], [], new Viewport(0,0,1));
             const response = await this.BrainstormModel.createBrainstorm(brainstorm);
@@ -41,7 +41,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async updateBrainstorm(brainstorm: Brainstorm): Promise<SuccessResponse | Error> {
+    public static async updateBrainstorm(brainstorm: Brainstorm): Promise<SuccessResponse<Brainstorm> | Error> {
         try{
             const response : Brainstorm | null = await this.BrainstormModel.updateBrainstorm(brainstorm);
             if(!response){
@@ -54,7 +54,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async updateViewport(brainstormId: string, viewport: Viewport): Promise<SuccessResponse | Error> {
+    public static async updateViewport(brainstormId: string, viewport: Viewport): Promise<SuccessResponse<Partial<Brainstorm>> | Error> {
         try{
             const response : Partial<Brainstorm> | null = await this.BrainstormModel.updateViewport(brainstormId, viewport);
             if(!response){
@@ -67,7 +67,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async updatePoolNode(brainstormId: string, node: BrainstormNode): Promise<SuccessResponse | Error> {
+    public static async updatePoolNode(brainstormId: string, node: BrainstormNode): Promise<SuccessResponse<Partial<Brainstorm>> | Error> {
         try{
             const response : Partial<Brainstorm> | null = await this.BrainstormModel.updatePoolNode(brainstormId, node);
             if(!response){
@@ -79,7 +79,7 @@ export default class BrainstormController {
             return new Error("Erro ao atualizar pool node");
         }
     }
-    public static async updatePoolEdge(brainstormId: string, edge: BrainstormEdge): Promise<SuccessResponse | Error> {
+    public static async updatePoolEdge(brainstormId: string, edge: BrainstormEdge): Promise<SuccessResponse<Partial<Brainstorm>> | Error> {
         try{
             const response : Partial<Brainstorm> | null = await this.BrainstormModel.updatePoolEdge(brainstormId, edge);
             if(!response){
@@ -92,7 +92,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async deleteBrainstorm(id: string): Promise<SuccessResponse | Error> {
+    public static async deleteBrainstorm(id: string): Promise<SuccessResponse<Brainstorm> | Error> {
         try{
             const response: Brainstorm | null = await this.BrainstormModel.deleteBrainstorm(id);
             if(!response){
@@ -105,7 +105,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async deletePoolNode(brainstormId: string, nodeId: string): Promise<SuccessResponse | Error> {
+    public static async deletePoolNode(brainstormId: string, nodeId: string): Promise<SuccessResponse<Partial<Brainstorm>> | Error> {
         try{
             const response: Partial<Brainstorm> | null = await this.BrainstormModel.deletePoolNode(brainstormId, nodeId);
             if(!response){
@@ -118,7 +118,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async deletePoolEdge(brainstormId: string, edgeId: string): Promise<SuccessResponse | Error> {
+    public static async deletePoolEdge(brainstormId: string, edgeId: string): Promise<SuccessResponse<Partial<Brainstorm>> | Error> {
         try{
             const response: Partial<Brainstorm> | null = await this.BrainstormModel.deletePoolEdge(brainstormId, edgeId);
             if(!response){
@@ -131,7 +131,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async getBrainstormById(id: string): Promise<SuccessResponse | Error> {
+    public static async getBrainstormById(id: string): Promise<SuccessResponse<Brainstorm> | Error> {
         try{
             const response: Brainstorm | null = await this.BrainstormModel.getBrainstormById(id);
             if(!response){
@@ -144,7 +144,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async getAllBrainstormByUser(userId: string): Promise<SuccessResponse | Error> {
+    public static async getAllBrainstormByUser(userId: string): Promise<SuccessResponse<Brainstorm[]> | Error> {
         try{
             const response: Brainstorm[] = await this.BrainstormModel.getAllBrainstormByUser(userId);
             return new SuccessResponse(200, `Brainstorms do usuário id: ${userId}`, response);
@@ -154,7 +154,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async getBrainstormPoolById(brainstormId: string): Promise<SuccessResponse | Error> {
+    public static async getBrainstormPoolById(brainstormId: string): Promise<SuccessResponse<Partial<Brainstorm>> | Error> {
         try{
             const response: Partial<Brainstorm> | null = await this.BrainstormModel.getBrainstormPoolById(brainstormId);
             if(!response){
@@ -167,7 +167,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async addPoolNodes(brainstormId: string, node: BrainstormNode): Promise<SuccessResponse | Error> {
+    public static async addPoolNodes(brainstormId: string, node: BrainstormNode): Promise<SuccessResponse<Partial<Brainstorm>> | Error> {
         try{
             const response : Partial<Brainstorm> | null = await this.BrainstormModel.pushToPoolNodes(brainstormId, node);
             if(!response){
@@ -180,7 +180,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async addPoolEdges(brainstormId: string, edge: BrainstormEdge): Promise<SuccessResponse | Error> {
+    public static async addPoolEdges(brainstormId: string, edge: BrainstormEdge): Promise<SuccessResponse<Partial<Brainstorm>> | Error> {
         try{
             const response : Partial<Brainstorm> | null = await this.BrainstormModel.pushToPoolEdges(brainstormId, edge);
             if(!response){
