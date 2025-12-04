@@ -39,7 +39,7 @@ const LoginPage = () => {
     sessionStorage.setItem("userPhoto", userPhoto ?? "");
   }
 
-  function handleVoltar(){
+  function handleToBack(){
     return navigate("/")
   }
 
@@ -83,7 +83,7 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      <div onClick={handleVoltar}><AfluentLogo /></div>
+      <div onClick={handleToBack}><AfluentLogo /></div>
       <div className="user-list">
         {users.map((user) => (
           <button key={user.id} className="user-card" tabIndex={0} onClick={() => {setUserId(user.id)} }>

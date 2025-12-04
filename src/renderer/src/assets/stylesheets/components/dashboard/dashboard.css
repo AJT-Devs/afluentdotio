@@ -32,7 +32,7 @@ header{
 }
 
 .icon{
-        color: var(--pri-elements);
+    color: var(--pri-elements);
 }
 
 nav{
@@ -49,16 +49,28 @@ nav{
     border-radius: 15px;
     display: flex;
     align-items: center;
-    gap: 10px
+    gap: 10px;
 }
 
 .type-list-nav {
     padding: 5px;
+    color: var(--sec-elements);
 }
 
 .type-list-nav-selected {
     background: var(--dashboard-nav-item-back);    
     border-radius: 5px;
+    color: var(--pri-elements);
+}
+
+.btn-config{
+    outline: none;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+    &:focus{
+        color: var(--des-color);
+        width: 55px;
+    }
 }
 
 /* main {

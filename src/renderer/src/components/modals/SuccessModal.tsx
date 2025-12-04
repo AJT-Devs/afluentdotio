@@ -14,7 +14,7 @@ export function SuccessModal({ message, onClose }: ErrorModalProps) {
     }
     return (
         <BaseModal onClose={handeClick}>
-            <div className="success-modal">
+        <div className="success-modal">
             <p>{message}</p>
             <button onClick={handeClick}>Fechar</button>
         </div>

@@ -9,7 +9,8 @@
     --azul-escuro: #253045;
     --azul-claro: #7291B2;
 
-    --h-title-bar: 40px
+    --h-title-bar: 40px;
+    --overlay-modal-color: rgba(47, 51, 60, 0.7);
 }
 
 :root[data-theme="dark"]{

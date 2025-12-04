@@ -1,4 +1,5 @@
 import '@renderer/assets/stylesheets/components/modal.css';
+import { BaseModal } from './BaseModal';
 
 
 interface ErrorModalProps {
@@ -13,10 +14,12 @@ export function ErrorModal({ message, onClose }: ErrorModalProps) {
         window.location.reload();
     }
     return (
-        <div className="error-modal">
-            <h2>Erro</h2>
-            <p>{message}</p>
-            <button onClick={handeClick}>Tente Novamente</button>
-        </div>
+        <BaseModal onClose={handeClick}>
+            <div className="error-modal">
+                <h2>Erro</h2>
+                <p>{message}</p>
+                <button onClick={handeClick}>Tente Novamente</button>
+            </div>
+        </BaseModal>
     );
 }
