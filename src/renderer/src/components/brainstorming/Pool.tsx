@@ -1,15 +1,11 @@
+// Pool.tsx
 import { ReactFlow, Background, Node, useNodesState } from '@xyflow/react';
 import { useState, useEffect } from 'react';
 import Console from '@renderer/components/brainstorming/ConsoleBrainstorming';
 import Word, { WordNodeData } from './Word';
-import {calculateAllPositions, recalculateRangesFromPositions} from "@renderer/hooks/CalculatePoolFunctions";
+import { calculateAllPositions, recalculateRangesFromPositions } from "@renderer/hooks/CalculatePoolFunctions";
 import '@renderer/assets/stylesheets/components/brainstorming/pool.css';
 
-// import Title from './Title';
-
-// ========================================
-// TYPES
-// ========================================
 export interface WordData {
   id: string;
   text: string;
@@ -18,13 +14,6 @@ export interface WordData {
   y: number;
 }
 
-// const [brainstormTitle, setBrainstormTitle] = useState('Meu Brainstorming');
-// const [showTitle, setShowTitle] = useState(true);
-
-
-// ========================================
-// DADOS INICIAIS
-// ========================================
 const INITIAL_WORDS = [
   { id: '1', text: 'Criatividade', range: 4 },
   { id: '2', text: 'Inovação', range: 3 },
@@ -35,22 +24,15 @@ const INITIAL_WORDS = [
 
 const MOCK_WORDS: WordData[] = calculateAllPositions(INITIAL_WORDS);
 
-const nodeTypes = { 
+const nodeTypes = {
   word: Word,
-  // Title : Title,
 };
 
-// ========================================
-// COMPONENT
-// ========================================
 const Pool = () => {
   const [words, setWords] = useState<WordData[]>(MOCK_WORDS);
-  const [isFreeMode, setIsFreeMode] = useState(false); // ← NOVO
+  const [isFreeMode, setIsFreeMode] = useState(false);
 
-  // ========================================
-  // HANDLERS
-  // ========================================
-
+  // ADD
   const handleAddWord = (text: string) => {
     const updatedWords = words.map((word) => ({
       ...word,
@@ -71,14 +53,15 @@ const Pool = () => {
     setWords(allWordsWithPositions);
   };
 
+  // EDIT
   const handleEditWord = (id: string, newText: string): void => {
-    console.log('✏️ Editando palavra:', id, newText);
-    setWords((prev) => prev.map((word) => (word.id === id ? { ...word, text: newText } : word)));
+    setWords((prev) =>
+      prev.map((word) => (word.id === id ? { ...word, text: newText } : word))
+    );
   };
 
+  // DELETE
   const handleDeleteWord = (id: string): void => {
-    console.log('🗑️ Deletando palavra:', id);
-
     const wordToDelete = words.find((w) => w.id === id);
     if (!wordToDelete) return;
 
@@ -95,10 +78,9 @@ const Pool = () => {
     setWords(updatedWords);
   };
 
-  const handleNodeDragStop = (node) => {
+  // DRAG STOP
+  const handleNodeDragStop = (_event: any, node: Node) => {
     if (!isFreeMode) return;
-
-    // console.log('📍 Palavra movida:', node.id, 'para', node.position);
 
     setWords((prev) =>
       prev.map((word) =>
@@ -113,22 +95,17 @@ const Pool = () => {
     );
   };
 
+  // TOGGLE FREE MODE
   const handleToggleFreeMode = () => {
     if (isFreeMode) {
-      // console.log('🔒 Desativando modo livre - Recalculando ranges...');
       const reorganized = recalculateRangesFromPositions(words);
       setWords(reorganized);
-    } else {
-      // console.log('🔓 Ativando modo livre - Pode mover livremente!');
     }
 
     setIsFreeMode((prev) => !prev);
   };
 
-  // ========================================
   // NODES
-  // ========================================
-
   const createNodes = (wordList: WordData[]): Node<WordNodeData>[] => {
     return wordList.map((word) => ({
       id: word.id,
@@ -136,60 +113,50 @@ const Pool = () => {
       position: { x: word.x, y: word.y },
       data: {
         wordText: word.text,
-        onEditWord: handleEditWord,
-        onDeleteWord: handleDeleteWord,
+        onEditWord: handleEditWord,      // ← NOME ALINHADO
+        onDeleteWord: handleDeleteWord,  // ← NOME ALINHADO
       },
     }));
   };
 
-  const [nodes, setNodes, onNodesChange] = useNodesState<Node<WordNodeData>>(createNodes(words));
+  const [nodes, setNodes, onNodesChange] = useNodesState(createNodes(words));
 
   useEffect(() => {
-  if (isFreeMode) {
-    
-    // Cria mapa de nodes atuais
-    const currentNodesMap = new Map(nodes.map(n => [n.id, n]));
-    
-    // Processa cada palavra
-    const updatedNodes = words.map(word => {
-      const existingNode = currentNodesMap.get(word.id);
-      
-      if (existingNode) {
-        // Palavra já existe: mantém posição, atualiza só data
-        return {
-          ...existingNode,
-          data: {
-            wordText: word.text, // ← Atualiza texto (caso tenha editado)
-            onEditWord: handleEditWord,
-            onDeleteWord: handleDeleteWord,
-          },
-        };
-      } else {
-        // Palavra nova: usa posição calculada
-        return {
-          id: word.id,
-          type: 'word',
-          position: { x: word.x, y: word.y },
-          data: {
-            wordText: word.text,
-            onEditWord: handleEditWord,
-            onDeleteWord: handleDeleteWord,
-          },
-        };
-      }
-    });
-    
-    setNodes(updatedNodes);
-    return;
-  }
+    if (isFreeMode) {
+      const currentNodesMap = new Map(nodes.map((n) => [n.id, n]));
 
-  // Modo auto: recalcula tudo
-  setNodes(createNodes(words));
-}, [words, isFreeMode]);
+      const updatedNodes: Node<WordNodeData>[] = words.map((word) => {
+        const existingNode = currentNodesMap.get(word.id);
 
-  // ========================================
-  // RENDER
-  // ========================================
+        if (existingNode) {
+          return {
+            ...existingNode,
+            data: {
+              wordText: word.text,
+              onEditWord: handleEditWord,
+              onDeleteWord: handleDeleteWord,
+            },
+          };
+        } else {
+          return {
+            id: word.id,
+            type: 'word',
+            position: { x: word.x, y: word.y },
+            data: {
+              wordText: word.text,
+              onEditWord: handleEditWord,
+              onDeleteWord: handleDeleteWord,
+            },
+          };
+        }
+      });
+
+      setNodes(updatedNodes);
+      return;
+    }
+
+    setNodes(createNodes(words));
+  }, [words, isFreeMode]);
 
   return (
     <div className="pool-container">
@@ -203,15 +170,18 @@ const Pool = () => {
         fitView
         minZoom={0.2}
         maxZoom={2}
-
         fitViewOptions={{
-          padding: 0.1,      // 20% de margem
-          minZoom: 0.2,      // Zoom mínimo do fit
-          maxZoom: 1.5,      // Zoom máximo do fit
-          duration: 0,     // Animação em ms (0 = instantâneo)
+          padding: 0.1,
+          minZoom: 0.2,
+          maxZoom: 1.5,
+          duration: 0,
         }}
-        >
-        <Console onAddWord={handleAddWord} isFreeMode={isFreeMode} handleToggleFreeMode={handleToggleFreeMode}/>
+      >
+        <Console
+          onAddWord={handleAddWord}
+          isFreeMode={isFreeMode}
+          handleToggleFreeMode={handleToggleFreeMode}
+        />
 
         <Background gap={20} />
       </ReactFlow>

@@ -46,7 +46,7 @@ const MenuContextWord = (props : MenuContextWordProps) => {
                       </MenuContext.Item>
                       
                       <MenuContext.Item 
-                          onSelect={props.handleDeleteWord}  
+                          onSelect={()=>{props.handleDeleteWord}}  
                           tabIndex={0} 
                           aria-label="Botão Deletar"
                       >
