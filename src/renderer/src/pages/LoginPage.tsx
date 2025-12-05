@@ -77,6 +77,8 @@ const LoginPage = () => {
       return;
     } 
     const createdUser: User = response.data;
+    hasFetchedUsers.current = false;
+    console.log(createdUser);
     setUsers((prevUsers) => [...prevUsers, createdUser]);
     setSuccessMessage(response.message);
   }
@@ -92,10 +94,7 @@ const LoginPage = () => {
         setErrorMessage(response.message);
         return;
       }
-      response.data.map((user: User) => {
-        setUsers((prevUsers) => [...prevUsers, user]);
-      })
-      
+      setUsers(response.data);
     };
 
     fetchUsers();
@@ -106,15 +105,15 @@ const LoginPage = () => {
     <div className="login-page">
       <div onClick={handleToBack}><AfluentLogo /></div>
       <div className="user-list">
-        {users.map((user) => (
-          <button key={user.id} className="user-card" tabIndex={0} onClick={() => {setUserId(user.id); setUserPhoto(user.photo)} }>
+        {users.map((user, index) => (
+          <button key={user.id} className="user-card" tabIndex={index} onClick={() => {setUserId(user.id); setUserPhoto(user.photo)} }>
             {user.photo ? <img src={imageMap[user.photo] || user.photo} alt={`${user.name} foto`} className="photo" /> : <CircleUserRound size={60} />}
             
             <h2 title={user.name}>{user.name.length > 5 ? user.name.slice(0, 5) + "..." : user.name}</h2>
           </button>
             )
         )}
-        <button className="user-card" tabIndex={0} onClick={() => setIsDialogOpen(true)}>
+        <button className="user-card" tabIndex={users.length+1} onClick={() => setIsDialogOpen(true)}>
           <Plus size={50} />
         </button>
       </div>  

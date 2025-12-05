@@ -1,8 +1,9 @@
-import mongoose, { Schema, Document } from 'mongoose'
+import mongoose, { Schema, Document, Types } from 'mongoose'
 import { Brainstorm, BrainstormNode, BrainstormEdge, Viewport, Position, BrainstormPool } from '../src/entities/Brainstorm'
 
 export interface IBrainstormDoc extends Omit<Brainstorm, 'id'>, Document {
-  userId: mongoose.Types.ObjectId
+  _id: Types.ObjectId;
+  userId: Types.ObjectId
 }
 
 const PositionSchema = new Schema<Position>({

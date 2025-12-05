@@ -5,7 +5,25 @@ import { BrainstormModelDb, IBrainstormDoc } from '../../../mongoose/BrainstormM
 
 export default class MongooseBrainstormModel implements BrainstormModelAdapter {
   private toEntity(doc: IBrainstormDoc): Brainstorm {
-    return doc.toObject() as unknown as Brainstorm;
+    const obj = doc.toObject();
+    return {
+      id: doc._id.toString(),
+      userId: doc.userId.toString(),
+      name: obj.name,
+      context: obj.context,
+      date: obj.date,
+      pool: {
+        nodes: obj.pool.nodes.map((node: any) => ({
+          ...node,
+          id: node._id?.toString()
+        })),
+        edges: obj.pool.edges.map((edge: any) => ({
+          ...edge,
+          id: edge._id?.toString()
+        })),
+        viewport: obj.pool.viewport
+      }
+    };
   }
 
   public async createBrainstorm(brainstorm: Brainstorm): Promise<Brainstorm> {

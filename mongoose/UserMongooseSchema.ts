@@ -1,8 +1,9 @@
 // src/mongoose/UserMongooseSchema.ts
-import mongoose, { Schema, Document } from 'mongoose'
+import mongoose, { Schema, Document, Types } from 'mongoose'
 import { User } from '../src/entities/User'
 
 export interface IUserDoc extends Omit<User, 'id'>, Document {
+  _id: Types.ObjectId;
 }
 
 const UserSchema = new Schema<IUserDoc>({

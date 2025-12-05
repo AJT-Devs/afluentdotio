@@ -5,7 +5,13 @@ import { UserModelDb, IUserDoc } from '../../../mongoose/UserMongooseSchema'
 
 export default class MongooseUserModel implements UserModelAdapter {
   private toEntity(doc: IUserDoc): User {
-    return doc.toObject() as unknown as User;
+    return {
+      id: doc._id.toString(),
+      name: doc.name,
+      photo: doc.photo ?? null,
+      aikey: doc.aikey ?? null,
+      preferenceaimodel: doc.preferenceaimodel ?? null
+    };
   }
 
   public async createUser(user: User): Promise<User> {
