@@ -4,6 +4,7 @@
 @import './stylesheets/layouts/layout.css';
 @import './stylesheets/components/button.css';
 @import './stylesheets/components/input.css';
+@import './stylesheets/components/textarea.css';
 
 .titleBar{
     width: 100%;

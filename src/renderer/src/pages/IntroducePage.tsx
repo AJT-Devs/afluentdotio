@@ -25,7 +25,7 @@ const IntroducePage = () => {
     if (hasFetched.current) {
         return;
     }
-    hasFetched.current = true;  
+    hasFetched.current = true; 
 
     const getLocalStorageData = async () => {
       setUserId ( sessionStorage.getItem('userId'));
