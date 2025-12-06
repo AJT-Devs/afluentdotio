@@ -1,5 +1,4 @@
 import Header from "@renderer/layout/Header";
-import * as motion from "motion/react-client"
 import { FormEvent, useEffect, useRef, useState } from "react";
 import {useNavigate} from "react-router-dom"
 import { useBranstormingStore } from "../store/BranstormingStore";
@@ -62,44 +61,17 @@ const IntroducePage = () => {
       }}
     >
       
-      <motion.label id="title-input"
-        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -20, scale: 0.95 }}
-        transition={{
-          duration: 0.6,
-          ease: [0.4, 0.0, 0.2, 1],
-          scale: { type: "spring", stiffness: 120, damping: 12 }
-        }}
-      >
+      <label id="title-input">
         Titulo
         <input type="text" name="title-input" onChange={(e) => setTitle(e.target.value)} required />
-      </motion.label>
-      <motion.label id="description-input"
-        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -20, scale: 0.95 }}
-        transition={{
-          duration: 0.6,
-          ease: [0.4, 0.0, 0.2, 1],
-          scale: { type: "spring", stiffness: 120, damping: 12 }
-        }}
-      >
+      </label>
+      <label id="description-input">
         Descrição
         <textarea name="description-input" onChange={(e) => setDescription(e.target.value)} required></textarea>
-      </motion.label>
-      <motion.button
-        initial={{ opacity: 0, y: 20, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -20, scale: 0.95 }}
-        transition={{
-          duration: 0.6,
-          ease: [0.4, 0.0, 0.2, 1],
-          scale: { type: "spring", stiffness: 120, damping: 12 }
-        }}
-        type="submit" >
+      </label>
+      <button type="submit" >
         INICIAR
-      </motion.button>
+      </button>
     </form>
     {errorMessage && <ErrorModal message={errorMessage} onClose={()=> setErrorMessage(null)} /> }
     {successMessage && <SuccessModal message={successMessage} onClose={()=> setSuccessMessage(null)} /> }
