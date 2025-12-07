@@ -19,7 +19,7 @@
   user-select: none;
 }
 
-.menu-context-item:hover, .menu-context-item:focus {
+.menu-context-item:hover, .menu-context-item:focus-visible {
   background-color: var(--des-color);
 }
 

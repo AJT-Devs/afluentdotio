@@ -19,7 +19,7 @@
         width: 80%;
     }
 
-    &:hover svg.afluent-logo, &:focus svg.afluent-logo{
+    &:hover svg.afluent-logo, &:focus-visible svg.afluent-logo{
         fill: var(--text-ena-btn-on);
     }
 }

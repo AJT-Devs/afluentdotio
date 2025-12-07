@@ -1,8 +1,8 @@
 import AfluentLogo from "../AfluentLogo";
 import {ChevronDown} from "lucide-react";
 import DropMenu from "../overlays/dropmenu/DropMenu";
-import React, {useState} from "react";
-import ThemeToggle from "@renderer/components/ThemeToggle";
+import {useState} from "react";
+import { useTheme } from "@renderer/contexts/ThemeContext";
 
 import "@renderer/assets/stylesheets/components/brainstorming/main-menu-brainstorming.css"
 
@@ -12,14 +12,12 @@ interface MainMenuBrainstormingProps {
     toArchiveDoc : ()=>void;
     toDeleteDoc : ()=>void;
     toOpenConfig : ()=>void;
-
-    isFreeMode: boolean;
-    handleToggleFreeMode: ()=>void;
 }
 
-const MainMenuBrainstorming = ({toBack, exportDoc, toArchiveDoc, toDeleteDoc, toOpenConfig, isFreeMode, handleToggleFreeMode, ...props} : MainMenuBrainstormingProps) => {
+const MainMenuBrainstorming = ({toBack, exportDoc, toArchiveDoc, toDeleteDoc, toOpenConfig} : MainMenuBrainstormingProps) => {
     
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
 
     return (
         <>
@@ -35,23 +33,20 @@ const MainMenuBrainstorming = ({toBack, exportDoc, toArchiveDoc, toDeleteDoc, to
                     <DropMenu.Item onSelect={toBack}>
                         Voltar
                     </DropMenu.Item>
-                    <DropMenu.Item onSelect={handleToggleFreeMode}>
-                        {isFreeMode ? "Modo Não Livre" : "Modo Livre"}
-                    </DropMenu.Item>
                     <DropMenu.Item onSelect={exportDoc}>
                         Exportar
                     </DropMenu.Item>
                     <DropMenu.Item onSelect={toArchiveDoc}>
                         Arquivar
                     </DropMenu.Item>
-                    <DropMenu.Item onSelect={toDeleteDoc} className="drop-menu-item-delete">
-                        Mover para a lixeira
+                    <DropMenu.Item onSelect={toggleTheme}>
+                        {theme === 'light' ? "Tema Escuro" : "Tema Claro"}
                     </DropMenu.Item>
                     <DropMenu.Item onSelect={toOpenConfig}>
                         Configurações
                     </DropMenu.Item>
-                    <DropMenu.Item onSelect={()=>{}}>
-                        <ThemeToggle /> 
+                    <DropMenu.Item onSelect={toDeleteDoc} className="drop-menu-item-delete">
+                        Mover para a lixeira
                     </DropMenu.Item>
                 </DropMenu.Content>
             </DropMenu.Root>

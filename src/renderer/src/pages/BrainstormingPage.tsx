@@ -1,7 +1,7 @@
 import Pool from "@renderer/components/brainstorming/Pool";
-import Console from "@renderer/components/brainstorming/ConsoleBrainstorming"
 import ThemeToggle from "@renderer/components/ThemeToggle";
 import { useEffect } from "react";
+import Brainstorm from "@renderer/components/brainstorming/Brainstorming";
 
 
 import "@renderer/assets/stylesheets/pages/brainstorming-page.css"
@@ -19,7 +19,8 @@ const BrainstormingPage = () =>{
         <div className="brainstorming-page">
         
         {/* <ThemeToggle /> */}
-        <Pool/>
+        {/* <Pool/> */}
+        <Brainstorm/>
         
 
         </div>

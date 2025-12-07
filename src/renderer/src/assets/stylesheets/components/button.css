@@ -14,7 +14,7 @@ button {
     outline: transparent;
     text-transform: uppercase;
 
-    &:hover, &:focus{
+    &:hover, &:focus-visible{
         border-color: var(--back-ena-btn);
         background-color: var(--back-ena-btn);
         color: var(--text-ena-btn-on);
@@ -55,7 +55,7 @@ button {
             color: var(--des-color);
         }
     }
-    &:hover .icon, &:focus .icon{
+    &:hover .icon, &:focus-visible .icon{
         color:var(--des-color);
     }
 }

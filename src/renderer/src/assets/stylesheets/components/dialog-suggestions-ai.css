@@ -36,7 +36,7 @@ p{
     color: var(--pri-text);
     
 }
-.ai-button:hover .ai-icon, .ai-button:focus .ai-icon{
+.ai-button:hover .ai-icon, .ai-button:focus-visible .ai-icon{
     fill: var(--text-ena-btn-on);
 }
 

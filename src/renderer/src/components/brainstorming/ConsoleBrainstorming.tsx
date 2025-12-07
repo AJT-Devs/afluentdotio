@@ -6,17 +6,17 @@ import "@renderer/assets/stylesheets/components/brainstorming/console-brainstorm
 
 export interface ConsoleProps {
     onAddWord: (text: string) => void;
-    isFreeMode: boolean;
-    handleToggleFreeMode: ()=>void;
+    isFreeMode : boolean;
+    changeIsFreeMode;
     handleToBack : ()=>void;
 }
 
-const Console = ({onAddWord, isFreeMode, handleToggleFreeMode, handleToBack, ...props}: ConsoleProps) => {
+const Console = ({onAddWord, isFreeMode, changeIsFreeMode, handleToBack}: ConsoleProps) => {
     return (
         <Panel>
             <div className="console-brainstorming">
-                <Header isFreeMode={isFreeMode} handleToggleFreeMode={handleToggleFreeMode} handleToBack={handleToBack}/>
-                <FooterToolsBar onAddWord={onAddWord}/>
+                <Header handleToBack={handleToBack} />
+                <FooterToolsBar onAddWord={onAddWord} isFreeMode={isFreeMode} changeIsFreeMode={changeIsFreeMode}/>
             </div>
         </Panel>
     );

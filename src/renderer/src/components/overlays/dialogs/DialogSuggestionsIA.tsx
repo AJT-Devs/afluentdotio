@@ -5,14 +5,8 @@ import { ErrorModal } from "@renderer/components/modals/ErrorModal";
 import AiIcon from '@renderer/components/AiIcon';
 
 import "@renderer/assets/stylesheets/components/dialog-suggestions-ai.css"
-import { button } from "motion/react-client";
 
-interface DialogSuggestionsIAProps {
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
-}
-
-const DialogSuggestionsIA = ({open, onOpenChange, ...props}:DialogSuggestionsIAProps)=>{
+const DialogSuggestionsIA = ()=>{
     
     useEffect(()=>{
 
