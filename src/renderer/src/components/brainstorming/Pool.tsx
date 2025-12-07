@@ -1,6 +1,7 @@
 // Pool.tsx
 import { ReactFlow, Background, Node, useNodesState } from '@xyflow/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,  } from 'react';
+import { useNavigate } from "react-router";
 import Console from '@renderer/components/brainstorming/ConsoleBrainstorming';
 import Word, { WordNodeData } from './Word';
 import { calculateAllPositions, recalculateRangesFromPositions } from "@renderer/hooks/CalculatePoolFunctions";
@@ -158,6 +159,8 @@ const Pool = () => {
     setNodes(createNodes(words));
   }, [words, isFreeMode]);
 
+  const navigate = useNavigate();
+
   return (
     <div className="pool-container">
       <ReactFlow
@@ -181,6 +184,7 @@ const Pool = () => {
           onAddWord={handleAddWord}
           isFreeMode={isFreeMode}
           handleToggleFreeMode={handleToggleFreeMode}
+          handleToBack={()=>{navigate("/dashboard")}}
         />
 
         <Background gap={20} />

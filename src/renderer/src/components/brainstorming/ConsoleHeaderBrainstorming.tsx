@@ -5,12 +5,13 @@ import "@renderer/assets/stylesheets/components/brainstorming/console-header-too
 interface HeaderProps{
     isFreeMode : boolean;
     handleToggleFreeMode : ()=>void;
+    handleToBack : ()=>void;
 }
 
-const Header = ({isFreeMode, handleToggleFreeMode}: HeaderProps) => {
+const Header = ({isFreeMode, handleToggleFreeMode, handleToBack}: HeaderProps) => {
     return(
         <div className='header-toolsbar'>
-            <MainMenuBrainstorming isFreeMode={isFreeMode} handleToggleFreeMode={handleToggleFreeMode}/>
+            <MainMenuBrainstorming isFreeMode={isFreeMode} handleToggleFreeMode={handleToggleFreeMode} toBack={handleToBack}/>
         </div>
     );
 }

@@ -72,7 +72,7 @@ export default function Dashboard(){
                 <div className="icon-search"><Search size={30} /></div>
             </div>
             <button onClick={handleCriar}>CRIAR</button>
-            <Bolt size={50} className="icon btn-config" tabIndex={0}/>
+            <button className="btn-icon"><Bolt size={50} className="icon btn-config"/></button>
         </header>
         <nav>
             <p className="dashboard-nav-p">Meus Brainstorms</p>

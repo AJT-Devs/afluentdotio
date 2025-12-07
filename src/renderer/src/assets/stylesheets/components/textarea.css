@@ -4,13 +4,15 @@ textarea{
     background-color: transparent;
     outline: none;
     border-radius: 15px;
-    font-size: 1rem;
     font-weight: bold;
+    font-size: 1rem;
     color: var(--pri-text);
     transition: all .2s ease-in-out;
-
+    
+    
     &::placeholder{
         color: var(--sec-text);
+        font-size: 1rem;
     }
 
     &:hover, &:focus{

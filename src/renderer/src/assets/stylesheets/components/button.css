@@ -1,6 +1,6 @@
 button {
     /* min-height: 55px; */
-    min-width: 125px;
+    /* min-width: 125px; */
     padding: 12px 16px;
     border-radius: 15px;
     border: 3px solid var(--back-ena-btn);
@@ -11,7 +11,7 @@ button {
     color: var(--text-ena-btn-off);
     transition: all .3s ease-in-out;
     cursor: pointer;
-    outline: none;
+    outline: transparent;
     text-transform: uppercase;
 
     &:hover, &:focus{
@@ -24,5 +24,37 @@ button {
         background-color: var(--back-dis-btn);
         color: var(--text-dis-btn);
         border-color: var(--back-dis-btn);
+    }
+
+}
+
+.btn-icon{
+    border: transparent;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 0;
+    &:hover, &:focus{
+        background-color: transparent;
+        color: transparent;
+    }
+    &:disabled{
+        cursor: auto;
+        background-color: transparent;
+        color: transparent;
+        border-color: transparent;
+    }
+    
+    .icon{
+        outline: none;
+        cursor: pointer;
+        color: var(--pri-elements);
+        transition: all .3s ease-in-out;
+        &:hover{
+            color: var(--des-color);
+        }
+    }
+    &:hover .icon, &:focus .icon{
+        color:var(--des-color);
     }
 }

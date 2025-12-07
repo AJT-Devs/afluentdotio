@@ -1,10 +1,9 @@
 @import '@xyflow/react/dist/style.css';
-
 @import './base.css';
 @import './stylesheets/layouts/layout.css';
 @import './stylesheets/components/button.css';
-@import './stylesheets/components/input.css';
 @import './stylesheets/components/textarea.css';
+@import './stylesheets/components/input.css';
 
 .titleBar{
     width: 100%;
@@ -17,6 +16,6 @@
     background-color: var(--title-bar);
 }
 
-body{
-    background-color: var(--background);
+*{
+    font-family: sans-serif;
 }

@@ -69,16 +69,6 @@ nav{
     font-weight: bold;
 }
 
-.btn-config{
-    outline: none;
-    transition: all .3s ease-in-out;
-    cursor: pointer;
-    &:focus{
-        color: var(--des-color);
-        width: 55px;
-    }
-}
-
 /* main {
     display:grid;
     grid-template-columns: auto auto auto auto;
