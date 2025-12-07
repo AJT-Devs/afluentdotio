@@ -87,4 +87,17 @@ export default class UserController {
             return new Error("Erro ao buscar chave AI");
         }   
     }
+
+    public static async getPreferenceAiModel(id: string): Promise<SuccessResponse<Partial<User>> | Error> {
+        try{
+            const userResponse:  string | null = await this.UserModel.getPreferenceAiModel(id);
+            if(!userResponse){
+                return new SuccessResponse(404, "Usuário não encontrado", {});
+            }
+            return new SuccessResponse(200, "Modelo AI encontrado com sucesso", {preferenceaimodel: userResponse});
+        }catch(error: unknown){
+            await this.ErrorLogModel.createErrorLog({message: JSON.stringify(error)} as any);
+            return new Error("Erro ao buscar modelo AI ");
+        }
+    }
 }

@@ -7,5 +7,6 @@ export default interface UserIpcAdapter {
     deleteUser(id: string): Promise<SuccessResponse<Partial<User>> | Error> ;
     getUserById(id: string): Promise<SuccessResponse<Partial<User>> | Error> ;
     getAllUsers(): Promise<SuccessResponse<Partial<User>[]> | Error> ;
-    getAiKey(id: string): Promise<SuccessResponse<string> | Error> ;
+    getAiKey(id: string): Promise<SuccessResponse<Partial<User>> | Error> ;
+    getPreferenceAiModel(id: string): Promise<SuccessResponse<Partial<User>> | Error> ;
 }

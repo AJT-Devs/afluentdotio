@@ -45,4 +45,11 @@ export class UserIpcEndpoints {
             return result;
         });
     }
+
+    public static async getPreferenceAiModel(){
+        ipcMain.handle('getPreferenceAiModel', async (event, id: string) => {
+            const result = await UserController.getPreferenceAiModel(id);
+            return result;
+        });
+    }
 }

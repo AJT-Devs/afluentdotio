@@ -169,7 +169,7 @@ export default class BrainstormController {
 
     public static async addPoolNodes(brainstormId: string, node: BrainstormNode): Promise<SuccessResponse<Partial<Brainstorm>> | Error> {
         try{
-            const response : Partial<Brainstorm> | null = await this.BrainstormModel.pushToPoolNodes(brainstormId, node);
+            const response : Partial<string> | null = await this.BrainstormModel.pushToPoolNodes(brainstormId, node);
             if(!response){
                 return new SuccessResponse(404, "Brainstorm não encontrado", {});
             }

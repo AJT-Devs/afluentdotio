@@ -83,4 +83,16 @@ export default class MongooseUserModel implements UserModelAdapter {
     }
     return userDoc.aikey;
   }
+
+  public async getPreferenceAiModel(id: string): Promise<string | null> {
+    await MongooseSingleton.getInstance();
+    const userDoc = await UserModelDb.findById(id, 'preferenceaimodel').exec();
+    if (!userDoc) {
+      return null;
+    }
+    if (!userDoc.preferenceaimodel) {
+      return null;
+    }
+    return userDoc.preferenceaimodel;
+  }
 }

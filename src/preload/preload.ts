@@ -16,7 +16,8 @@ const user: UserIpcAdapter = {
   deleteUser: (id: string) => ipcRenderer.invoke('deleteUser', id),
   getUserById: (id: string) => ipcRenderer.invoke('getUserById', id),
   getAllUsers: () => ipcRenderer.invoke('getAllUsers'),
-  getAiKey: (id: string) => ipcRenderer.invoke('getAiKey', id)
+  getAiKey: (id: string) => ipcRenderer.invoke('getAiKey', id),
+  getPreferenceAiModel: (id: string) => ipcRenderer.invoke('getPreferenceAiModel', id)
 }
 
 const brainstorm: BrainstormIpcAdapter = {

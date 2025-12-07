@@ -15,6 +15,6 @@ export default interface BrainstormIpcAdapter {
     getAllBrainstormByUser(userId: string): Promise<SuccessResponse<Brainstorm[]> | Error> ;
     getBrainstormById(id: string): Promise<SuccessResponse<Brainstorm> | Error> ;
     getBrainstormPoolById(brainstormId: string): Promise<SuccessResponse<Partial<Brainstorm>> | Error> ;
-    addPoolNodes(brainstormId: string, node: BrainstormNode): Promise<SuccessResponse<Partial<Brainstorm>> | Error> ;
+    addPoolNodes(brainstormId: string, node: BrainstormNode): Promise<SuccessResponse<string> | Error> ;
     addPoolEdges(brainstormId: string, edge: BrainstormEdge): Promise<SuccessResponse<Partial<Brainstorm>> | Error> ;
 }

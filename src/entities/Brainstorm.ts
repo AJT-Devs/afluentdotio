@@ -37,13 +37,20 @@ export class Position {
 }
 
 export class BrainstormNode {
-    id
+    id?
     word
     range
-    position
-    category
-    proximity
-    constructor(id: string, word: string, range: number, position: Position, category: string, proximity: number) {}
+    position?
+    category?
+    proximity?
+    constructor(id: string, word: string, range: number, position?: Position, category?: string, proximity?: number) {
+        this.id = id
+        this.word = word
+        this.range = range
+        this.position = position || new Position(0,0)
+        this.category = category
+        this.proximity = proximity
+    }
 }
 
 export class BrainstormEdge {

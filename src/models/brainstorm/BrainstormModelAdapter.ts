@@ -16,6 +16,6 @@ export interface BrainstormModelAdapter {
     getBrainstormById(id: string): Promise<Brainstorm | null>;
     getBrainstormPoolById(brainstormId: string): Promise<Partial<Brainstorm> | null>;
 
-    pushToPoolNodes(brainstormId: string, node: BrainstormNode): Promise<Partial<Brainstorm> | null>;
+    pushToPoolNodes(brainstormId: string, node: BrainstormNode): Promise<string | null>;
     pushToPoolEdges(brainstormId: string, edge: BrainstormEdge): Promise<Partial<Brainstorm> | null>;
 }

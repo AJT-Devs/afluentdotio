@@ -66,7 +66,11 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
     if (!updatedDoc) {
       return null;
     }
-    return this.toEntity(updatedDoc);
+    const brainstorm = this.toEntity(updatedDoc);
+    return {
+      id: brainstorm.id,
+      pool: brainstorm.pool
+    }
   }
 
   public async updatePoolEdge(brainstormId: string, edge: BrainstormEdge): Promise<Partial<Brainstorm> | null> {
@@ -131,14 +135,19 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
 
   public async getBrainstormPoolById(brainstormId: string): Promise<Partial<Brainstorm> | null> {
     await MongooseSingleton.getInstance();
-    const brainstormDoc = await BrainstormModelDb.findById(brainstormId, 'pool').exec();
+    const brainstormDoc = await BrainstormModelDb.findById(brainstormId).exec();
     if (!brainstormDoc) {
       return null;
     }
-    return this.toEntity(brainstormDoc);
+    const brainstorm = this.toEntity(brainstormDoc);
+    console.log(brainstorm);
+    return {
+      id: brainstorm.id,
+      pool: brainstorm.pool
+    };
   }
 
-  public async pushToPoolNodes(brainstormId: string, node: BrainstormNode): Promise<Partial<Brainstorm> | null> {
+  public async pushToPoolNodes(brainstormId: string, node: BrainstormNode): Promise<string| null> {
     await MongooseSingleton.getInstance();
     const updatedDoc = await BrainstormModelDb.findByIdAndUpdate(
       brainstormId,
@@ -148,7 +157,9 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
     if (!updatedDoc) {
       return null;
     }
-    return this.toEntity(updatedDoc);
+    const brainstorm = this.toEntity(updatedDoc);
+    return brainstorm.pool.nodes[brainstorm.pool.nodes.length -1].id ?? null;
+
   }
 
   public async pushToPoolEdges(brainstormId: string, edge: BrainstormEdge): Promise<Partial<Brainstorm> | null> {

@@ -93,6 +93,7 @@ app.whenReady().then(async () => {
   UserIpcEndpoints.getUserById();
   UserIpcEndpoints.getAllUsers();
   UserIpcEndpoints.getAiKey();
+  UserIpcEndpoints.getPreferenceAiModel();
   
   BrainstormIpcEndpoint.generateAIWords();
   BrainstormIpcEndpoint.postBrainstorm();

@@ -62,6 +62,11 @@ export default function Dashboard(){
         getBrainstormList();
     },[]);
 
+    const goToBrainstormingPage = async (id: string) => {
+        await sessionStorage.setItem('brainstormId', id);
+        navigate('/brainstorming');
+    }
+
     return (
         <>
         <header className="dashboard-header">
@@ -84,7 +89,7 @@ export default function Dashboard(){
         <main>
             {   brainstormList.length > 0 &&
                 brainstormList.map((brainstorm)=>(
-                    <button key={brainstorm.id} className="brainstorm-card" tabIndex={0} onClick={() => {setBrainstormId(brainstorm.id)} }>            
+                    <button key={brainstorm.id} className="brainstorm-card" tabIndex={0} onClick={() => {setBrainstormId(brainstorm.id); goToBrainstormingPage(brainstorm.id)} }>            
                         <h2 title={brainstorm.name}>{brainstorm.name.length > 5 ? brainstorm.name.slice(0, 5) + "..." : brainstorm.name}</h2>
                     </button>
                 ))

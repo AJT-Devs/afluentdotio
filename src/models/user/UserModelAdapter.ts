@@ -7,4 +7,5 @@ export interface UserModelAdapter {
     getAllUsers(): Promise<Partial<User>[]>;
     getUserById(id: string): Promise<Partial<User> | null>;
     getAiKey(id: string): Promise<string | null>;
+    getPreferenceAiModel(id: string): Promise<string | null>;  
 }
