@@ -9,7 +9,7 @@ import '@renderer/assets/stylesheets/components/brainstorming/pool.css';
 import { ErrorModal } from '../modals/ErrorModal';
 
 import {BrainstormNode, BrainstormPool} from '../../../../entities/Brainstorm'
-import { b } from 'motion/react-client';
+import { a, b } from 'motion/react-client';
 
 export interface WordData {
   id: string;
@@ -50,25 +50,32 @@ const Pool = () => {
         navigate("/dashboard");  
         return;
       }
-      if(!wordsToUpdate){
-        words.map(async (word) => {
-        await window.brainstorm.updatePoolNode(brainstormId, {
-          id: word.id,
-          word: word.text,
-          range: word.range,
-          position: { x: word.x, y: word.y }
-        });
+      
+      const wordsArray = wordsToUpdate || words;
+    
+    const updatePromises = wordsArray.map(async (word) => {
+      return await window.brainstorm.updatePoolNode(brainstormId, {
+        id: word.id,
+        word: word.text,
+        range: word.range,
+        position: { x: word.x, y: word.y }
       });
-      } else {
-        wordsToUpdate.map(async (word) => {
-          await window.brainstorm.updatePoolNode(brainstormId, {
-            id: word.id,
-            word: word.text,
-            range: word.range,
-            position: { x: word.x, y: word.y }
-          });
-        });
-      }
+    });
+    
+    const responses = await Promise.all(updatePromises);
+    
+    console.log(wordsToUpdate);
+    console.log("---");
+    console.log(words);
+    console.log("Update responses:", responses);
+    
+    const hasError = responses.some(response => response instanceof Error);
+    if (hasError) {
+      const errorResponse = responses.find(response => response instanceof Error) as Error;
+      setErrorMessage(errorResponse.message);
+      return;
+    }
+
     }catch(error){
       if(error instanceof Error){
         setErrorMessage(error.message);
@@ -118,6 +125,7 @@ const Pool = () => {
         setErrorMessage("Erro ao adicionar palavra. Por favor, tente novamente.");
         return;
       }
+      allWordsWithPositions[0].id = newNodeId.data;
       newWordWithoutPosition.id = newNodeId.data;
 
       allWordsWithPositions.map(async (word) => {
@@ -197,9 +205,9 @@ const Pool = () => {
     if (isFreeMode) {
       const reorganized = recalculateRangesFromPositions(words); 
       setWords(reorganized);
+      await updateWords(reorganized);
+
     }
-    await updateWords();
-    console.log("deu update")
     setIsFreeMode((prev) => !prev);
   };
 
