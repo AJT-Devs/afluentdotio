@@ -23,6 +23,7 @@ const INITIAL_WORDS = [
   { id: '5', text: 'Futuro', range: 0 },
 ];
 
+
 const MOCK_WORDS: WordData[] = calculateAllPositions(INITIAL_WORDS);
 
 const nodeTypes = {
