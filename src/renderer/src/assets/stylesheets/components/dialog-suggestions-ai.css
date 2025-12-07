@@ -1,0 +1,47 @@
+.dialog-suggestions{
+    max-height: 600px;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.btn-x-icon{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: var(--pri-text);
+}
+p{
+    color: var(--pri-text);
+}
+.footer-console-ai{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.words-list{
+    width: 100%;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+
+    color: var(--pri-text);
+    
+}
+.ai-button:hover .ai-icon, .ai-button:focus .ai-icon{
+    fill: var(--text-ena-btn-on);
+}
+
+.word-select{
+    background-color: var(--des-color);
+    border-color: var(--des-color);
+    color: var(--text-ena-btn-on);
+}

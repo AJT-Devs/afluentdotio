@@ -21,9 +21,4 @@
         }
     }
 
-    
-
-    .ai-button:hover .ai-icon, .ai-button:focus .ai-icon{
-        fill: var(--text-ena-btn-on);
-    }
 }
