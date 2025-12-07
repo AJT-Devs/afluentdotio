@@ -2,38 +2,27 @@
 import MenuContext from "@renderer/components/overlays/contextmenu/MenuContext";
 import { useState, memo } from "react";
 import DialogEditTextOfWord from "@renderer/components/overlays/dialogs/DialogEditTextOfWord";
-import { NodeProps, Handle, Position } from '@xyflow/react';
+import {BrainstormNode} from "src/entities/Brainstorm";
 import "@renderer/assets/stylesheets/components/brainstorming/word.css";
 
-export interface WordNodeData extends Record<string, unknown> {
-  wordText: string;
-  onEditWord: (id: string | number, newText: string) => void;
-  onDeleteWord: (id: string | number) => void;
+export interface WordProps extends BrainstormNode{
+  handleEditWord: (id: string | number, newText: string) => void;
+  handleDeleteWord: (id: string | number) => void;
 }
 
-const Word = memo((props: NodeProps<WordNodeData>) => {
-  const { data, id } = props;
+const Word = memo(({word, handleEditWord, handleDeleteWord} : WordProps) => {
 
-  const wordMaxText = 10;
-
-  // Dados vindos do React Flow
-  const wordTextInterface = data.wordText as string;
-  const onEditWord = data.onEditWord as (id: string | number, newText: string) => void;
-  const onDeleteWord = data.onDeleteWord as (id: string | number) => void;
-
-  // Estados internos
-  const [wordText, setWordText] = useState(wordTextInterface);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleEditSubmit = (newText: string) => {
-    setWordText(newText);
-    onEditWord(id, newText);
-  };
-
-  const handleDelete = () => {
-    onDeleteWord(id);
-  };
+  const wordOnKeyListener = (event) => {
+      event.target.addEventListener('keydown', (e: KeyboardEvent) => {
+          if (e.key === "Delete") handleDeleteWord;
+          else if (e.key === "F2") setIsDialogOpen(true);
+      });
+  }
+  
+  const wordMaxText = 10;
 
   return (
     <>
@@ -41,23 +30,16 @@ const Word = memo((props: NodeProps<WordNodeData>) => {
         modal={false}
         onOpenChange={setIsMenuOpen}
       >
-        <MenuContext.Trigger
-          onFocus={(event) => {
-            event.target.addEventListener('keydown', (e: KeyboardEvent) => {
-              if (e.key === "Delete") handleDelete();
-              else if (e.key === "F2") setIsDialogOpen(true);
-            });
-          }}
-        >
+        <MenuContext.Trigger onFocus={(event) => {wordOnKeyListener(event)}}>
           <span
             className={`word ${isMenuOpen ? "word-focus" : ""}`}
             tabIndex={0}
-            aria-label={`Word element - ${wordText}`}
-            title={wordText}
+            aria-label={`Word element - ${word}`}
+            title={word}
           >
-            {wordText.length > wordMaxText
-              ? wordText.slice(0, wordMaxText) + "..."
-              : wordText}
+            {word.length > wordMaxText
+              ? word.slice(0, wordMaxText) + "..."
+              : word}
           </span>
         </MenuContext.Trigger>
 
@@ -71,7 +53,7 @@ const Word = memo((props: NodeProps<WordNodeData>) => {
           </MenuContext.Item>
 
           <MenuContext.Item
-            onSelect={handleDelete}
+            onSelect={()=>{handleDeleteWord}}
             tabIndex={0}
             aria-label="Botão Deletar"
           >
@@ -83,14 +65,8 @@ const Word = memo((props: NodeProps<WordNodeData>) => {
       <DialogEditTextOfWord
         open={isDialogOpen}
         onOpenChange={setIsDialogOpen}
-        wordText={wordText}
-        actionSubmit={handleEditSubmit}
-      />
-
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        style={{ opacity: 0 }}
+        wordText={word}
+        actionSubmit={()=>{handleEditWord}}
       />
     </>
   );

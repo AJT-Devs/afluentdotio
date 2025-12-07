@@ -1,8 +1,6 @@
 // Pool.tsx
 import { ReactFlow, Background, Node, useNodesState } from '@xyflow/react';
 import { useState, useEffect, ReactNode } from 'react';
-import { useNavigate } from "react-router";
-import Console from '@renderer/components/brainstorming/ConsoleBrainstorming';
 import '@renderer/assets/stylesheets/components/brainstorming/pool.css';
 
 const INITIAL_WORDS = [
@@ -15,9 +13,10 @@ const INITIAL_WORDS = [
 
 type PoolProps = {
   children : ReactNode;
+  isFreeMode;
 }
 
-const Pool = ({children} : PoolProps) => {
+const Pool = ({children : Console, isFreeMode} : PoolProps) => {
 
 
   return (
@@ -25,6 +24,7 @@ const Pool = ({children} : PoolProps) => {
       <ReactFlow
         proOptions={{ hideAttribution: true }}
         nodesConnectable={false}
+        nodesDraggable={isFreeMode}
         fitView
         minZoom={0.2}
         maxZoom={2}
@@ -35,7 +35,7 @@ const Pool = ({children} : PoolProps) => {
           duration: 0,
         }}
       >
-        {children}
+        {Console}
         <Background gap={20} />
       </ReactFlow>
     </div>

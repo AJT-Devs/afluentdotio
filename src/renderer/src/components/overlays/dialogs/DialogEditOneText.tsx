@@ -9,12 +9,8 @@ interface DialogEditTextOfWordProps {
     actionSubmit: (newText: string) => void;
 }
 
-const DialogEditTextOfWord = ({ 
-    open, 
-    onOpenChange, 
-    wordText, 
-    actionSubmit 
-}: DialogEditTextOfWordProps) => {
+const DialogEditTextOfWord = ({ open, onOpenChange, wordText, actionSubmit }: DialogEditTextOfWordProps) => {
+    
     const [inputValue, setInputValue] = useState(wordText);
 
     const handleSubmit = (e: React.FormEvent) => {

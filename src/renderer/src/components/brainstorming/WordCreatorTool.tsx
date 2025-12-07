@@ -1,11 +1,11 @@
-import { useState, FormEvent, use } from 'react';
+import { useState, FormEvent } from 'react';
 import "@renderer/assets/stylesheets/components/brainstorming/console-footer-toolsbar-brainstorming.css"
 
 export interface WordCreatorToolProps{
     onAddWord: (text: string) => void;
 }
 
-const WordCreatorTool = ({onAddWord, ...props}: WordCreatorToolProps) => {
+const WordCreatorTool = ({onAddWord}: WordCreatorToolProps) => {
     const [inputValue, setInputValue] = useState('');
     
     const handleSubmit = (e: FormEvent) => {
@@ -13,7 +13,7 @@ const WordCreatorTool = ({onAddWord, ...props}: WordCreatorToolProps) => {
 
     if (inputValue.trim() !== "") {
       onAddWord(inputValue);
-      setInputValue(''); // Limpa input
+      setInputValue('');
     }
   };
 
