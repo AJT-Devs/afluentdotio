@@ -3,9 +3,9 @@ import { Brainstorm, Viewport, BrainstormEdge, BrainstormNode } from "../../enti
 import { SuccessResponse } from "../../entities/SuccessResponse";
 
 export default interface BrainstormIpcAdapter {
-    generateAIWords(brainstorm: Brainstorm, aiKey: string, aiModelPreference: string): Promise<SuccessResponse<string[][]> | Error> ;
-    postBrainstorm(brainstorm: Brainstorm): Promise<SuccessResponse<Partial<Brainstorm>> | Error> ;
-    updateBrainstorm(brainstorm: Brainstorm): Promise<SuccessResponse<Brainstorm> | Error> ;
+    generateAIWords(brainstorm: Partial<Brainstorm> | Brainstorm, aiKey: string, aiModelPreference: string): Promise<SuccessResponse<string[][]> | Error> ;
+    postBrainstorm(brainstorm: Partial<Brainstorm> | Brainstorm): Promise<SuccessResponse<Partial<Brainstorm>> | Error> ;
+    updateBrainstorm(brainstorm: Partial<Brainstorm> | Brainstorm): Promise<SuccessResponse<Brainstorm> | Error> ;
     updateViewport(brainstormId: string, viewport: Viewport): Promise<SuccessResponse<Partial<Brainstorm>> | Error> ;
     updatePoolNode(brainstormId: string, node: BrainstormNode): Promise<SuccessResponse<Partial<Brainstorm>> | Error> ;
     updatePoolEdge(brainstormId: string, edge: BrainstormEdge): Promise<SuccessResponse<Partial<Brainstorm>> | Error> ;

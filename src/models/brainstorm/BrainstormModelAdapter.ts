@@ -1,9 +1,9 @@
 import { Brainstorm, Viewport, BrainstormEdge, BrainstormNode } from "../../entities/Brainstorm";
 
 export interface BrainstormModelAdapter {
-    createBrainstorm(brainstorm: Brainstorm): Promise<Partial<Brainstorm>>;
+    createBrainstorm(brainstorm: Partial<Brainstorm> | Brainstorm): Promise<Partial<Brainstorm>>;
 
-    updateBrainstorm(brainstorm: Brainstorm): Promise<Brainstorm | null>;
+    updateBrainstorm(brainstorm: Partial<Brainstorm> | Brainstorm): Promise<Brainstorm | null>;
     updateViewport(brainstormId: string, viewport: Viewport): Promise<Partial<Brainstorm> | null>;
     updatePoolNode(brainstormId: string, node: BrainstormNode): Promise<Partial<Brainstorm> | null>;
     updatePoolEdge(brainstormId: string, edge: BrainstormEdge): Promise<Partial<Brainstorm> | null>;
