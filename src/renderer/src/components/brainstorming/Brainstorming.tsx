@@ -6,7 +6,7 @@ const Brainstorm = ()=>{
 
     return(
         <>
-            <Pool2>
+            <Pool2 isFreeMode={isFreeMode}>
                 <Console 
                     isFreeMode={isFreeMode} 
                     changeIsFreeMode={changeIsFreeMode} 

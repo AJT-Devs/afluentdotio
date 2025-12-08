@@ -40,4 +40,10 @@
   img{
    width: 60px;
   }
+
+  &:focus{
+    border-color: var(--back-ena-btn);
+    background-color: var(--back-ena-btn);
+    color: var(--text-ena-btn-on);
+  }
 }
