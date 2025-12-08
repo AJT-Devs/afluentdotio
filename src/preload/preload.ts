@@ -11,8 +11,8 @@ import BrainstormIpcAdapter from '../endpoint/ipc/BrainstormIpcAdapter'
 // Custom APIs for renderer
 
 const user: UserIpcAdapter = {
-  postUser: (user: User) => ipcRenderer.invoke('postUser', user),
-  updateUser: (user: User) => ipcRenderer.invoke('updateUser', user),
+  postUser: (user: Partial<User> | User) => ipcRenderer.invoke('postUser', user),
+  updateUser: (user: Partial<User> | User) => ipcRenderer.invoke('updateUser', user),
   deleteUser: (id: string) => ipcRenderer.invoke('deleteUser', id),
   getUserById: (id: string) => ipcRenderer.invoke('getUserById', id),
   getAllUsers: () => ipcRenderer.invoke('getAllUsers'),
@@ -21,9 +21,9 @@ const user: UserIpcAdapter = {
 }
 
 const brainstorm: BrainstormIpcAdapter = {
-  generateAIWords: (brainstorm: Brainstorm, aiKey: string, aiModelPreference: AiModels) => ipcRenderer.invoke('generateAIWords', brainstorm, aiKey, aiModelPreference),
-  postBrainstorm: (brainstorm: Brainstorm) => ipcRenderer.invoke('postBrainstorm', brainstorm),
-  updateBrainstorm: (brainstorm: Brainstorm) => ipcRenderer.invoke('updateBrainstorm', brainstorm),
+  generateAIWords: (brainstorm: Partial<Brainstorm> | Brainstorm, aiKey: string, aiModelPreference: AiModels) => ipcRenderer.invoke('generateAIWords', brainstorm, aiKey, aiModelPreference),
+  postBrainstorm: (brainstorm: Partial<Brainstorm> | Brainstorm) => ipcRenderer.invoke('postBrainstorm', brainstorm),
+  updateBrainstorm: (brainstorm: Partial<Brainstorm> | Brainstorm) => ipcRenderer.invoke('updateBrainstorm', brainstorm),
   updateViewport: (brainstormId: string, viewport: any) => ipcRenderer.invoke('updateViewport', brainstormId, viewport),
   updatePoolNode: (brainstormId: string, node: any) => ipcRenderer.invoke('updatePoolNode', brainstormId, node),
   updatePoolEdge: (brainstormId: string, edge: any) => ipcRenderer.invoke('updatePoolEdge', brainstormId, edge),

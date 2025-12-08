@@ -14,7 +14,7 @@ export default class MongooseUserModel implements UserModelAdapter {
     };
   }
 
-  public async createUser(user: User): Promise<User> {
+  public async createUser(user: Partial<User> | User): Promise<User> {
     const { id, ...userData } = user;
     await MongooseSingleton.getInstance();
 
@@ -22,7 +22,7 @@ export default class MongooseUserModel implements UserModelAdapter {
     return this.toEntity(createdUserDoc)
   }
 
-  public async updateUser(user: User): Promise<User | null> {
+  public async updateUser(user: Partial<User> | User): Promise<User | null> {
     await MongooseSingleton.getInstance();
 
     const updatedUserDoc = await UserModelDb.findByIdAndUpdate(

@@ -13,7 +13,7 @@ export default class BrainstormController {
     private static ErrorLogModel: ErrorLogModelAdapter = new MongooseErrorLogModel();
     private static BrainstormService: BrainstormServiceAdapter = new BrainstormGeminiService();
 
-    public static async generateAIWords(brainstorm: Brainstorm, apiKey: string, aiModelPreference: AiModels): Promise<SuccessResponse<Brainstorm> | Error > {
+    public static async generateAIWords(brainstorm: Partial<Brainstorm> | Brainstorm, apiKey: string, aiModelPreference: AiModels): Promise<SuccessResponse<Brainstorm> | Error > {
         try{
             const words: string[][] | Error = await this.BrainstormService.GenerateBrainstorm(brainstorm, apiKey, aiModelPreference);
             if(words instanceof Error){
@@ -28,7 +28,7 @@ export default class BrainstormController {
         }
     }
         
-    public static async postBrainstorm(brainstorm: Brainstorm): Promise<SuccessResponse<Brainstorm> | Error> {
+    public static async postBrainstorm(brainstorm: Partial<Brainstorm> | Brainstorm): Promise<SuccessResponse<Brainstorm> | Error> {
         try{
             if(!brainstorm.pool) brainstorm.pool = new BrainstormPool([], [], new Viewport(0,0,1));
             const response = await this.BrainstormModel.createBrainstorm(brainstorm);
@@ -41,7 +41,7 @@ export default class BrainstormController {
         }
     }
 
-    public static async updateBrainstorm(brainstorm: Brainstorm): Promise<SuccessResponse<Brainstorm> | Error> {
+    public static async updateBrainstorm(brainstorm: Partial<Brainstorm> | Brainstorm): Promise<SuccessResponse<Brainstorm> | Error> {
         try{
             const response : Brainstorm | null = await this.BrainstormModel.updateBrainstorm(brainstorm);
             if(!response){

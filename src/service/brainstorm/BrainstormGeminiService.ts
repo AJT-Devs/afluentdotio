@@ -5,7 +5,7 @@ import { BrainstormServiceAdapter } from "./BrainstormServiceAdapter";
 
 export default class BrainstormGeminiService implements BrainstormServiceAdapter {
 
-    public async GenerateBrainstorm(brainstorm: Brainstorm, apiKey: string, aiModelPreference: AiModels): Promise<string[][] | Error> {
+    public async GenerateBrainstorm(brainstorm: Partial<Brainstorm>, apiKey: string, aiModelPreference: AiModels): Promise<string[][] | Error> {
         const ai = new GoogleGenAI({ apiKey: apiKey });
             try {
                 const response = await ai.models.generateContent({

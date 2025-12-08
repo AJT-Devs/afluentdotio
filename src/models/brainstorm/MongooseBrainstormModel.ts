@@ -26,14 +26,14 @@ export default class MongooseBrainstormModel implements BrainstormModelAdapter {
     };
   }
 
-  public async createBrainstorm(brainstorm: Brainstorm): Promise<Brainstorm> {
+  public async createBrainstorm(brainstorm: Partial<Brainstorm> | Brainstorm): Promise<Brainstorm> {
     const { id, date, ...brainstormData } = brainstorm;
     await MongooseSingleton.getInstance();
     const createdDoc = await BrainstormModelDb.create(brainstormData);
     return this.toEntity(createdDoc);
   }
 
-  public async updateBrainstorm(brainstorm: Brainstorm): Promise<Brainstorm | null> {
+  public async updateBrainstorm(brainstorm: Partial<Brainstorm> | Brainstorm): Promise<Brainstorm | null> {
     await MongooseSingleton.getInstance();
     const updatedDoc = await BrainstormModelDb.findByIdAndUpdate(
       brainstorm.id, { ...brainstorm }, { new: true }).exec();
