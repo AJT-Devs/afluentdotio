@@ -3,18 +3,20 @@ import {ChevronDown} from "lucide-react";
 import DropMenu from "../overlays/dropmenu/DropMenu";
 import {useState} from "react";
 import { useTheme } from "@renderer/contexts/ThemeContext";
+import DialogEditOneText from "../overlays/dialogs/DialogEditOneText";
 
 import "@renderer/assets/stylesheets/components/brainstorming/main-menu-brainstorming.css"
 
 interface MainMenuBrainstormingProps {
     toBack : ()=>void;
     exportDoc : ()=>void;
-    toArchiveDoc : ()=>void;
-    toDeleteDoc : ()=>void;
-    toOpenConfig : ()=>void;
+    toArchiveDoc? : ()=>void;
+    toDeleteDoc? : ()=>void;
+    toOpenConfig? : ()=>void;
+
 }
 
-const MainMenuBrainstorming = ({toBack, exportDoc, toArchiveDoc, toDeleteDoc, toOpenConfig} : MainMenuBrainstormingProps) => {
+const MainMenuBrainstorming = ({toBack, exportDoc} : MainMenuBrainstormingProps) => {
     
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { theme, toggleTheme } = useTheme();
@@ -33,21 +35,24 @@ const MainMenuBrainstorming = ({toBack, exportDoc, toArchiveDoc, toDeleteDoc, to
                     <DropMenu.Item onSelect={toBack}>
                         Voltar
                     </DropMenu.Item>
+                    {/* <DropMenu.Item onSelect={()=>{toEditTitle.onOpenChange(true)}}>
+                        Editar título
+                    </DropMenu.Item> */}
                     <DropMenu.Item onSelect={exportDoc}>
                         Exportar
                     </DropMenu.Item>
-                    <DropMenu.Item onSelect={toArchiveDoc}>
+                    {/* <DropMenu.Item onSelect={toArchiveDoc}>
                         Arquivar
-                    </DropMenu.Item>
+                    </DropMenu.Item> */}
                     <DropMenu.Item onSelect={toggleTheme}>
                         {theme === 'light' ? "Tema Escuro" : "Tema Claro"}
                     </DropMenu.Item>
-                    <DropMenu.Item onSelect={toOpenConfig}>
+                    {/* <DropMenu.Item onSelect={toOpenConfig}>
                         Configurações
-                    </DropMenu.Item>
-                    <DropMenu.Item onSelect={toDeleteDoc} className="drop-menu-item-delete">
+                    </DropMenu.Item> */}
+                    {/* <DropMenu.Item onSelect={toDeleteDoc} className="drop-menu-item-delete">
                         Mover para a lixeira
-                    </DropMenu.Item>
+                    </DropMenu.Item> */}
                 </DropMenu.Content>
             </DropMenu.Root>
         </>

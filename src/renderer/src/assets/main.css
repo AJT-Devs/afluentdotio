@@ -19,3 +19,8 @@
 *{
     font-family: sans-serif;
 }
+
+img{
+    user-select: none;
+    border-radius: 50%;
+}

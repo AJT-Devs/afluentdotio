@@ -6,9 +6,29 @@
     display: flex;
     width: 100%;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     gap: 20px; 
 
     /* border: 1px solid red; */
     min-height: 50px;
+
+    img{
+        position: absolute;
+        top: 0;
+        right: 25px;
+        width: 35px;
+        height: 35px;
+        /* border-radius: 50%; */
+    }
+
+    .title-brainstorming{
+        font-size: 1rem;
+        font-weight: bold;
+        color: var(--pri-text);
+        padding: 6px 10px;
+        border: 3px solid var(--pri-text);
+        border-radius: 20px;
+        background-color: var(--background);
+    }
 }

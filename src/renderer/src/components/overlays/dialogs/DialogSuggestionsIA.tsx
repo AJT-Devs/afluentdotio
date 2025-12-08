@@ -7,7 +7,11 @@ import AiIcon from '@renderer/components/AiIcon';
 import "@renderer/assets/stylesheets/components/dialog-suggestions-ai.css"
 import Spinner from "@renderer/components/loadSpinner";
 
-const DialogSuggestionsIA = ()=>{
+type DialogSuggestionsIAProps = {
+    addWordsGeneratedAI : (words : string[])=>void;
+}
+
+const DialogSuggestionsIA = ({addWordsGeneratedAI} : DialogSuggestionsIAProps)=>{
     const hasFetched = useRef<Boolean>(false);
 
     
@@ -68,8 +72,6 @@ const DialogSuggestionsIA = ()=>{
     
     const [countSelect, setCountSelect] = useState(0);
 
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 
@@ -107,7 +109,7 @@ const DialogSuggestionsIA = ()=>{
             <div className="DialogSuggestionsIA">
                 <DialogContent.Root>
 
-                    <DialogContent.Trigger className="ai-button" onClick={()=>{setCountSelect(0); setWordsSelect([]); setIsOpen(true); getAiWords();}}>
+                    <DialogContent.Trigger className="ai-button" onClick={()=>{setCountSelect(0); setWordsSelect([]); getAiWords();}}>
                         <AiIcon/>
                     </DialogContent.Trigger>
 
@@ -117,7 +119,7 @@ const DialogSuggestionsIA = ()=>{
                             {GeneratedWords}
                         </div>
                         <DialogContent.Close asChild>
-                            <button className="btn-icon btn-x-icon" onClick={()=>{setIsOpen(false); hasFetched.current = false;}}>
+                            <button className="btn-icon btn-x-icon" onClick={()=>{ hasFetched.current = false;}}>
                                 <X className="icon" size={40}/> 
                             </button>
                         </DialogContent.Close>
@@ -125,7 +127,9 @@ const DialogSuggestionsIA = ()=>{
                             <p>{countSelect} Selecionado(s)</p>
                             <DialogContent.Close asChild>
                                 <button id="btn-add-words" onClick={()=>{
-                                    console.log(wordsSelect)}
+                                    console.log(wordsSelect)
+                                    addWordsGeneratedAI(wordsSelect);
+                                }
                                 }>Adicionar</button>
                             </DialogContent.Close>
                         </div>

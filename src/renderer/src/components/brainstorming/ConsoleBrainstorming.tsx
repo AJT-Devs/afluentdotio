@@ -9,14 +9,18 @@ export interface ConsoleProps {
     isFreeMode : boolean;
     changeIsFreeMode;
     handleToBack : ()=>void;
+    addWordsGeneratedAI : (words : string[])=>void;
+    exportDoc : ()=>void;
+    icon : string;
+    title : string;
 }
 
-const Console = ({onAddWord, isFreeMode, changeIsFreeMode, handleToBack}: ConsoleProps) => {
+const Console = ({onAddWord, isFreeMode, changeIsFreeMode, handleToBack, addWordsGeneratedAI, exportDoc, icon, title}: ConsoleProps) => {
     return (
         <Panel>
             <div className="console-brainstorming">
-                <Header handleToBack={handleToBack} />
-                <FooterToolsBar onAddWord={onAddWord} isFreeMode={isFreeMode} changeIsFreeMode={changeIsFreeMode}/>
+                <Header handleToBack={handleToBack} exportDoc={exportDoc} icon={icon} title={title}/>
+                <FooterToolsBar onAddWord={onAddWord} isFreeMode={isFreeMode} changeIsFreeMode={changeIsFreeMode} addWordsGeneratedAI={addWordsGeneratedAI}/>
             </div>
         </Panel>
     );

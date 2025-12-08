@@ -45,3 +45,7 @@ p{
     border-color: var(--des-color);
     color: var(--text-ena-btn-on);
 }
+
+.word-generated-ai{
+    text-transform: unset;
+}

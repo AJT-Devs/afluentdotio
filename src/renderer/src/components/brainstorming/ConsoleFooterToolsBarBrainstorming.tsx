@@ -8,15 +8,16 @@ export interface FooterToolsBarProps{
     onAddWord: (text: string) => void;
     isFreeMode : boolean;
     changeIsFreeMode : ()=>void;
+    addWordsGeneratedAI : (words : string[])=>void;
 }
 
-const FooterToolsBar = ({onAddWord, changeIsFreeMode, isFreeMode}: FooterToolsBarProps) => {
+const FooterToolsBar = ({onAddWord, changeIsFreeMode, isFreeMode, addWordsGeneratedAI}: FooterToolsBarProps) => {
 
     return(
         <div className='footer-toolsbar'>
             <LockFreeModeToggle isFreeMode={isFreeMode} changeIsFreeMode={changeIsFreeMode}/>
             <WordCreatorTool onAddWord={onAddWord}/>
-            <DialogSuggestionsIA/>
+            <DialogSuggestionsIA addWordsGeneratedAI={addWordsGeneratedAI}/>
         </div>
     );
 }

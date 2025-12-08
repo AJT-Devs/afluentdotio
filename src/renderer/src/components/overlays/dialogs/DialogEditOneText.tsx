@@ -2,16 +2,16 @@ import DialogContent from "./Dialog";
 import * as React from "react";
 import { useState } from "react";
 
-interface DialogEditTextOfWordProps {
+interface DialogEditOneTextProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    wordText: string;
+    text: string;
     actionSubmit: (newText: string) => void;
+    title : string;
+    inputValue, setInputValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const DialogEditTextOfWord = ({ open, onOpenChange, wordText, actionSubmit }: DialogEditTextOfWordProps) => {
-    
-    const [inputValue, setInputValue] = useState(wordText);
+const DialogEditOneText = ({ open, onOpenChange, text, actionSubmit, title, inputValue, setInputValue}: DialogEditOneTextProps) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,10 +22,10 @@ const DialogEditTextOfWord = ({ open, onOpenChange, wordText, actionSubmit }: Di
     return (
         <DialogContent.Root open={open} onOpenChange={onOpenChange}>
             <DialogContent.Content>
-                <DialogContent.Title>Editar texto</DialogContent.Title>
-                <DialogContent.Description>
-                    Edite o texto da palavra abaixo
-                </DialogContent.Description>
+                <DialogContent.Title>{title || "Editar texto"}</DialogContent.Title>
+                {/* <DialogContent.Description>
+                    {description || "Edite o texto abaixo e clique em salvar."}
+                </DialogContent.Description> */}
                 
                 <form onSubmit={handleSubmit}>
                     <input 
@@ -38,7 +38,7 @@ const DialogEditTextOfWord = ({ open, onOpenChange, wordText, actionSubmit }: Di
                     />
                     
                     <div className="dialog-buttons">
-                        <DialogContent.Close asChild>
+                        <DialogContent.Close asChild >
                             <button type="button">Cancelar</button>
                         </DialogContent.Close>
                         
@@ -50,4 +50,4 @@ const DialogEditTextOfWord = ({ open, onOpenChange, wordText, actionSubmit }: Di
     );
 };
 
-export default DialogEditTextOfWord;
+export default DialogEditOneText;

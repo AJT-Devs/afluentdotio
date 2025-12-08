@@ -1,75 +1,70 @@
-// Word.tsx
 import MenuContext from "@renderer/components/overlays/contextmenu/MenuContext";
 import { useState, memo } from "react";
 import DialogEditTextOfWord from "@renderer/components/overlays/dialogs/DialogEditTextOfWord";
-import {BrainstormNode} from "src/entities/Brainstorm";
+import { NodeProps, Handle, Position } from "@xyflow/react";
 import "@renderer/assets/stylesheets/components/brainstorming/word.css";
 
-export interface WordProps extends BrainstormNode{
-  handleEditWord: (id: string | number, newText: string) => void;
-  handleDeleteWord: (id: string | number) => void;
-}
+export type WordNodeRFData = {
+  word: string;
+  onEditWord: (id: string, newText: string) => void;
+  onDeleteWord: (id: string) => void;
+};
 
-const Word = memo(({word, handleEditWord, handleDeleteWord} : WordProps) => {
-
+const Word = memo((props: NodeProps<WordNodeRFData>) => {
+  const { id, data, selected } = props;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const wordOnKeyListener = (event) => {
-      event.target.addEventListener('keydown', (e: KeyboardEvent) => {
-          if (e.key === "Delete") handleDeleteWord;
-          else if (e.key === "F2") setIsDialogOpen(true);
-      });
-  }
-  
-  const wordMaxText = 10;
+  const wordMaxText = 15;
+  const text = data.word ?? "";
 
-  return (
-    <>
-      <MenuContext.Root
-        modal={false}
-        onOpenChange={setIsMenuOpen}
-      >
-        <MenuContext.Trigger onFocus={(event) => {wordOnKeyListener(event)}}>
-          <span
-            className={`word ${isMenuOpen ? "word-focus" : ""}`}
+  const onKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (e.key === "Delete") data.onDeleteWord(id);
+    else if (e.key === "F2") setIsDialogOpen(true);
+  };
+
+    return (
+      <>
+        <MenuContext.Root modal={false} onOpenChange={setIsMenuOpen}>
+          <MenuContext.Trigger>
+            <span
+            className={`word ${isMenuOpen ? "word-focus" : ""} ${selected ? "word-selected" : ""}`}
             tabIndex={0}
-            aria-label={`Word element - ${word}`}
-            title={word}
-          >
-            {word.length > wordMaxText
-              ? word.slice(0, wordMaxText) + "..."
-              : word}
-          </span>
-        </MenuContext.Trigger>
+            aria-label={`Word element - ${text}`}
+            title={text}
+            onKeyDown={onKeyDown}
+            >
+            {text.length > wordMaxText ? text.slice(0, wordMaxText) + "..." : text}
+            </span>
+            </MenuContext.Trigger>
+            <MenuContext.Content>
+                  <MenuContext.Item
+                    onSelect={() => setIsDialogOpen(true)}
+                    tabIndex={0}
+                    aria-label="Botão Editar"
+                  >
+                    Editar
+                  </MenuContext.Item>
 
-        <MenuContext.Content>
-          <MenuContext.Item
-            onSelect={() => setIsDialogOpen(true)}
-            tabIndex={0}
-            aria-label="Botão Editar"
-          >
-            Editar
-          </MenuContext.Item>
+                  <MenuContext.Item
+                    onSelect={() => data.onDeleteWord(id)}
+                    tabIndex={0}
+                    aria-label="Botão Deletar"
+                  >
+                    Deletar
+                  </MenuContext.Item>
+                </MenuContext.Content>
+          </MenuContext.Root>
 
-          <MenuContext.Item
-            onSelect={()=>{handleDeleteWord}}
-            tabIndex={0}
-            aria-label="Botão Deletar"
-          >
-            Deletar
-          </MenuContext.Item>
-        </MenuContext.Content>
-      </MenuContext.Root>
-
-      <DialogEditTextOfWord
-        open={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-        wordText={word}
-        actionSubmit={()=>{handleEditWord}}
-      />
+          <DialogEditTextOfWord
+            open={isDialogOpen}
+            onOpenChange={setIsDialogOpen}
+            wordText={text}
+            actionSubmit={(newText) => data.onEditWord(id, newText)}
+          />
     </>
-  );
+    );
 });
 
+Word.displayName = "Word";
 export default Word;

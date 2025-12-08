@@ -8,7 +8,7 @@ type LockFreeModeToggleProps = {
 const LockFreeModeToggle = ({isFreeMode, changeIsFreeMode} : LockFreeModeToggleProps)=>{
     return(
         <button onClick={changeIsFreeMode}>
-            {isFreeMode ? <Lock className="" size={20} strokeWidth={3}/> : <LockOpen className="" size={20} strokeWidth={3}/>}
+            {isFreeMode ?  <LockOpen className="" size={20} strokeWidth={3}/> : <Lock className="" size={20} strokeWidth={3}/>}
         </button>
     );
 }
