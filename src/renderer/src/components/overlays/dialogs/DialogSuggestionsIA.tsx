@@ -10,8 +10,9 @@ import Spinner from "@renderer/components/loadSpinner";
 const DialogSuggestionsIA = ()=>{
     const hasFetched = useRef<Boolean>(false);
 
-    useEffect(()=>{     
-        const getAiWords = async () => {
+    
+
+    const getAiWords = async () => {
             if (hasFetched.current) return;
             hasFetched.current = true;
             try{
@@ -59,11 +60,7 @@ const DialogSuggestionsIA = ()=>{
                 setErrorMessage("Erro ao gerar palavras com IA.");
                 return;
             }
-        }; 
-        
-        console.log(isOpen)
-        getAiWords();
-    },[]);
+        };
 
     const [words, setWords] = useState<string[]>([]);
 
@@ -110,7 +107,7 @@ const DialogSuggestionsIA = ()=>{
             <div className="DialogSuggestionsIA">
                 <DialogContent.Root>
 
-                    <DialogContent.Trigger className="ai-button" onClick={()=>{setCountSelect(0); setWordsSelect([]); setIsOpen(true);}}>
+                    <DialogContent.Trigger className="ai-button" onClick={()=>{setCountSelect(0); setWordsSelect([]); setIsOpen(true); getAiWords();}}>
                         <AiIcon/>
                     </DialogContent.Trigger>
 
@@ -120,7 +117,7 @@ const DialogSuggestionsIA = ()=>{
                             {GeneratedWords}
                         </div>
                         <DialogContent.Close asChild>
-                            <button className="btn-icon btn-x-icon" onClick={()=>{setIsOpen(false)}}>
+                            <button className="btn-icon btn-x-icon" onClick={()=>{setIsOpen(false); hasFetched.current = false;}}>
                                 <X className="icon" size={40}/> 
                             </button>
                         </DialogContent.Close>
