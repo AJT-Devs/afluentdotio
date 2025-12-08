@@ -28,6 +28,10 @@ header{
         }
     }
 
+    img{
+      cursor: pointer;
+    }
+
     
 }
 

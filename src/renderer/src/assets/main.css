@@ -23,4 +23,6 @@
 img{
     user-select: none;
     border-radius: 50%;
+    min-height: 50px;
+    min-width: 50px;
 }

@@ -7,6 +7,7 @@ import '@renderer/assets/stylesheets/components/dialog-config.css'
 import { SuccessResponse } from 'src/entities/SuccessResponse'
 import { SuccessModal } from '@renderer/components/modals/SuccessModal'
 import { ErrorModal } from '@renderer/components/modals/ErrorModal'
+import { useTheme } from '@renderer/contexts/ThemeContext'
 
 import { CircleUserRound } from 'lucide-react'
 
@@ -20,58 +21,59 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
   const [confifChave, setConfigChave] = useState(false)
   const [confifPref, setconfifPref] = useState(false)
   const [activeButton, setActiveButton] = useState('conta')
-
+  
   const [user, setUser] = useState<User>()
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-
+  
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [isEditingName, setIsEditingName] = useState(false)
   const [tempName, setTempName] = useState('')
   const [isEditingKey, setIsEditingKey] = useState(false)
   const [tempKey, setTempKey] = useState('')
-
+  const {theme, setTheme} = useTheme(); 
+  
   useEffect(() => {
     try {
       const storedUserId = sessionStorage.getItem('userId') || null
-
+      
       if (!storedUserId) {
         setErrorMessage('Erro ao encontrar usuário. Por favor, faça login novamente.')
         return
       }
-
+      
       const fetchUsers = async (): Promise<void> => {
         const response: SuccessResponse<User> | Error = await window.user.getUserById(storedUserId)
         if (response instanceof Error) {
           setErrorMessage(response.message)
           return
         }
-
+        
         setUser(response.data)
       }
-
+      
       fetchUsers()
     } catch (error) {
       console.log('error: ' + error)
     }
   }, [])
-
+  
   const handleUpdateUser = async (updatedFields: Partial<User>): Promise<void> => {
     if (!user) return
-
+    
     const newUserObj: User = { ...user, ...updatedFields }
-
+    
     try {
       const response: SuccessResponse<User> | Error = await window.user.updateUser(newUserObj)
-
+      
       if (response instanceof Error) {
         setErrorMessage(response.message)
         return
       }
-
+      
       setUser(response.data)
       setSuccessMessage(response.message)
-
+      
       if (updatedFields.name) {
         sessionStorage.setItem('userName', updatedFields.name)
         sessionStorage.setItem('userPhoto', updatedFields.photo)
@@ -88,7 +90,7 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
     setActiveButton('conta')
     console.log('chave' + confifChave, 'conta' + confifConta, 'preferencias' + confifPref)
   }
-
+  
   const handleClickChaveIa = (): void => {
     setconfifPref(false)
     setConfigConta(false)
@@ -104,7 +106,7 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
     setActiveButton('prefe')
     console.log('chave' + confifChave, 'conta' + confifConta, 'preferencias' + confifPref)
   }
-
+  
   const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const file = event.target.files?.[0]
     if (!file) return
@@ -116,11 +118,11 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
     }
     reader.readAsDataURL(file)
   }
-
+  
   const triggerFileInput = (): void => {
     fileInputRef.current?.click()
   }
-
+  
   const buttonContaStyle = {
     display: confifConta === true ? 'flex' : 'none',
     gap: '15px',
@@ -131,15 +133,15 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
     gap: '15px',
     color: 'white'
   }
-
+  
   const buttonPrefeStyle = {
     display: confifPref === true ? 'block' : 'none',
     gap: '15px',
     color: 'white'
   }
-
+  
   return (
-    <DialogContent.Root open={open} onOpenChange={onOpenChange}>
+    <DialogContent.Root open={open} onOpenChange={onOpenChange} className="dialog-config">
       <DialogContent.Title title="Configurações" />
       <DialogContent.Content>
         <input
@@ -156,7 +158,7 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
                 <button
                   onClick={handleClickConta}
                   className="button-config"
-                  style={{ background: activeButton === 'conta' ? '#2F333C' : 'none' }}
+                  style={{ background: activeButton === 'conta' ? theme === "dark" ? "#2F333C" : "#949CAE" : 'none' }}
                 >
                   Conta
                 </button>
@@ -165,7 +167,7 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
                 <button
                   onClick={handleClickChaveIa}
                   className="button-config"
-                  style={{ background: activeButton === 'chave' ? '#2F333C' : 'none' }}
+                  style={{ background: activeButton === 'chave' ? theme === "dark" ? "#2F333C" : "#949CAE" : 'none' }}
                 >
                   Modelo de IA
                 </button>
@@ -174,7 +176,7 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
                 <button
                   onClick={handleClickPreferencias}
                   className="button-config"
-                  style={{ background: activeButton === 'prefe' ? '#2F333C' : 'none' }}
+                  style={{ background: activeButton === 'prefe' ? theme === "dark" ? "#2F333C" : "#949CAE" : 'none' }}
                 >
                   Preferências
                 </button>
@@ -260,50 +262,50 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
             <div id="config-chave" style={buttonChaveStyle}>
               <div>
                 <div>
-                  <h1 style={{ margin: '10px 10px 10px -10px' }}>TEMA</h1>
-                  <h4>Escuro</h4>
-                  <h5 className="p1">Alterar tema</h5>
+                  <div>
+                    <h1 style={{ margin: '10px 10px 10px -10px' }}>CHAVE DA API</h1>
+
+                    {isEditingKey ? (
+                      <div style={{ display: 'flex', gap: '5px' }}>
+                        <input
+                          value={tempKey}
+                          onChange={(e) => setTempKey(e.target.value)}
+                          type="password"
+                        />
+                        <button
+                          onClick={() => {
+                            handleUpdateUser({ aikey: tempKey })
+                            setIsEditingKey(false)
+                          }}
+                        >
+                          Salvar
+                        </button>
+                        <button onClick={() => setIsEditingKey(false)}>Cancelar</button>
+                      </div>
+                    ) : (
+                      <h4>{user?.aikey ? '••••••••' : 'Não configurada'}</h4>
+                    )}
+
+                    <h5
+                      className="p1"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        setTempKey(user?.aikey || '')
+                        setIsEditingKey(true)
+                      }}
+                    >
+                      {user?.aikey ? 'Alterar chave da api' : 'Inserir chave da API'}
+                    </h5>
+                  </div>
                 </div>
               </div>
             </div>
             <div id="config-prefe" style={buttonPrefeStyle}>
-              <div>
-                <div>
-                  <h1 style={{ margin: '10px 10px 10px -10px' }}>CHAVE DA API</h1>
-
-                  {isEditingKey ? (
-                    <div style={{ display: 'flex', gap: '5px' }}>
-                      <input
-                        value={tempKey}
-                        onChange={(e) => setTempKey(e.target.value)}
-                        type="password"
-                      />
-                      <button
-                        onClick={() => {
-                          handleUpdateUser({ aikey: tempKey })
-                          setIsEditingKey(false)
-                        }}
-                      >
-                        Salvar
-                      </button>
-                      <button onClick={() => setIsEditingKey(false)}>Cancelar</button>
-                    </div>
-                  ) : (
-                    <h4>{user?.aikey ? '••••••••' : 'Não configurada'}</h4>
-                  )}
-
-                  <h5
-                    className="p1"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => {
-                      setTempKey(user?.aikey || '')
-                      setIsEditingKey(true)
-                    }}
-                  >
-                    {user?.aikey ? 'Alterar chave da api' : 'Inserir chave da API'}
-                  </h5>
+               <div>
+                  <h1 style={{ margin: '10px 10px 10px -10px' }}>TEMA</h1>
+                  <h4>{theme === "light" ? "Claro" : "Escuro"}</h4>
+                  <h5 className="p1" tabIndex={0} onClick={()=>{setTheme(theme === "light" ? "dark" : "light")}}>Alterar tema</h5>
                 </div>
-              </div>
             </div>
           </main>
         </div>

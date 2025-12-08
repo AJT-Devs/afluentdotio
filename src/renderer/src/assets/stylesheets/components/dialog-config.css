@@ -1,5 +1,7 @@
 #wrapper {
     display: flex;
+    background-color: var(--background);
+    color: var(--pri-text);
 }
 
 #aside {
@@ -8,6 +10,11 @@
 
 #main {
     padding: 20px;
+    color: var(--pri-text);
+}
+
+*{
+    color: var(--pri-text);
 }
 
 .dialog {
@@ -27,12 +34,18 @@
     align-self: stretch;
     width: 8.6rem;
 
-    color: var(--Branco-e-Preto-Branco, #E5E7EF);
+    color: var(--pri-text);
     font-size: 0.8rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     border: none;
+
+    &:hover {
+        background-color: var(--cinza-escuro);
+        color: var(--pri-text);
+        cursor: pointer;
+    }
 }
 
 .btn-x-icon {
@@ -44,4 +57,5 @@
 
 .p1{
     color: var(--azul-claro);
+    cursor: pointer;
 }
