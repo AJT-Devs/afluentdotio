@@ -1,0 +1,47 @@
+#wrapper {
+    display: flex;
+}
+
+#aside {
+    padding: 20px;
+}
+
+#main {
+    padding: 20px;
+}
+
+.dialog {
+    height: 500px;
+}
+
+.list-config {
+    margin-bottom: 0.8rem;
+}
+
+.button-config {
+    display: flex;
+    padding: 0.625rem 1.25rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+    width: 8.6rem;
+
+    color: var(--Branco-e-Preto-Branco, #E5E7EF);
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border: none;
+}
+
+.btn-x-icon {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    color: var(--pri-text);
+}
+
+.p1{
+    color: var(--azul-claro);
+}
