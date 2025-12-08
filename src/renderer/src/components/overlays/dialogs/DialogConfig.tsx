@@ -14,9 +14,10 @@ import { CircleUserRound } from 'lucide-react'
 interface DialogConfigProps {
   open: boolean
   onOpenChange: (open: boolean) => void
+  onUserUpdate?: (photo: string | null) => void
 }
 
-const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element => {
+const DialogConfig = ({ open, onOpenChange, onUserUpdate }: DialogConfigProps): JSX.Element => {
   const [confifConta, setConfigConta] = useState(true)
   const [confifChave, setConfigChave] = useState(false)
   const [confifPref, setconfifPref] = useState(false)
@@ -74,6 +75,10 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
       setUser(response.data)
       setSuccessMessage(response.message)
 
+      if (updatedFields.photo && onUserUpdate) {
+        onUserUpdate(response.data.photo)
+      }
+
       if (updatedFields.name) {
         sessionStorage.setItem('userName', updatedFields.name)
         sessionStorage.setItem('userPhoto', updatedFields.photo)
@@ -126,13 +131,13 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
   const buttonContaStyle = {
     display: confifConta === true ? 'flex' : 'none',
     gap: '15px',
-    color: (theme === 'light' ? '#202124' : '#E5E7EF')
+    color: theme === 'light' ? '#202124' : '#E5E7EF'
   }
 
   const buttonChaveStyle = {
     display: confifChave === true ? 'block' : 'none',
     gap: '15px',
-    color: (theme === 'light' ? '#202124' : '#E5E7EF')
+    color: theme === 'light' ? '#202124' : '#E5E7EF'
   }
 
   const buttonPrefeStyle = {
@@ -209,7 +214,7 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
                     src={user.photo}
                     alt="User Photo"
                     className="photo-user-header"
-                    onClick={triggerFileInput} // <--- Clica na foto para abrir arquivo
+                    onClick={triggerFileInput}
                     style={{ cursor: 'pointer' }}
                     width={100}
                     height={100}
@@ -218,7 +223,7 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
                   <CircleUserRound
                     size={50}
                     className="icon btn-config"
-                    onClick={triggerFileInput} // <--- Clica no ícone para abrir arquivo
+                    onClick={triggerFileInput}
                     style={{ cursor: 'pointer' }}
                   />
                 )}

@@ -57,7 +57,7 @@ export default function Dashboard(): JSX.Element {
       }
     }
     getBrainstormList()
-  }, [userPhoto, userId])
+  }, [])
 
   const navigate = useNavigate()
   const handleCriar = (): void => {
@@ -70,6 +70,11 @@ export default function Dashboard(): JSX.Element {
   const goToBrainstormingPage = async (id: string): Promise<void> => {
     await sessionStorage.setItem('brainstormId', id)
     navigate('/brainstorming')
+  }
+
+  const handlePhotoUpdate = (newPhotoUrl: string | null): void => {
+     setUserPhoto(newPhotoUrl)
+     if(newPhotoUrl) sessionStorage.setItem('userPhoto', newPhotoUrl)
   }
 
   console.log('User ID: ', userId, 'brainstormId: ', brainstormId)
@@ -164,7 +169,7 @@ export default function Dashboard(): JSX.Element {
           <p className="dashboard-main-p">Nenhum brainstorm encontrado.</p>
         )}
       </main>
-      <DialogConfig open={isConfigOpen} onOpenChange={setIsConfigOpen} />
+      <DialogConfig open={isConfigOpen} onOpenChange={setIsConfigOpen} onUserUpdate={handlePhotoUpdate} />
       {errorMessage && <ErrorModal message={errorMessage} onClose={() => setErrorMessage(null)} />}
 
       <AlertDialogContent.Root onOpenChange={()=>{setIsAlertOpenDeleteBrainstorm(!isAlertOpenDeleteBrainstorm)}} open={isAlertOpenDeleteBrainstorm} key={"AlertDialopDeleteBrainstorm"}>
