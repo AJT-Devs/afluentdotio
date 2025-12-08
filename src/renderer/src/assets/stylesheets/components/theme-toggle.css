@@ -1,11 +1,12 @@
 .theme-toggle{
     position: absolute;
     top: calc(20px + var(--h-title-bar));
-    border-color: none;
+    border: none;
     background-color: none;
 
     .icon{
         color: var(--text-ena-btn-off);
+        transition: all .3s ease-in-out;
     }
 
     &:hover, &:focus-visible{
@@ -14,7 +15,7 @@
         color: var(--text-ena-btn-on);
 
         .icon{
-            color: var(--text-ena-btn-on);
+            color: var(--des-color);
         }
     }
 }
