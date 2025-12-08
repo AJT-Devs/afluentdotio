@@ -44,6 +44,16 @@
     gap: 15px;
 }
 
+.alert-dialog-delete-action {
+    border-color: var(--vermelho);
+    color: var(--vermelho);
+    &:hover, &:focus-visible{
+        border-color: var(--vermelho);
+        background-color: var(--vermelho);
+        color: var(--pri-text);
+    }
+}
+
 @keyframes overlayShow {
     from { opacity: 0; }
     to { opacity: 1; }

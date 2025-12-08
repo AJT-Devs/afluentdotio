@@ -1,6 +1,6 @@
 import Console from "@renderer/components/brainstorming/ConsoleBrainstorming";
 import Pool2 from "@renderer/components/brainstorming/Pool2";
-import {useConsole} from "@renderer/hooks/UseConsole";
+import {useConsole} from "@renderer/hooks/useConsole";
 import { usePool } from '@renderer/hooks/usePool';
 import Spinner from '@renderer/components/loadSpinner';
 import { ErrorModal } from '../modals/ErrorModal';
@@ -37,7 +37,6 @@ const Brainstorm = ()=>{
     carregarTitle();
     }, [loadBrainstorm]);
     
-    
     // Wrapper: quando sair do modo livre (true -> false), recalcula layout
     const handleToggleFreeMode = () => {
         if (isFreeMode) {
@@ -66,7 +65,7 @@ const Brainstorm = ()=>{
                         nodes,
                         width: 1920,
                         height: 1200,
-                        fileName: 'brainstorm.png',
+                        fileName: title.replace(/\s+/g, '_').toLowerCase() + '_brainstorm.png',
                         backgroundColor: `${ theme === 'light' ? '#E5E7EF' : '#202124' }`,
                         minZoom: 2,
                         maxZoom: 2,

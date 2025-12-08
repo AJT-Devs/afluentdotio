@@ -31,7 +31,7 @@ export const Content = ({ children, className, ...props }: ContentProps) => {
 
 export const Item = (props: ContextMenuItemProps) => {
   return (
-    <ContextMenu.Item {...props} className="menu-context-item" />
+    <ContextMenu.Item {...props} className={`menu-context-item ${props.className}`} />
   );
 };
 

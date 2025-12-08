@@ -50,6 +50,7 @@ nav{
     display: flex;
     align-items: center;
     gap: 10px;
+    visibility: hidden;
 }
 
 .type-list-nav {
@@ -69,16 +70,78 @@ nav{
     font-weight: bold;
 }
 
-/* main {
+main {
     display:grid;
     grid-template-columns: auto auto auto auto;
     grid-auto-flow: row;
-} */
+}
 
 .dashboard-main-p {
     text-align: center;
     color: var(--pri-elements);
     margin-top: 50px;
     font-weight: bold;
-    font-size: 2.2rem;
+    font-size: 2rem;
+    position: absolute;
+    left: 0;
+    right: 0;
 }
+
+/* Configuração do Container Principal */
+main{
+  display: grid;
+  /* Começa com 5 colunas de tamanhos iguais (frações) */
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 20px; /* Espaço entre os itens */
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box; /* Garante que o padding não estoure a largura */
+}
+
+/* --- Responsividade (Media Queries) --- */
+
+/* Quando a tela for menor que 1200px, muda para 3 colunas */
+@media (max-width: 1200px) {
+  main{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Quando a tela for menor que 768px (tablets), muda para 2 colunas */
+@media (max-width: 768px) {
+  main{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Quando a tela for menor que 480px (celulares), muda para 1 coluna */
+@media (max-width: 480px) {
+  main{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Estilo básico para os itens (filhos) só para visualizar */
+.brainstorm-card {
+  width: 200px;
+  height: 150px;
+  
+  padding: 20px;
+  text-align: center;
+  border-radius: 15px;
+  border: 1px solid var(--pri-elements);
+  color: var(--text-ena-btn-off);
+
+  p{
+    transition: all .3s ease-in-out;
+  }
+
+  &:hover p, &:focus-visible p{
+    color: var(--text-ena-btn-on);
+}
+
+  aspect-ratio: 3/2;
+
+  text-transform: unset;
+}
+

@@ -14,6 +14,8 @@ export const useConsole = () => {
         setIsFreeMode(!isFreeMode);
     };
 
+    
+
     const navigate = useNavigate();
     const handleToBack = () => navigate("/dashboard")
 
