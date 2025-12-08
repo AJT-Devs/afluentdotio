@@ -74,16 +74,6 @@
     font-weight: bold;
 }
 
-.dashboard-main-p {
-    text-align: center;
-    color: var(--pri-elements);
-    margin-top: 50px;
-    font-weight: bold;
-    font-size: 2rem;
-    position: absolute;
-    left: 0;
-    right: 0;
-}
 
 /* Configuração do Container Principal */
 .dashboard-main{
@@ -121,25 +111,34 @@
 
 /* Estilo básico para os itens (filhos) só para visualizar */
 .brainstorm-card {
-  width: 200px;
-  height: 150px;
-  
+  /* width: 200px;
+  height: 150px; */
+  display: flex;
+  align-items: start;
+  justify-content: end;
+  flex-direction: column;
   padding: 20px;
   text-align: center;
   border-radius: 15px;
   border: 1px solid var(--pri-elements);
   color: var(--text-ena-btn-off);
+  aspect-ratio: 3/2;
+
+  text-transform: unset;
+
+  h2{
+    font-size: 1.2rem;
+    text-align: start;
+  }
+  p{
+    color: var(--sec-text);
+    text-align: start;
+    font-size: 0.8rem;
+  }
 
   p{
     transition: all .3s ease-in-out;
   }
 
-  &:hover p, &:focus-visible p{
-    color: var(--text-ena-btn-on);
-}
-
-  aspect-ratio: 3/2;
-
-  text-transform: unset;
 }
 

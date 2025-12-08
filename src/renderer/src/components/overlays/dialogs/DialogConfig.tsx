@@ -61,6 +61,8 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
   const handleUpdateUser = async (updatedFields: Partial<User>): Promise<void> => {
     if (!user) return
 
+    user.preferenceaimodel = 'gemini-2.5-flash'
+
     const newUserObj: User = { ...user, ...updatedFields }
 
     try {

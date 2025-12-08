@@ -141,9 +141,9 @@ export default function Dashboard(): JSX.Element {
                   }}
                 >
                   <h2 title={brainstorm.name} className="brainstorm-title">
-                    {brainstorm.name}
+                    {brainstorm.name.length > 30 ? brainstorm.name.slice(0, 30) + "..." : brainstorm.name}
                   </h2>
-                  <p title={brainstorm.context} className='brainstorm-context'>{brainstorm.context}</p>
+                  <p title={brainstorm.context} className='brainstorm-context'>{brainstorm.context.length > 30 ? brainstorm.context.slice(0, 30) + "..." : brainstorm.context}</p>
                 </button>
               </MenuContext.Trigger>
               <MenuContext.Content>
@@ -214,8 +214,8 @@ export default function Dashboard(): JSX.Element {
           <DialogContent.Title>Editar Título e Contexto</DialogContent.Title>
           <form onSubmit={async (event)=>{
             alert('Função de editar título e contexto ainda não implementada ainda!.');
-            return;
             event.preventDefault();
+            return;
             try {
                 if (!brainstormToEdit) {
                   setErrorMessage('Erro ao encontrar brainstorm. Por favor, tente novamente.')
