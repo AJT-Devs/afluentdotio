@@ -6,7 +6,7 @@ export interface MenuContextDashboardItemProps {
     handleOpenBrainstorm: (id : string | number)=>void;
     handleDuplicatorBrainstorm : (id : string | number)=>void;
     handleEditNameBrainstorm : (id : string | number, newName : string)=>void;
-    handleConfirmDeleteBrainstorm : (id : string | number)=>void;
+    handleConfirmDeleteBrainstorm : ()=>void;
     handleDeleteBrainstorm : (id : string | number)=>void;
 }
 

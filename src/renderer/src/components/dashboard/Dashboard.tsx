@@ -218,9 +218,9 @@ export default function Dashboard(): JSX.Element {
         <DialogContent.Content>
           <DialogContent.Title>Editar Título e Contexto</DialogContent.Title>
           <form onSubmit={async (event)=>{
-            alert('Função de editar título e contexto ainda não implementada ainda!.');
+            // alert('Função de editar título e contexto ainda não implementada ainda!.');
             event.preventDefault();
-            return;
+            // return;
             try {
                 if (!brainstormToEdit) {
                   setErrorMessage('Erro ao encontrar brainstorm. Por favor, tente novamente.')
@@ -231,17 +231,13 @@ export default function Dashboard(): JSX.Element {
                 const updatedName = formData.get('brainstorm-title-input') as string;
                 const updatedContext = formData.get('brainstorm-context-textarea') as string;
 
-                // Aqui você pode adicionar a lógica para atualizar o brainstorm
-                // Por enquanto, apenas exibe um alerta
-                // alert(`Título atualizado para: ${updatedName}\nContexto atualizado para: ${updatedContext}`);
-
                 const updatedBrainstorm: Brainstorm = {
                   ...brainstormToEdit,
                   name: updatedName,
                   context: updatedContext
                 }
 
-                console.log(updatedBrainstorm);
+                // console.log(updatedBrainstorm);
                 
                 const response: SuccessResponse<Brainstorm> | Error =
                   await window.brainstorm.updateBrainstorm(updatedBrainstorm)
