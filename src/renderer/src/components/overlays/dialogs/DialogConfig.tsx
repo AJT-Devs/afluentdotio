@@ -126,18 +126,19 @@ const DialogConfig = ({ open, onOpenChange }: DialogConfigProps): JSX.Element =>
   const buttonContaStyle = {
     display: confifConta === true ? 'flex' : 'none',
     gap: '15px',
-    color: 'white'
+    color: (theme === 'light' ? '#202124' : '#E5E7EF')
   }
+
   const buttonChaveStyle = {
     display: confifChave === true ? 'block' : 'none',
     gap: '15px',
-    color: 'white'
+    color: (theme === 'light' ? '#202124' : '#E5E7EF')
   }
 
   const buttonPrefeStyle = {
     display: confifPref === true ? 'block' : 'none',
     gap: '15px',
-    color: 'white'
+    color: theme === 'light' ? '#202124' : '#E5E7EF'
   }
 
   return (

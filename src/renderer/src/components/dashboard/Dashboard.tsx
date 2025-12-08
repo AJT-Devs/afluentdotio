@@ -105,7 +105,7 @@ export default function Dashboard(): JSX.Element {
           <Bolt size={50} className="icon btn-config" />
         </button>
       </header>
-      <nav>
+      <nav className="dashboard-nav">
         <p className="dashboard-nav-p">Meus Brainstorms</p>
         <div className="div-type-list-nav">
           <Grid2X2
@@ -126,7 +126,7 @@ export default function Dashboard(): JSX.Element {
           />
         </div>
       </nav>
-      <main>
+      <main className='dashboard-main'>
         {brainstormList.length > 0 &&
           brainstormList.map((brainstorm) => (
             <MenuContext.Root modal={false}>

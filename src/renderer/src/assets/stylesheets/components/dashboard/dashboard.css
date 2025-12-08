@@ -1,4 +1,4 @@
-header{
+.dashboard-header{
     width: 100%;
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@ header{
     color: var(--pri-elements);
 }
 
-nav{
+.dashboard-nav{
     padding: 25px;
     display: flex;
     justify-content: space-between;
@@ -74,12 +74,6 @@ nav{
     font-weight: bold;
 }
 
-main {
-    display:grid;
-    grid-template-columns: auto auto auto auto;
-    grid-auto-flow: row;
-}
-
 .dashboard-main-p {
     text-align: center;
     color: var(--pri-elements);
@@ -92,7 +86,7 @@ main {
 }
 
 /* Configuração do Container Principal */
-main{
+.dashboard-main{
   display: grid;
   /* Começa com 5 colunas de tamanhos iguais (frações) */
   grid-template-columns: repeat(5, 1fr); 
@@ -106,21 +100,21 @@ main{
 
 /* Quando a tela for menor que 1200px, muda para 3 colunas */
 @media (max-width: 1200px) {
-  main{
+  .dashboard-main{
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 /* Quando a tela for menor que 768px (tablets), muda para 2 colunas */
 @media (max-width: 768px) {
-  main{
+  .dashboard-main{
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Quando a tela for menor que 480px (celulares), muda para 1 coluna */
 @media (max-width: 480px) {
-  main{
+  .dashboard-main{
     grid-template-columns: 1fr;
   }
 }

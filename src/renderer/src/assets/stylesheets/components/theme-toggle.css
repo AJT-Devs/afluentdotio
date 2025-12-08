@@ -1,0 +1,20 @@
+.theme-toggle{
+    position: absolute;
+    top: calc(20px + var(--h-title-bar));
+    border-color: none;
+    background-color: none;
+
+    .icon{
+        color: var(--text-ena-btn-off);
+    }
+
+    &:hover, &:focus-visible{
+        border-color: unset;
+        background-color: unset;
+        color: var(--text-ena-btn-on);
+
+        .icon{
+            color: var(--text-ena-btn-on);
+        }
+    }
+}

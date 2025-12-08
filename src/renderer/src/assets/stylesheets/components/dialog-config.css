@@ -2,6 +2,7 @@
     display: flex;
     background-color: var(--background);
     color: var(--pri-text);
+    height: 450px;
 }
 
 #aside {
@@ -11,14 +12,6 @@
 #main {
     padding: 20px;
     color: var(--pri-text);
-}
-
-*{
-    color: var(--pri-text);
-}
-
-.dialog {
-    height: 500px;
 }
 
 .list-config {

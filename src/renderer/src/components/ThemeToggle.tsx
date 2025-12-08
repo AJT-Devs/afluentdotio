@@ -13,7 +13,7 @@ const ThemeToggle: React.FC = () => {
       className="theme-toggle"
       aria-label="Toggle theme"
     >
-      {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+      {theme === 'light' ? <Moon size={20} className='icon'/> : <Sun size={20} className='icon'/>}
     </button>
   );
 }
