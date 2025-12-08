@@ -10,43 +10,7 @@ import Spinner from "@renderer/components/loadSpinner";
 const DialogSuggestionsIA = ()=>{
     const hasFetched = useRef<Boolean>(false);
 
-    useEffect(()=>{
-
-        // async function generateAIWords(){
-        //     const brainstormId = sessionStorage.getItem("brainstormId");
-        //     const userId = sessionStorage.getItem("userId");
-    
-        //     if(!userId){
-        //         setErrorMessage("Usuario não logado!");
-        //         return;
-        //     }
-        //     else if(!brainstormId){
-        //         setErrorMessage("Usuario não logado!");
-        //         return;
-        //     }
-
-        //     try{
-        //         const brainstorm = await window.brainstorm.getBrainstormById(brainstormId);
-        //         const aiKey = await window.user.getAiKey(userId);
-        //         const aiModelPreference = window.user.getPreferenceAiModel(userId);
-                
-        //         const response = await window.brainstorm.generateAIWords(brainstorm, aiKey, aiModelPreference);
-                
-        //         //Tratar response para vir apenas um array simples
-
-        //         //Codigo de tratamento
-                
-        //         //setWords(response);
-        //     }
-        //     catch(error){
-        //         if(error instanceof Error){
-        //             setErrorMessage(error.message);
-        //         }
-        //     }
-        // }
-    })
-
-    useEffect(()=>{
+    useEffect(()=>{     
         const getAiWords = async () => {
             if (hasFetched.current) return;
             hasFetched.current = true;
@@ -97,6 +61,7 @@ const DialogSuggestionsIA = ()=>{
             }
         }; 
         
+        console.log(isOpen)
         getAiWords();
     },[]);
 
@@ -106,7 +71,10 @@ const DialogSuggestionsIA = ()=>{
     
     const [countSelect, setCountSelect] = useState(0);
 
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
 
     const hadleAddSelectWord = (word : string) => {
         setWordsSelect(prev => [...prev, word]);
@@ -117,7 +85,7 @@ const DialogSuggestionsIA = ()=>{
     }
 
     const GeneratedWords = words.length > 0 ? words.map((word, index)=>(
-        <button key={index} onClick={(e)=>{
+        <button key={index} className="word-generated-ai" onClick={(e)=>{
             const target = e.currentTarget;
             let count = countSelect;
             if(!target.classList.contains("word-select")) {
@@ -142,7 +110,7 @@ const DialogSuggestionsIA = ()=>{
             <div className="DialogSuggestionsIA">
                 <DialogContent.Root>
 
-                    <DialogContent.Trigger className="ai-button" onClick={()=>{setCountSelect(0); setWordsSelect([]);}}>
+                    <DialogContent.Trigger className="ai-button" onClick={()=>{setCountSelect(0); setWordsSelect([]); setIsOpen(true);}}>
                         <AiIcon/>
                     </DialogContent.Trigger>
 
@@ -152,7 +120,7 @@ const DialogSuggestionsIA = ()=>{
                             {GeneratedWords}
                         </div>
                         <DialogContent.Close asChild>
-                            <button className="btn-icon btn-x-icon">
+                            <button className="btn-icon btn-x-icon" onClick={()=>{setIsOpen(false)}}>
                                 <X className="icon" size={40}/> 
                             </button>
                         </DialogContent.Close>
