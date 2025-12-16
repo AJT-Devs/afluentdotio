@@ -40,6 +40,9 @@
         <button onclick="addPoolEdges()">Add Pool Edges</button>
         <p id="pBrainstorm"></p>
     </div>
+    <div>
+        <button onclick="neUser()">NeUser</button>
+    </div>
 </body>
 <script>
     const pUser = document.getElementById('pUser');
@@ -153,5 +156,8 @@
         inputBrainstorm.value = '';
     }
 
+    async function neUser(){
+        const response = await window.nedb.createUser({name: 'tulio'});
+    }
 </script>
 </html>

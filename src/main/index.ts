@@ -9,6 +9,7 @@ import { UserIpcEndpoints } from '../endpoint/ipc/UserIpcEndpoint';
 import { BrainstormIpcEndpoint } from '../endpoint/ipc/BrainstormIpcEndpoint';
 import { Brainstorm } from '../entities/Brainstorm';
 
+import NeDBUserModel from '../models/user/NeDBUserModel';
 
 
 
@@ -62,13 +63,13 @@ function createWindow(): void {
   //   mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   // }
 
-  if (is.dev ) {
-    mainWindow.loadURL('http://localhost:5173')
-  } else {
-    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
-  }
+  // if (is.dev ) {
+  //   mainWindow.loadURL('http://localhost:5173')
+  // } else {
+  //   mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+  // }
 
-  // mainWindow.loadFile('src/comunicationtest.html')
+  mainWindow.loadFile('src/comunicationtest.html')
 
 }
 
@@ -109,6 +110,17 @@ app.whenReady().then(async () => {
   BrainstormIpcEndpoint.getBrainstormPoolById();
   BrainstormIpcEndpoint.addPoolNodes();
   BrainstormIpcEndpoint.addPoolEdges();
+
+  ipcMain.handle('createUser', async (event, user) => {
+    
+    try {
+      const nedbUserModel = new NeDBUserModel();
+      console.log('IPC Handler neCreateUser called with user:', user);
+      await nedbUserModel.createUser(user);
+    }catch (error) {
+      console.error('Error in neCreateUser IPC handler:', error);
+    }
+  });
 
   createWindow()
 

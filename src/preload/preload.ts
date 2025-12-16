@@ -37,6 +37,10 @@ const brainstorm: BrainstormIpcAdapter = {
   addPoolEdges: (brainstormId: string, edge: any) => ipcRenderer.invoke('addPoolEdges', brainstormId, edge)
 }
 
+const nedb: any = {
+  createUser: (user: Partial<User> | User) => ipcRenderer.invoke('createUser', user)
+}
+
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
 // just add to the DOM global.
@@ -46,6 +50,7 @@ if (process.contextIsolated) {
 
     contextBridge.exposeInMainWorld('user', user)
     contextBridge.exposeInMainWorld('brainstorm', brainstorm)
+    contextBridge.exposeInMainWorld('nedb', nedb)
   } catch (error) {
     console.error(error)
   }

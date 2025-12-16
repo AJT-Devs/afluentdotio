@@ -9,5 +9,6 @@ declare global {
     api: any
     user: UserIpcAdapter
     brainstorm: BrainstormIpcAdapter
+    nedb: any
   }
 }
