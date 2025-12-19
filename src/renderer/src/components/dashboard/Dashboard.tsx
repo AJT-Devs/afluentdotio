@@ -20,6 +20,8 @@ export default function Dashboard(): JSX.Element {
   const [isAlertOpenDeleteBrainstorm, setIsAlertOpenDeleteBrainstorm] = useState<boolean>(false)
   const [isOpenDialogContextEditTitleAndContextBrainstorm, setIsOpenDialogContextEditTitleAndContextBrainstorm] = useState<boolean>(false)
   const [brainstormToEdit, setBrainstormToEdit] = useState<Brainstorm | null>(null)
+  const [brainstormNameToEdit, setBrainstormNameToEdit] = useState<string>("")
+  const [brainstormContextToEdit, setBrainstormContextToEdit] = useState<string>("")
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -155,7 +157,7 @@ export default function Dashboard(): JSX.Element {
                 <MenuContext.Item onSelect={() => goToBrainstormingPage(brainstorm.id)}>
                   Abrir
                 </MenuContext.Item>
-                <MenuContext.Item onSelect={() => {setIsOpenDialogContextEditTitleAndContextBrainstorm(!isOpenDialogContextEditTitleAndContextBrainstorm); setBrainstormToEdit(brainstorm);}}>
+                <MenuContext.Item onSelect={() => {setIsOpenDialogContextEditTitleAndContextBrainstorm(!isOpenDialogContextEditTitleAndContextBrainstorm); setBrainstormNameToEdit(brainstorm.name); setBrainstormContextToEdit(brainstorm.context); setBrainstormToEdit(brainstorm)}}>
                   Editar título e contexto
                 </MenuContext.Item>
                 <MenuContext.Item className='menu-context-item-delete' onSelect={() => { setIsAlertOpenDeleteBrainstorm(!isAlertOpenDeleteBrainstorm); setBrainstormId(brainstorm.id); }}>
@@ -264,8 +266,12 @@ export default function Dashboard(): JSX.Element {
                 }
               }
           }}>
-            <input type="text" id="brainstorm-title-input" name="brainstorm-title-input" placeholder='Título' />
-            <textarea id="brainstorm-context-input" name="brainstorm-context-textarea" placeholder='Descrição'/>
+            <input type="text" id="brainstorm-title-input" name="brainstorm-title-input" placeholder='Título' value={brainstormNameToEdit} onChange={(event)=>{
+                setBrainstormNameToEdit(event.target.value);
+            }}/>
+            <textarea id="brainstorm-context-input" name="brainstorm-context-textarea" placeholder='Descrição' value={brainstormContextToEdit} onChange={(event)=>{
+                setBrainstormContextToEdit(event.target.value);
+            }}/>
             <div className="dialog-buttons">
               <DialogContent.Close type="button" className="dialog-button-cancel" onClick={() => {}}>
                 Cancelar
